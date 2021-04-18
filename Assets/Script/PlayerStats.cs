@@ -2,17 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStats : MonoBehaviour
+[CreateAssetMenu]
+public class PlayerStats : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject PlyerPrefab;// 케릭터 프리팹
+    
+    public Stats stats; //케릭터 정보
 
-    // Update is called once per frame
-    void Update()
+    [System.Serializable]
+    public struct Stats
     {
-        
+        public int level; //레벨
+
+        public int attackDamageMin; //공격력(min)
+        public int attackDamageMax; //공격력(max)
+        public int health;//체력
+        public int defense;//방어력
+
+        public float attackSpeed; //공격속도
+        public float attackRange; //공격범위
+        public float hit;//명중치
+        public float evasion;//회피치
+        public float criticalChance;//치명타 확률
+        public float criticalDamagema;//치명타 데미지
+        public float vampire;//체력 흡혈 %
+
+        public float experienceBonus;//경험치 획득 %
+        public float goldBonus;//골드 획득 %
     }
 }

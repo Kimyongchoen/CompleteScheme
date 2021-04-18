@@ -64,5 +64,11 @@ public class Player : MonoBehaviour
             movement2D.MoveStop();
         }
     }
+    private void Update()
+    {
+        float inputX = Input.GetAxisRaw("Horizontal");
+        float inputY = Input.GetAxisRaw("Vertical");
+        transform.Translate(new Vector2(inputX, inputY) * Time.deltaTime);
 
+    }
 }

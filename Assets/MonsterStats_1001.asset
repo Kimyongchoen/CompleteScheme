@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3275608cef042614493efe2b16d5b94e, type: 3}
+  m_Name: MonsterStats_1001
+  m_EditorClassIdentifier: 
+  stats:
+  - MonsterPrefab: {fileID: 4999730627470717632, guid: 440d47ca2c8dc7d48811093568a51a7c,
+      type: 3}
+    number: 1001
+    attackDamageMin: 1
+    attackDamageMax: 3
+    health: 10
+    defense: 10
+    attackSpeed: 1
+    attackRange: 1
+    hit: 100
+    evasion: 20
+    criticalChance: 0
+    criticalDamagema: 0
+    vampire: 0
+    experience: 10
+    gold: 10
