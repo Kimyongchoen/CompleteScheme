@@ -8,12 +8,23 @@ public class Player : MonoBehaviour
     private Transform[] wayPoints;        //이동 경로 정보
     private int currentIndex = 0; //현재 목표지점 인덱스
     private Movement2D movement2D;       //오브젝트 이동제어
-    
-    public PlayerSpawner playerSpawner;
+    private PlayerSpawner playerSpawner;
+
+    private float maxHP; //최대 체력
+    private float currentHP; //현재 체력
+
+    private SpriteRenderer spriteRenderer;
+
+    public float MaxHP => maxHP;
+    public float CurrentHP => currentHP;
+
+    public void GameStart()
+    {
+        StartCoroutine("OnMove");//플레이어 이동/목표지점 설정 코루틴 함수 시작
+    }
 
     public void Setup(PlayerSpawner playerSpawner, Transform[] wayPoinsts)
     {
-
         movement2D = GetComponent<Movement2D>();
 
         //플레이어 이동 경로 WayPoint 정보 설정
@@ -21,12 +32,14 @@ public class Player : MonoBehaviour
         this.wayPoints = new Transform[wayPointCount];
         this.wayPoints = wayPoinsts;
 
-        //플레이어의 위치를 첫번째 wayPoint 위치로 설정
-        transform.position = wayPoinsts[currentIndex].position;
-        this.playerSpawner = playerSpawner; //몬스터 생성자 정보
+        this.playerSpawner = playerSpawner; //플레이어 생성자 정보
 
-        //플레이어 이동/목표지점 설정 코루틴 함수 시작
-        StartCoroutine("OnMove");
+        maxHP = playerSpawner.playerStats.stats.health;
+        currentHP = maxHP;
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+
     }
 
     private IEnumerator OnMove()
@@ -95,4 +108,41 @@ public class Player : MonoBehaviour
         float inputY = Input.GetAxisRaw("Vertical");
         transform.Translate(new Vector2(inputX, inputY) * Time.deltaTime);
     }
+
+    public void OnDie() //플래이어 삭제
+    {
+        playerSpawner.DestroyMonster(this);
+    }
+
+    public void OnDemage(int demage) //플레이어 데미지
+    {
+        currentHP -= demage;
+
+        StopCoroutine("HitAlphaAnimation");
+        StartCoroutine("HitAlphaAnimation");
+
+        if (currentHP <= 0)
+        {
+            OnDie();
+        }
+    }
+
+    private IEnumerator HitAlphaAnimation()
+    {
+        //현재 적의 색사을 color 변수에 저장
+        Color color = spriteRenderer.color;
+
+        //적의 투명도를 40%로 설정
+        color.a = 0.4f;
+        spriteRenderer.color = color;
+
+        //0.05초 동안 대기
+        yield return new WaitForSeconds(0.05f);
+
+        //적의 투명도를 100%로 설정
+        color.a = 1.0f;
+        spriteRenderer.color = color;
+
+    }
+
 }

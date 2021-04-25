@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -7876401982830310693}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,7 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6551857de6ce42942a76b94cca99f19d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpawner: {fileID: 0}
 --- !u!70 &-1647429118298568676
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

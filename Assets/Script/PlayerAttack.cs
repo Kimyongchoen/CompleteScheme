@@ -117,6 +117,6 @@ public class PlayerAttack : MonoBehaviour
     private void SpawnAttack()
     {
         GameObject clone = Instantiate(AttackPrefab, spawnPoint.position, Quaternion.identity);
-        clone.GetComponent<Attack>().Setup(attackTarget,damage);
+        clone.GetComponent<PlayerProjectile>().Setup(attackTarget,damage);
     }
 }
