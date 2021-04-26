@@ -13,16 +13,16 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField]
     private float attackRange = 0f;//공격범위
     private WeaponState weaponState = WeaponState.SearchTarget;// 무기 상태
-    private Transform attackTarget = null;//공격대상
+    private Monster attackTarget = null;//공격대상
     private MonsterSpawner monsterSpawner;//게임에 존재하는 적정보 획득용
     private Player player;//공격할때 플레이어 정지
+
     private int damage = 1;
 
     public void Setup(Player player , MonsterSpawner monsterSpawner)
     {
         this.monsterSpawner = monsterSpawner;
         this.player = player;
-        //Debug.Log("player.playerSpawner.playerStats.stats.attackDamageMin===" + player.playerSpawner.playerStats.stats.attackDamageMin);
         this.damage = 1;
 
         //최초 상태를 waponState.SearchTarget으로 설정
@@ -59,7 +59,7 @@ public class PlayerAttack : MonoBehaviour
             yield return null;
         }
     }
-    private Transform FindClosestAttackTarget()
+    private Monster FindClosestAttackTarget()
     {
         //제일 가까이 있는 적을 찾기 위해 최초 거리를 최대한 크게 설정
         float closestDistSqr = Mathf.Infinity;
@@ -71,27 +71,35 @@ public class PlayerAttack : MonoBehaviour
             if (distance <= attackRange && distance <= closestDistSqr)
             {
                 closestDistSqr = distance;
-                attackTarget = monsterSpawner.MonsterList[i].transform;
+                attackTarget = monsterSpawner.MonsterList[i];
             }
         }
         return attackTarget;
+
     }
 
     private IEnumerator AttackToTarget()
     {
         while(true){
-            
+
+            //플레이어 체력이 없으면 정지
+            if (player.CurrentHP <= 0)
+            {
+                this.player.MoveStop();//이동 정지
+                break;
+            }
 
 
-            //1.target이 있는지 검사(다른 발사체에 의해 제거, Goal 지점까지 이동해 삭제 등)
-            if (attackTarget == null)
+            //1.target이 있는지 검사
+            if (attackTarget == null )
             {
                 ChangeState(WeaponState.SearchTarget);
                 this.player.MoveStart();//다시 이동
                 break;
             }
+            
             //2. target이 공격 범위 안에 있는지 검사 (공격 범위를 벗어나면 새로운 적 탐색)
-            float distance = Vector3.Distance(attackTarget.position, transform.position);
+            float distance = Vector3.Distance(attackTarget.transform.position, transform.position);
 
             if (distance > attackRange)
             {
@@ -103,8 +111,12 @@ public class PlayerAttack : MonoBehaviour
 
             this.player.MoveStop();//이동 정지
 
-            //공격
-            SpawnAttack();
+            //3. Player와 Monster HP가 0이 아닌지 확인
+            if (attackTarget.CurrentHP > 0 && player.CurrentHP > 0)
+            {
+                //공격
+                SpawnAttack();
+            }
 
             //attackRate 만큼 대기
             yield return new WaitForSeconds(attackRate);
@@ -117,6 +129,6 @@ public class PlayerAttack : MonoBehaviour
     private void SpawnAttack()
     {
         GameObject clone = Instantiate(AttackPrefab, spawnPoint.position, Quaternion.identity);
-        clone.GetComponent<PlayerProjectile>().Setup(attackTarget,damage);
+        clone.GetComponent<PlayerProjectile>().Setup(attackTarget.transform, damage);
     }
 }

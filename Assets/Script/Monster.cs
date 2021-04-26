@@ -34,13 +34,13 @@ public class Monster : MonoBehaviour
 
     public void OnDie() //몬스터 삭제
     {
-        monsterSpawner.DestroyMonster(this);
+        StartCoroutine("DieAlphaAnimation");
     }
 
     public void OnDemage(int demage) //몬스터 데미지
     {
-        currentHP -= demage;
         
+        currentHP -= demage;
         StopCoroutine("HitAlphaAnimation");
         StartCoroutine("HitAlphaAnimation");
 
@@ -48,6 +48,7 @@ public class Monster : MonoBehaviour
         {
             OnDie();
         }
+
     }
     private IEnumerator HitAlphaAnimation()
     {
@@ -65,5 +66,24 @@ public class Monster : MonoBehaviour
         color.a = 1.0f;
         spriteRenderer.color = color;
 
+    }
+    private IEnumerator DieAlphaAnimation()
+    {
+        //현재 적의 색사을 color 변수에 저장
+        Color color = spriteRenderer.color;
+        
+        color.a = 1.0f;
+        spriteRenderer.color = color;
+
+        while (color.a > 0)
+        {
+            color.a -= 0.1f;
+            spriteRenderer.color = color;
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        monsterSpawner.DestroyMonster(this);
+
+        yield return null;
     }
 }

@@ -97,7 +97,7 @@ public class Player : MonoBehaviour
 
     public bool GetMoveFlag()
     {
-        bool MoveFlag= movement2D.MoveFlag;
+        bool MoveFlag = movement2D.MoveFlag;
 
         return MoveFlag;
     }
@@ -111,11 +111,14 @@ public class Player : MonoBehaviour
 
     public void OnDie() //플래이어 삭제
     {
-        playerSpawner.DestroyMonster(this);
+        StartCoroutine("DieAlphaAnimation");
+        //playerSpawner.DestroyMonster(this);
     }
 
     public void OnDemage(int demage) //플레이어 데미지
     {
+        this.playerSpawner.cameraManager.VibrateForTime(0.2f);
+
         currentHP -= demage;
 
         StopCoroutine("HitAlphaAnimation");
@@ -144,5 +147,21 @@ public class Player : MonoBehaviour
         spriteRenderer.color = color;
 
     }
+    private IEnumerator DieAlphaAnimation()
+    {
+        //현재 적의 색사을 color 변수에 저장
+        Color color = spriteRenderer.color;
 
+        color.a = 1.0f;
+        spriteRenderer.color = color;
+
+        while (color.a > 0.5)
+        {
+            color.a -= 0.1f;
+            spriteRenderer.color = color;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        yield return null;
+    }
 }

@@ -18,7 +18,7 @@ public class PlayerSpawner : MonoBehaviour
     [SerializeField]
     private GameObject ObjectPositionPrefab;//플래이어 좌표 값
     [SerializeField]
-    private CameraManager cameraManager;
+    public CameraManager cameraManager;
 
     private Transform tileTransform;
     public bool Playing = false; //게임중인지 확인
@@ -44,7 +44,7 @@ public class PlayerSpawner : MonoBehaviour
         MainCameraColtroll(clone);
         //카메라 체력바 위치바 세팅 1초후 이동
         yield return new WaitForSeconds(1f);
-        
+
 
         //플레이어 Slider , Position 표시
         SpawnPlayerHPSlider(clone);
@@ -105,15 +105,15 @@ public class PlayerSpawner : MonoBehaviour
         //계층 설정으로 바뀐 크기를 다시 (1,1,1)로 설정
         PositionClone.transform.localScale = Vector3.one;
         //Slider UI가 쫓아다닐 대상을 본인으로 설정
-        PositionClone.GetComponent<PositionAutoSetter>().Setup(player.transform,1);//type 0 Slider 1 Vector
+        PositionClone.GetComponent<PositionAutoSetter>().Setup(player.transform, 1);//type 0 Slider 1 Vector
         //Slider UI에 자신의 체력 정보를 표시하도록 설정
-        PositionClone.GetComponent<PlayerHPViewer>().Setup(player.GetComponent<Player>(),1);
+        PositionClone.GetComponent<PlayerHPViewer>().Setup(player.GetComponent<Player>(), 1);
     }
 
     private void MainCameraColtroll(GameObject player)
     {
         //clone.GetComponent<PlayerAttack>().Setup(player, monsterSpawner);
-        
+
         cameraManager.Setup(player);
     }
 }

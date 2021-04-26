@@ -15,13 +15,14 @@ public class MonsterAttack : MonoBehaviour
     private WeaponState weaponState = WeaponState.SearchTarget;// 무기 상태
     private Transform attackTarget = null;//공격대상
     private PlayerSpawner playerSpawner;
+    private Monster monster;
     //private MonsterSpawner monsterSpawner;//게임에 존재하는 적정보 획득용
     private int damage = 1;
 
     public void Setup(Monster monster, PlayerSpawner playerSpawner)
     {
         this.playerSpawner = playerSpawner;
-        
+        this.monster = monster;
         //최초 상태를 waponState.SearchTarget으로 설정
         ChangeState(WeaponState.SearchTarget);
     }
@@ -76,15 +77,13 @@ public class MonsterAttack : MonoBehaviour
     {
         while (true)
         {
-
-
-
             //1.target이 있는지 검사(다른 발사체에 의해 제거, Goal 지점까지 이동해 삭제 등)
             if (attackTarget == null)
             {
                 ChangeState(WeaponState.SearchTarget);
                 break;
             }
+
             //2. target이 공격 범위 안에 있는지 검사 (공격 범위를 벗어나면 새로운 적 탐색)
             float distance = Vector3.Distance(attackTarget.position, transform.position);
 
@@ -95,8 +94,12 @@ public class MonsterAttack : MonoBehaviour
                 break;
             }
 
-            //공격
-            SpawnAttack();
+            //3. Player와 Monster HP가 0이 아닌지 확인
+            if (playerSpawner.player.CurrentHP > 0 && monster.CurrentHP > 0)
+            {
+                //공격
+                SpawnAttack();
+            }
 
             //attackRate 만큼 대기
             yield return new WaitForSeconds(attackRate);
