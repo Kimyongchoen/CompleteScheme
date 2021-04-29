@@ -14,7 +14,7 @@ public class MonsterSpawner : MonoBehaviour
     [SerializeField]
     private GameObject monsterHPSliderPrefab;//몬스터 체력 Slider
     [SerializeField]
-    private Transform canvasTransform; // UI를 표현하는 canvas 오브젝트의 transform
+    public Transform canvasTransform; // UI를 표현하는 canvas 오브젝트의 transform
     [SerializeField]
     private GameObject ObjectPositionPrefab;//몬스터 Vector Text UI
     
@@ -50,10 +50,11 @@ public class MonsterSpawner : MonoBehaviour
             GameObject clone = Instantiate(startMonsterSpawners[i].monsterStats.stats[0].MonsterPrefab);//플레이어 오브젝트 생성
             Monster monster = clone.GetComponent<Monster>();//방금 생성된 몬스터의 Monster 컴포넌트
 
-            clone.GetComponent<MonsterAttack>().Setup(monster,playerSpawner);//공격 target 검사 및 Attack
 
             monster.Setup(this, startMonsterSpawners[i].monsterPoints);
             monsterList.Add(monster);
+
+            clone.GetComponent<MonsterAttack>().Setup(monster,playerSpawner);//공격 target 검사 및 Attack
             
         }
 

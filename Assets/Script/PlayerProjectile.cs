@@ -5,14 +5,16 @@ using UnityEngine;
 public class PlayerProjectile : MonoBehaviour
 {
     private Movement2D movement2D;//이동
-    private Transform target;//지정해준 목표
-    private int demage;
+    private Transform target;//공격할 몬스터
+    private int demage;//플레이어의 데미지
+    private bool criticalFlag;//치명타 인지 확인
 
-    public void Setup(Transform target,int demage)
+    public void Setup(Transform target, int demage, bool criticalFlag)
     {
         movement2D = GetComponent<Movement2D>();
-        this.demage = demage;
-        this.target = target;
+        this.demage = demage; //플레이어의 데미지
+        this.target = target; //공격할 몬스터
+        this.criticalFlag = criticalFlag; //치명타 인지 확인
     }
     
     // Update is called once per frame
@@ -33,7 +35,7 @@ public class PlayerProjectile : MonoBehaviour
     {
         if (!collision.CompareTag("monster")) return; //적이아닌 대상과 부딪히면
         if (collision.transform != target ) return; //현재 target인 적이 아닐때
-        collision.GetComponent<Monster>().OnDemage(demage);
+        collision.GetComponent<Monster>().OnDemage(demage, criticalFlag);
         Destroy(gameObject);
     }
 }

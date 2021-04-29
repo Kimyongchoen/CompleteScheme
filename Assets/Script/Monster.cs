@@ -6,13 +6,17 @@ public class Monster : MonoBehaviour
 {
     private Transform monsterPoints;        //몬스터 위치 정보
     private Movement2D movement2D;
-    MonsterSpawner monsterSpawner;  //몬스터 생성자 정보
 
     private float maxHP; //최대 체력
     private float currentHP; //현재 체력
 
     private SpriteRenderer spriteRenderer;
-
+    private Transform canvasTransform; // UI를 표현하는 canvas 오브젝트의 transform
+    
+    [SerializeField]
+    private GameObject DemageText;//몬스터가 입는 데미지 prefab
+    
+    public MonsterSpawner monsterSpawner;  //몬스터 생성자 정보
     public float MaxHP => maxHP;
     public float CurrentHP => currentHP;
 
@@ -23,6 +27,8 @@ public class Monster : MonoBehaviour
         this.monsterPoints = monsterPoints;
         //몬스터 생성자 정보
         this.monsterSpawner = monsterSpawner;
+        this.canvasTransform = monsterSpawner.canvasTransform;
+        
         maxHP = monsterSpawner.startMonsterSpawners[0].monsterStats.stats[0].health;
         currentHP = maxHP;
 
@@ -37,12 +43,28 @@ public class Monster : MonoBehaviour
         StartCoroutine("DieAlphaAnimation");
     }
 
-    public void OnDemage(int demage) //몬스터 데미지
+    public void OnDemage(int demage,bool criticalFlag) //플레이어 데미지, 크리티컬 확인
     {
-        
-        currentHP -= demage;
-        StopCoroutine("HitAlphaAnimation");
-        StartCoroutine("HitAlphaAnimation");
+        if(demage > 0)
+        {
+            currentHP -= demage;
+            
+            StopCoroutine("HitAlphaAnimation");
+            StartCoroutine("HitAlphaAnimation");
+
+            if (criticalFlag) //크티티컬 이펙트
+            {
+
+            }
+            else //일반 이펙트
+            {
+
+            }
+        }
+        else//회피
+        {
+            StopCoroutine("HitAlphaAnimation");
+        }
 
         if (currentHP <= 0)
         {
@@ -66,6 +88,17 @@ public class Monster : MonoBehaviour
         color.a = 1.0f;
         spriteRenderer.color = color;
 
+        //플래이어 위치을 나타내는 Text UI 생성
+        GameObject PositionClone = Instantiate(DemageText);
+        //Text UI 오브젝트를 parent("Canvas" 오브젝트)의 자식으로 설정
+        //Tip.UI는 캔버스의 자식 오브젝트로 설정되어 있어야화면에 보인다.
+        PositionClone.transform.SetParent(canvasTransform);
+        //가장 앞쪽에 표시 UI에 보이지 않게
+        PositionClone.transform.SetAsFirstSibling();
+        //계층 설정으로 바뀐 크기를 다시 (1,1,1)로 설정
+        PositionClone.transform.localScale = Vector3.one;
+
+
     }
     private IEnumerator DieAlphaAnimation()
     {
@@ -85,5 +118,9 @@ public class Monster : MonoBehaviour
         monsterSpawner.DestroyMonster(this);
 
         yield return null;
+    }
+    public void vampire(int demage)//데미지 흡혈
+    {
+        currentHP += demage;
     }
 }

@@ -11,7 +11,6 @@ public class CameraManager : MonoBehaviour
     private Camera MainCamera;
 
     //마우스 클릭으로 이동
-    private float dist;
     private Vector3 MouseStart;
     private Vector3 derp;
     private bool MoveFlag = false;
@@ -106,9 +105,9 @@ public class CameraManager : MonoBehaviour
         {
             if (Input.mousePosition.x > 0.0f && Input.mousePosition.x < 1440.0f && Input.mousePosition.y > 1200.0f && Input.mousePosition.y < 2960.0f)
             {
-                MouseStart = new Vector3(Input.mousePosition.x, Input.mousePosition.y, dist);
+                MouseStart = new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z);
                 MouseStart = Camera.main.ScreenToWorldPoint(MouseStart);
-                MouseStart.z = transform.position.z;
+                
                 MoveFlag = true;
             }
         }
@@ -117,10 +116,9 @@ public class CameraManager : MonoBehaviour
             if (MoveFlag)
             {
 
-                var MouseMove = new Vector3(Input.mousePosition.x, Input.mousePosition.y, dist);
+                var MouseMove = new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z);
                 MouseMove = Camera.main.ScreenToWorldPoint(MouseMove);
-                MouseMove.z = transform.position.z;
-
+                
                 transform.position = transform.position - (MouseMove - MouseStart);
             }
         }

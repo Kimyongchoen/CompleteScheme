@@ -26,8 +26,8 @@ public class MonsterStats : ScriptableObject
         public float criticalDamagema;//치명타 데미지
         public float vampire;//체력 흡혈 %
 
-        public float experience;//경험치 획득 %
-        public float gold;//골드 획득 %
+        public float experience;//드랍 경험치
+        public float gold;//드랍 골드
 
     }
 }

@@ -180,6 +180,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 697e89c48add75947965be53a037abfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DemageText: {fileID: 2799955465229727804, guid: fcde65c39f60d234e9049ff67d49fcb3,
+    type: 3}
+  monsterSpawner: {fileID: 0}
 --- !u!114 &4999730627470717638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,5 +250,3 @@ MonoBehaviour:
   AttackPrefab: {fileID: 3831742887674782194, guid: b24bbe062b6b50a4c9cee2e51abb6c0c,
     type: 3}
   spawnPoint: {fileID: 2836206423463887389}
-  attackRate: 1
-  attackRange: 0.3

@@ -8,21 +8,28 @@ public class MonsterAttack : MonoBehaviour
     private GameObject AttackPrefab; //공격 프리펩
     [SerializeField]
     private Transform spawnPoint;//발사체 생성위치
-    [SerializeField]
-    private float attackRate;//공격속도
-    [SerializeField]
+
+    private float attackSpeed;//공격속도
     private float attackRange;//공격범위
     private WeaponState weaponState = WeaponState.SearchTarget;// 무기 상태
     private Transform attackTarget = null;//공격대상
     private PlayerSpawner playerSpawner;
     private Monster monster;
+
+    private MonsterStats.Stats monsterStats;//몬스터 스텟정보
+    private PlayerStats.Stats playerStats; //플레이어 스텟 정보
+    
     //private MonsterSpawner monsterSpawner;//게임에 존재하는 적정보 획득용
-    private int damage = 1;
 
     public void Setup(Monster monster, PlayerSpawner playerSpawner)
     {
         this.playerSpawner = playerSpawner;
         this.monster = monster;
+        this.monsterStats = monster.monsterSpawner.startMonsterSpawners[0].monsterStats.stats[0];
+        this.playerStats = playerSpawner.playerStats.stats;
+        this.attackSpeed = monster.monsterSpawner.startMonsterSpawners[0].monsterStats.stats[0].attackSpeed;//공격속도
+        this.attackRange = monster.monsterSpawner.startMonsterSpawners[0].monsterStats.stats[0].attackRange;//공격범위
+
         //최초 상태를 waponState.SearchTarget으로 설정
         ChangeState(WeaponState.SearchTarget);
     }
@@ -102,7 +109,7 @@ public class MonsterAttack : MonoBehaviour
             }
 
             //attackRate 만큼 대기
-            yield return new WaitForSeconds(attackRate);
+            yield return new WaitForSeconds(attackSpeed);
 
         }
 
@@ -112,6 +119,33 @@ public class MonsterAttack : MonoBehaviour
     private void SpawnAttack()
     {
         GameObject clone = Instantiate(AttackPrefab, spawnPoint.position, Quaternion.identity);
-        clone.GetComponent<MonsterProjectile>().Setup(attackTarget, damage);
+
+        int demage = Random.Range(monsterStats.attackDamageMin, monsterStats.attackDamageMax + 1); //몬스터 데미지
+        bool criticalFlag = false;
+
+        if (Random.Range(1f, 100f) < monsterStats.criticalChance) // 몬스터 크리티컬 확율 (0-100)
+        {
+            demage = (int)((float)demage * monsterStats.criticalDamagema);//몬스터 데미지 * 크리티컬 데미지(배)
+            criticalFlag = true;
+        }
+
+        demage -= playerStats.defense;//방어력 제외하고 데미지
+
+        if (demage <= 0) // 만약 방어력이 더 높다면 데미지는 1
+            demage = 1;
+
+
+        //회피 성공
+        if (Random.Range(1f, 100f) > monsterStats.hit - playerStats.evasion) //몬스터의 명중률 - 플레이어의 회피률
+        {
+            demage = 0;
+        }
+
+        clone.GetComponent<MonsterProjectile>().Setup(attackTarget.transform, demage, criticalFlag);
+
+        if (monsterStats.vampire > 0 && demage > 0)//체력 흡혈 %
+        {
+            monster.vampire((int)((float)demage * monsterStats.vampire));
+        }
     }
 }

@@ -23,8 +23,8 @@ public class PlayerStats : ScriptableObject
         public float attackRange; //공격범위
         public float hit;//명중치
         public float evasion;//회피치
-        public float criticalChance;//치명타 확률
-        public float criticalDamagema;//치명타 데미지
+        public float criticalChance;//치명타 확률(0-100)
+        public float criticalDamagema;//치명타 데미지(몇배 0-1.5 )
         public float vampire;//체력 흡혈 %
 
         public float experienceBonus;//경험치 획득 %

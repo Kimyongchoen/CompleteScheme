@@ -8,13 +8,13 @@ public class Player : MonoBehaviour
     private Transform[] wayPoints;        //이동 경로 정보
     private int currentIndex = 0; //현재 목표지점 인덱스
     private Movement2D movement2D;       //오브젝트 이동제어
-    private PlayerSpawner playerSpawner;
 
     private float maxHP; //최대 체력
     private float currentHP; //현재 체력
 
     private SpriteRenderer spriteRenderer;
 
+    public PlayerSpawner playerSpawner;
     public float MaxHP => maxHP;
     public float CurrentHP => currentHP;
 
@@ -115,19 +115,35 @@ public class Player : MonoBehaviour
         //playerSpawner.DestroyMonster(this);
     }
 
-    public void OnDemage(int demage) //플레이어 데미지
+    public void OnDemage(int demage, bool criticalFlag) //플레이어 데미지
     {
-        this.playerSpawner.cameraManager.VibrateForTime(0.2f);
+        if (demage > 0)
+        {
+            this.playerSpawner.cameraManager.VibrateForTime(0.2f);//데미지 입을때 카메라 흔들림
 
-        currentHP -= demage;
+            currentHP -= demage;
+            StopCoroutine("HitAlphaAnimation");
+            StartCoroutine("HitAlphaAnimation");
 
-        StopCoroutine("HitAlphaAnimation");
-        StartCoroutine("HitAlphaAnimation");
+            if (criticalFlag) //크티티컬 이펙트
+            {
+
+            }
+            else //일반 이펙트
+            {
+
+            }
+        }
+        else//회피
+        {
+            StopCoroutine("HitAlphaAnimation");
+        }
 
         if (currentHP <= 0)
         {
             OnDie();
         }
+
     }
 
     private IEnumerator HitAlphaAnimation()
@@ -163,5 +179,10 @@ public class Player : MonoBehaviour
         }
 
         yield return null;
+    }
+
+    public void vampire(int demage)//데미지 흡혈
+    {
+        currentHP += demage;
     }
 }
