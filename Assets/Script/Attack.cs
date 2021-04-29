@@ -33,7 +33,7 @@ public class Attack : MonoBehaviour
     {
         if (!collision.CompareTag("monster")) return; //적이아닌 대상과 부딪히면
         if (collision.transform != target ) return; //현재 target인 적이 아닐때
-        collision.GetComponent<Monster>().OnDemage(demage);
+        //collision.GetComponent<Monster>().OnDemage(demage);
         Destroy(gameObject);
     }
 }
