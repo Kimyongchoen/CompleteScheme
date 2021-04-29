@@ -16,16 +16,16 @@ MonoBehaviour:
   - MonsterPrefab: {fileID: 4999730627470717632, guid: 440d47ca2c8dc7d48811093568a51a7c,
       type: 3}
     number: 1001
-    attackDamageMin: 1
-    attackDamageMax: 3
+    attackDamageMin: 5
+    attackDamageMax: 10
     health: 10
-    defense: 10
+    defense: 2
     attackSpeed: 1
-    attackRange: 1
+    attackRange: 0.3
     hit: 100
-    evasion: 20
+    evasion: 10
     criticalChance: 0
     criticalDamagema: 0
-    vampire: 0
+    vampire: 1
     experience: 10
     gold: 10

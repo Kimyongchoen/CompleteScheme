@@ -16,16 +16,16 @@ MonoBehaviour:
     type: 3}
   stats:
     level: 1
-    attackDamageMin: 1
-    attackDamageMax: 3
-    health: 100
-    defense: 10
+    attackDamageMin: 5
+    attackDamageMax: 10
+    health: 65
+    defense: 0
     attackSpeed: 1
-    attackRange: 1
+    attackRange: 0.3
     hit: 100
     evasion: 10
-    criticalChance: 100
-    criticalDamagema: 2
+    criticalChance: 20
+    criticalDamagema: 1.5
     vampire: 0
     experienceBonus: 0
     goldBonus: 0
