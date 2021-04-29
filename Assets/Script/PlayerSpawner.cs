@@ -14,7 +14,7 @@ public class PlayerSpawner : MonoBehaviour
     [SerializeField]
     private GameObject playerHPSliderPrefab;//플래이어 체력 Slider
     [SerializeField]
-    private Transform canvasTransform; // UI를 표현하는 canvas 오브젝트의 transform
+    public Transform canvasTransform; // UI를 표현하는 canvas 오브젝트의 transform
     [SerializeField]
     private GameObject ObjectPositionPrefab;//플래이어 좌표 값
     [SerializeField]

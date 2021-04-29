@@ -18,14 +18,14 @@ MonoBehaviour:
     number: 1001
     attackDamageMin: 5
     attackDamageMax: 10
-    health: 10
+    health: 1000
     defense: 2
     attackSpeed: 1
     attackRange: 0.3
     hit: 100
-    evasion: 10
-    criticalChance: 0
-    criticalDamagema: 0
-    vampire: 1
+    evasion: 50
+    criticalChance: 20
+    criticalDamagema: 1.5
+    vampire: 0
     experience: 10
     gold: 10

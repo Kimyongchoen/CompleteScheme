@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 697e89c48add75947965be53a037abfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DemageText: {fileID: 2799955465229727804, guid: fcde65c39f60d234e9049ff67d49fcb3,
+  DemageTextPrefab: {fileID: 5413434756411167114, guid: da6f84324d2611b46993f1b90bc98e68,
     type: 3}
   monsterSpawner: {fileID: 0}
 --- !u!114 &4999730627470717638

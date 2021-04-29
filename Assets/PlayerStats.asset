@@ -18,12 +18,12 @@ MonoBehaviour:
     level: 1
     attackDamageMin: 5
     attackDamageMax: 10
-    health: 65
+    health: 1000
     defense: 0
     attackSpeed: 1
     attackRange: 0.3
     hit: 100
-    evasion: 10
+    evasion: 50
     criticalChance: 20
     criticalDamagema: 1.5
     vampire: 0

@@ -114,6 +114,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6551857de6ce42942a76b94cca99f19d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DemageTextPrefab: {fileID: 5413434756411167114, guid: fcde65c39f60d234e9049ff67d49fcb3,
+    type: 3}
+  playerSpawner: {fileID: 0}
 --- !u!70 &-1647429118298568676
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -166,8 +169,6 @@ MonoBehaviour:
   AttackPrefab: {fileID: 3831742887674782194, guid: 0db89a7d706b7c74ea4ab9b9b6bbcf9b,
     type: 3}
   spawnPoint: {fileID: 204933588412822390}
-  attackRate: 1
-  attackRange: 0.3
 --- !u!1 &5405599253386119507
 GameObject:
   m_ObjectHideFlags: 0
