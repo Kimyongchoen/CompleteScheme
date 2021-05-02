@@ -7,15 +7,17 @@ public class MonsterProjectile : MonoBehaviour
     private Movement2D movement2D;//이동
     private Transform target;//지정해준 목표
     private int demage;//몬스터의 데미지
+    private int addedDamage;//몬스터의 추가 데미지 (버프)
     private bool criticalFlag;//치명타 인지 확인
 
-    public void Setup(Transform target, int demage, bool criticalFlag)
+    public void Setup(Transform target, int demage, bool criticalFlag, int addedDamage)
     {
         movement2D = GetComponent<Movement2D>();
 
         this.demage = demage; //플레이어의 데미지
         this.target = target; //공격할 몬스터
         this.criticalFlag = criticalFlag; //치명타 인지 확인
+        this.addedDamage = addedDamage; //치명타 인지 확인
     }
     
     // Update is called once per frame
@@ -36,7 +38,7 @@ public class MonsterProjectile : MonoBehaviour
     {
         if (!collision.CompareTag("player")) return; //적이아닌 대상과 부딪히면
         if (collision.transform != target ) return; //현재 target인 적이 아닐때
-        collision.GetComponent<Player>().OnDemage(demage, criticalFlag);
+        collision.GetComponent<Player>().OnDemage(demage, criticalFlag, addedDamage);
         Destroy(gameObject);
     }
 }

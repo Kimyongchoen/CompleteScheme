@@ -5,13 +5,14 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PlayerStats : ScriptableObject
 {
-    public GameObject PlyerPrefab;// 케릭터 프리팹
+
     
-    public Stats stats; //케릭터 정보
+    public Stats[] stats; //케릭터 정보
 
     [System.Serializable]
     public struct Stats
     {
+        public GameObject PlyerPrefab;// 케릭터 프리팹
         public int level; //레벨
 
         public int attackDamageMin; //공격력(min)
@@ -29,5 +30,10 @@ public class PlayerStats : ScriptableObject
 
         public float experienceBonus;//경험치 획득 %
         public float goldBonus;//골드 획득 %
+
+        public float experience;//경험치
+        public float gold;//골드
+
+
     }
 }

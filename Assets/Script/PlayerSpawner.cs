@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum WeaponState { SearchTarget = 0, AttackToTarget }
 public class PlayerSpawner : MonoBehaviour
@@ -8,7 +9,7 @@ public class PlayerSpawner : MonoBehaviour
     [SerializeField]
     private Transform[] wayPoints;//현재 스테이지의 이동경로
     [SerializeField]
-    public PlayerStats playerStats; // 플레이어 정보 ( 공격력, 체력, 방어력 등)
+    public PlayerStats playerStatsScriptableObject; // 플레이어 정보 ( 공격력, 체력, 방어력 등)
     [SerializeField]
     private MonsterSpawner monsterSpawner; // 현재 맵에 존재하는 적 리스트 정보를 얻기 위해
     [SerializeField]
@@ -19,6 +20,10 @@ public class PlayerSpawner : MonoBehaviour
     private GameObject ObjectPositionPrefab;//플래이어 좌표 값
     [SerializeField]
     public CameraManager cameraManager;
+    [SerializeField]
+    public Image imageScreenRed;//플레이어 hp20%미만일때 표시
+
+    public PlayerStats.Stats playerStats; // 플레이어 정보 ( 공격력, 체력, 방어력 등)
 
     private Transform tileTransform;
     public bool Playing = false; //게임중인지 확인
@@ -27,28 +32,27 @@ public class PlayerSpawner : MonoBehaviour
 
     public void Setup()
     {
+
+        this.playerStats = playerStatsScriptableObject.stats[0];//플레이어 타입 1 (기사)
+
         GameObject clone = Instantiate(playerStats.PlyerPrefab);//플레이어 오브젝트 생성
         Player player = clone.GetComponent<Player>();//방금 생성된 플레이어의 Player 컴포넌트
         this.clone = clone;
         this.player = player;
         player.transform.position = wayPoints[0].position; //플레이어의 위치를 첫번째 wayPoint 위치로 설정
         player.Setup(this, wayPoints);
-        clone.GetComponent<PlayerAttack>().Setup(player, monsterSpawner);//공격 target 검사 및 Attack PlayerAttack에 MonsterSpawner 정보 전달
-
-
+        
     }
 
     private IEnumerator SpawnPlayer()
     {
-
         MainCameraColtroll(clone);
         //카메라 체력바 위치바 세팅 1초후 이동
         yield return new WaitForSeconds(1f);
 
-
         //플레이어 Slider , Position 표시
         SpawnPlayerHPSlider(clone);
-        ObjectPosition(clone);
+        //ObjectPosition(clone);
 
         yield return new WaitForSeconds(0.3f);
         //몬스터 Slider , Position 표시
@@ -56,10 +60,12 @@ public class PlayerSpawner : MonoBehaviour
 
         //플레이어 이동 시작
         player.GameStart();
+        
+        clone.GetComponent<PlayerAttack>().Setup(player, monsterSpawner);//공격 target 검사 및 Attack PlayerAttack에 MonsterSpawner 정보 전달
 
         yield return null;
-
     }
+
     public void GameStart()
     {
         if (Playing == false)

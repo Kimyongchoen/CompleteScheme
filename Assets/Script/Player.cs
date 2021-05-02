@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Player : MonoBehaviour
@@ -15,11 +16,17 @@ public class Player : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private int demage;//입는 데미지
+    private int addedDamage;//입는 추가 데미지 (버프)
     private bool criticalFlag;//크리티컬인지 확인
     private Transform canvasTransform; // UI를 표현하는 canvas 오브젝트의 transform
 
+    private float experienceBonus;//경험치 획득 %
+    private float goldBonus;//골드 획득 %
+
     [SerializeField]
     private TextMeshProUGUI DemageTextPrefab;//몬스터가 입는 데미지 prefab
+
+    private Image imageScreenRed;//몬스터가 입는 데미지 prefab
 
     public PlayerSpawner playerSpawner;
     public float MaxHP => maxHP;
@@ -42,7 +49,12 @@ public class Player : MonoBehaviour
         this.playerSpawner = playerSpawner; //플레이어 생성자 정보
         this.canvasTransform = playerSpawner.canvasTransform;
 
-        maxHP = playerSpawner.playerStats.stats.health;
+        this.experienceBonus = playerSpawner.playerStats.experienceBonus * 0.01f;//몬스터 처치시 얻는 경험치 %로 변경
+        this.goldBonus = playerSpawner.playerStats.goldBonus * 0.01f;//몬스터 처치시 얻는 골드 %로 변경
+
+        this.imageScreenRed = playerSpawner.imageScreenRed;
+
+        maxHP = playerSpawner.playerStats.health;
         currentHP = maxHP;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -123,7 +135,7 @@ public class Player : MonoBehaviour
         //playerSpawner.DestroyMonster(this);
     }
 
-    public void OnDemage(int demage, bool criticalFlag) //플레이어 데미지
+    public void OnDemage(int demage, bool criticalFlag, int addedDamage) //플레이어 데미지
     {
         this.demage = demage;
 
@@ -132,6 +144,7 @@ public class Player : MonoBehaviour
             this.playerSpawner.cameraManager.VibrateForTime(0.2f);//데미지 입을때 카메라 흔들림
 
             this.criticalFlag = criticalFlag;
+            this.addedDamage = addedDamage;
 
             currentHP -= demage;
             StopCoroutine("HitAlphaAnimation");
@@ -144,6 +157,12 @@ public class Player : MonoBehaviour
         }
         
         StartCoroutine("DemageTextView");
+
+        if (maxHP * 0.2f > currentHP)
+        {
+            StartCoroutine("ImageScreenRed"); 
+        }
+
 
         if (currentHP <= 0)
         {
@@ -187,10 +206,39 @@ public class Player : MonoBehaviour
         yield return null;
     }
 
+    private IEnumerator ImageScreenRed()
+    {
+        Color color = imageScreenRed.color;
+        color.a = 0.4f;
+        imageScreenRed.color = color;
+
+        while (color.a > 0.0f)
+        {
+            color.a -= Time.deltaTime;
+            imageScreenRed.color = color;
+
+            yield return null;
+        }
+
+        
+    }
+
     public void vampire(int demage)//데미지 흡혈
     {
         currentHP += demage;
     }
+
+    public void GoldExperience(float gold , float experience)//경험치 골드 획득
+    {
+        if (goldBonus > 0)
+            gold += gold * goldBonus;
+        if (experienceBonus > 0)
+            experience += experience * experienceBonus;
+
+        playerSpawner.playerStats.gold += gold;
+        playerSpawner.playerStats.experience += experience;
+    }
+
 
     private IEnumerator DemageTextView()
     {
@@ -204,7 +252,7 @@ public class Player : MonoBehaviour
         //계층 설정으로 바뀐 크기를 다시 (1,1,1)로 설정
         DemageText.transform.localScale = Vector3.one;
 
-        DemageText.transform.position = this.transform.position + (Vector3.up * 0.45f);
+        DemageText.transform.position = this.transform.position + (Vector3.up * 0.1f);
         if (demage > 0)
         {
             if (criticalFlag)
@@ -215,15 +263,23 @@ public class Player : MonoBehaviour
             {
                 DemageText.text = demage.ToString();
             }
+            
+            if (addedDamage>0) //추가 데미지가 있으면 표기
+            {
+                DemageText.text = (demage- addedDamage).ToString() + " + " + addedDamage.ToString();
+            }
+            
         }
         else
         {
             DemageText.text = "MISS";
         }
 
-        while (DemageText.transform.position.y - this.transform.position.y < 0.7f)
+        int count = 20;
+        while (count < 30)
         {
-            DemageText.transform.position += Vector3.up * 0.01f;
+            count++;
+            DemageText.transform.position = this.transform.position + (Vector3.up * (count * 0.01f));
             yield return new WaitForSeconds(0.05f);
         }
 

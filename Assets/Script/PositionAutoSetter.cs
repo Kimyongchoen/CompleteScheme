@@ -38,11 +38,15 @@ public class PositionAutoSetter : MonoBehaviour
 		//종류에 따라 위치 변경
 		if (type == 0)
 		{
-			position = 0.35f;
+			position = 0.45f;
 		}
 		else if (type == 1)
 		{
-			position = 0.45f;
+			position = 0.55f;
+		}
+		else if (type == 2)
+		{
+			position = -0.2f;
 		}
 
 		//오브젝트의 월드 좌표를 기준으로 화면에서의 좌표 값을 구함

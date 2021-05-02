@@ -143,7 +143,7 @@ public class CameraManager : MonoBehaviour
         {
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             MainCamera.orthographicSize += scroll;
-
+/*
             //scrren out 방지
             if (MoveFlag != true)
             {
@@ -178,7 +178,7 @@ public class CameraManager : MonoBehaviour
                     transform.position = new Vector3(transform.position.x, ScreenMove, transform.position.z);
                 }
 
-                //화면 줌인 줌아웃시 서서히 원래 값으로 되돌림
+                //화면 줌인 줌아웃시 원래 값으로 되돌림
                 if (MainCamera.orthographicSize > 5.0f)
                 {
                     MainCamera.orthographicSize -= 0.1f;
@@ -187,8 +187,8 @@ public class CameraManager : MonoBehaviour
                 {
                     MainCamera.orthographicSize += 0.1f;
                 }
-
             }
+*/
 
         }
 

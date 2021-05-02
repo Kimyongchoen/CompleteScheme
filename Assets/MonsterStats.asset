@@ -1,0 +1,243 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3275608cef042614493efe2b16d5b94e, type: 3}
+  m_Name: MonsterStats
+  m_EditorClassIdentifier: 
+  stats:
+  - MonsterPrefab: {fileID: 4999730627470717632, guid: 440d47ca2c8dc7d48811093568a51a7c,
+      type: 3}
+    number: 1101
+    name: "\uACE0\uBE14\uB9B0 \uC804\uC0AC"
+    attackDamageMin: 8
+    attackDamageMax: 12
+    health: 10
+    defense: 0
+    attackSpeed: 1
+    attackRange: 0.3
+    hit: 100
+    evasion: 0
+    criticalChance: 0
+    criticalDamagema: 0
+    vampire: 0
+    experience: 50
+    gold: 50
+    buff: 0
+    recovery: 0
+  - MonsterPrefab: {fileID: 4999730627470717632, guid: bf90d2738a3ced744a5b3bd8ec4d398e,
+      type: 3}
+    number: 1102
+    name: "\uC624\uD06C \uC804\uC0AC"
+    attackDamageMin: 10
+    attackDamageMax: 15
+    health: 15
+    defense: 2
+    attackSpeed: 1
+    attackRange: 0.3
+    hit: 100
+    evasion: 0
+    criticalChance: 0
+    criticalDamagema: 0
+    vampire: 0
+    experience: 50
+    gold: 50
+    buff: 0
+    recovery: 0
+  - MonsterPrefab: {fileID: 4999730627470717632, guid: 945b7b455949a3f478f8f39d33b05f0b,
+      type: 3}
+    number: 1201
+    name: "\uACE0\uBE14\uB9B0 \uADFC\uC704\uBCD1"
+    attackDamageMin: 9
+    attackDamageMax: 13
+    health: 20
+    defense: 1
+    attackSpeed: 1
+    attackRange: 0.3
+    hit: 100
+    evasion: 0
+    criticalChance: 0
+    criticalDamagema: 0
+    vampire: 0
+    experience: 100
+    gold: 100
+    buff: 0
+    recovery: 0
+  - MonsterPrefab: {fileID: 4999730627470717632, guid: d9ee645ab4de7ad4a90dfbba0d6c0294,
+      type: 3}
+    number: 1202
+    name: "\uC624\uD06C \uADFC\uC704\uBCD1"
+    attackDamageMin: 17
+    attackDamageMax: 22
+    health: 22
+    defense: 4
+    attackSpeed: 1
+    attackRange: 0.3
+    hit: 100
+    evasion: 0
+    criticalChance: 0
+    criticalDamagema: 0
+    vampire: 0
+    experience: 100
+    gold: 100
+    buff: 0
+    recovery: 0
+  - MonsterPrefab: {fileID: 4999730627470717632, guid: ccc2580b868987745aa66113b36159a4,
+      type: 3}
+    number: 1301
+    name: "\uACE0\uBE14\uB9B0 \uAD81\uC218"
+    attackDamageMin: 5
+    attackDamageMax: 10
+    health: 10
+    defense: 0
+    attackSpeed: 1
+    attackRange: 0.9
+    hit: 100
+    evasion: 0
+    criticalChance: 0
+    criticalDamagema: 0
+    vampire: 0
+    experience: 40
+    gold: 40
+    buff: 0
+    recovery: 0
+  - MonsterPrefab: {fileID: 4999730627470717632, guid: c73b5940fcd738a4daa0a19e17f1460b,
+      type: 3}
+    number: 1302
+    name: "\uC624\uD06C \uAD81\uC218"
+    attackDamageMin: 8
+    attackDamageMax: 12
+    health: 13
+    defense: 2
+    attackSpeed: 1
+    attackRange: 0.9
+    hit: 100
+    evasion: 0
+    criticalChance: 0
+    criticalDamagema: 0
+    vampire: 0
+    experience: 40
+    gold: 40
+    buff: 0
+    recovery: 0
+  - MonsterPrefab: {fileID: 4999730627470717632, guid: f4610d2ac914ade4ea1d439091061c4b,
+      type: 3}
+    number: 1401
+    name: "\uACE0\uBE14\uB9B0 \uBC84\uD37C"
+    attackDamageMin: 2
+    attackDamageMax: 5
+    health: 5
+    defense: 0
+    attackSpeed: 1
+    attackRange: 0.3
+    hit: 100
+    evasion: 0
+    criticalChance: 0
+    criticalDamagema: 0
+    vampire: 0
+    experience: 50
+    gold: 50
+    buff: 0.2
+    recovery: 0
+  - MonsterPrefab: {fileID: 4999730627470717632, guid: d39c3814a2a992e44acd9f08fdcbb93c,
+      type: 3}
+    number: 1402
+    name: "\uC624\uD06C \uBC84\uD37C"
+    attackDamageMin: 3
+    attackDamageMax: 6
+    health: 6
+    defense: 1
+    attackSpeed: 1
+    attackRange: 0.3
+    hit: 100
+    evasion: 0
+    criticalChance: 0
+    criticalDamagema: 0
+    vampire: 0
+    experience: 25
+    gold: 25
+    buff: 0.2
+    recovery: 0
+  - MonsterPrefab: {fileID: 4999730627470717632, guid: d716c48976e1e4f448577dac5568424c,
+      type: 3}
+    number: 1501
+    name: "\uACE0\uBE14\uB9B0 \uD790\uB7EC"
+    attackDamageMin: 2
+    attackDamageMax: 5
+    health: 5
+    defense: 0
+    attackSpeed: 1
+    attackRange: 0.3
+    hit: 100
+    evasion: 0
+    criticalChance: 0
+    criticalDamagema: 0
+    vampire: 0
+    experience: 25
+    gold: 25
+    buff: 0
+    recovery: 2
+  - MonsterPrefab: {fileID: 4999730627470717632, guid: 9e40e4472ad29b644abbe315796cc7f2,
+      type: 3}
+    number: 1502
+    name: "\uC624\uD06C \uD790\uB7EC"
+    attackDamageMin: 3
+    attackDamageMax: 6
+    health: 6
+    defense: 1
+    attackSpeed: 1
+    attackRange: 0.3
+    hit: 100
+    evasion: 0
+    criticalChance: 0
+    criticalDamagema: 0
+    vampire: 0
+    experience: 25
+    gold: 25
+    buff: 0
+    recovery: 2
+  - MonsterPrefab: {fileID: 4999730627470717632, guid: a186e519f94d66c48ba63e99e5a3bc98,
+      type: 3}
+    number: 1601
+    name: "\uACE0\uBE14\uB9B0 \uB85C\uB4DC"
+    attackDamageMin: 5
+    attackDamageMax: 10
+    health: 50
+    defense: 3
+    attackSpeed: 1
+    attackRange: 0.3
+    hit: 100
+    evasion: 0
+    criticalChance: 0
+    criticalDamagema: 0
+    vampire: 0
+    experience: 500
+    gold: 500
+    buff: 0
+    recovery: 0
+  - MonsterPrefab: {fileID: 4999730627470717632, guid: dc6e9e1478d952e4fb93f453e3f088bf,
+      type: 3}
+    number: 1602
+    name: "\uC624\uD06C \uB85C\uB4DC"
+    attackDamageMin: 10
+    attackDamageMax: 15
+    health: 140
+    defense: 5
+    attackSpeed: 1
+    attackRange: 0.3
+    hit: 100
+    evasion: 0
+    criticalChance: 0
+    criticalDamagema: 0
+    vampire: 0
+    experience: 1600
+    gold: 1600
+    buff: 0
+    recovery: 0

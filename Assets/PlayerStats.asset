@@ -12,20 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a74819d87fe4e244b7a67cb6553c94c, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  PlyerPrefab: {fileID: 4095418724830420596, guid: d9fb9e290afecb14685283f69e0b84d7,
-    type: 3}
   stats:
+  - PlyerPrefab: {fileID: 4095418724830420596, guid: d9fb9e290afecb14685283f69e0b84d7,
+      type: 3}
     level: 1
-    attackDamageMin: 5
-    attackDamageMax: 10
+    attackDamageMin: 3
+    attackDamageMax: 4
     health: 1000
     defense: 0
     attackSpeed: 1
     attackRange: 0.3
     hit: 100
-    evasion: 50
-    criticalChance: 20
+    evasion: 0
+    criticalChance: 0
     criticalDamagema: 1.5
     vampire: 0
     experienceBonus: 0
     goldBonus: 0
+    experience: 0
+    gold: 0

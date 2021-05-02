@@ -17,19 +17,17 @@ public class PlayerAttack : MonoBehaviour
     private MonsterSpawner monsterSpawner;//게임에 존재하는 적정보 획득용
     private Player player;//공격할때 플레이어 정지
 
-    private MonsterStats.Stats monsterStats;//몬스터 스텟정보
     private PlayerStats.Stats playerStats; //플레이어 스텟 정보
-
+    private bool GoldExperience = false; //골드 경험치 획득여부
     public void Setup(Player player , MonsterSpawner monsterSpawner)
     {
         this.monsterSpawner = monsterSpawner;
         this.player = player;
-        this.playerStats = player.playerSpawner.playerStats.stats;
-        this.monsterStats = monsterSpawner.startMonsterSpawners[0].monsterStats.stats[0];
-        this.attackSpeed = player.playerSpawner.playerStats.stats.attackSpeed;//공격속도
-        this.attackRange = player.playerSpawner.playerStats.stats.attackRange;//공격범위
+        this.playerStats = player.playerSpawner.playerStats;
+        this.attackSpeed = playerStats.attackSpeed;//공격속도
+        this.attackRange = playerStats.attackRange;//공격범위
 
-    //최초 상태를 waponState.SearchTarget으로 설정
+        //최초 상태를 waponState.SearchTarget으로 설정
         ChangeState(WeaponState.SearchTarget);
     }
     
@@ -55,7 +53,14 @@ public class PlayerAttack : MonoBehaviour
         {
             //현재 타워에 가장 가까이 있는 공격 대상(적) 탐색
             attackTarget = FindClosestAttackTarget();
-            
+
+            //플레이어 체력이 없으면 정지
+            if (player.CurrentHP <= 0)
+            {
+                this.player.MoveStop();//이동 정지
+                break;
+            }
+
             if (attackTarget != null)
             {
                 ChangeState(WeaponState.AttackToTarget);
@@ -85,7 +90,16 @@ public class PlayerAttack : MonoBehaviour
     private IEnumerator AttackToTarget()
     {
         while(true){
-
+            if (attackTarget.CurrentHP <= 0)
+            {
+                //몬스터 hp가 0이면 골드 경험치 획득
+                if (GoldExperience == false)//중복 획득 제어
+                {
+                    player.GoldExperience(attackTarget.gold, attackTarget.experience);
+                    GoldExperience = true;
+                }
+            }
+            
             //플레이어 체력이 없으면 정지
             if (player.CurrentHP <= 0)
             {
@@ -93,12 +107,12 @@ public class PlayerAttack : MonoBehaviour
                 break;
             }
 
-
             //1.target이 있는지 검사
             if (attackTarget == null )
             {
                 ChangeState(WeaponState.SearchTarget);
                 this.player.MoveStart();//다시 이동
+                GoldExperience = false;
                 break;
             }
             
@@ -110,6 +124,7 @@ public class PlayerAttack : MonoBehaviour
                 attackTarget = null;
                 ChangeState(WeaponState.SearchTarget);
                 this.player.MoveStart();//다시 이동
+                GoldExperience = false;
                 break;
             }
 
@@ -121,13 +136,9 @@ public class PlayerAttack : MonoBehaviour
                 //공격
                 SpawnAttack();
             }
-
             //attackRate 만큼 대기
             yield return new WaitForSeconds(attackSpeed);
-            
         }
-
-
     }
 
     private void SpawnAttack()
@@ -143,14 +154,14 @@ public class PlayerAttack : MonoBehaviour
             criticalFlag = true;
         }
 
-        demage -= monsterStats.defense;//방어력 제외하고 데미지
+        demage -= attackTarget.monsterStats.defense;//방어력 제외하고 데미지
 
         if (demage <= 0) // 만약 방어력이 더 높다면 데미지는 1
             demage = 1;
 
         
         //회피 성공
-        if (Random.Range(1f, 100f) > playerStats.hit - monsterStats.evasion) //플레이어의 명중률 - 몬스터의 회피률
+        if (Random.Range(1f, 100f) > playerStats.hit - attackTarget.monsterStats.evasion) //플레이어의 명중률 - 몬스터의 회피률
         {
             demage = 0;
         }

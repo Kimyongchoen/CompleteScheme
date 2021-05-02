@@ -36,6 +36,10 @@ public class MonsterHPViewer : MonoBehaviour
             {
                 textPosition.text = "( " + Math.Round(monster.transform.position.x, 2) + " / " + Math.Round(monster.transform.position.y, 2) + " )";
             }
+            else if (type == 2)
+            {
+                textPosition.text = monster.monsterStats.name.ToString();
+            }
         }
     }
 }

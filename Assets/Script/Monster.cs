@@ -7,22 +7,27 @@ public class Monster : MonoBehaviour
 {
     private Transform monsterPoints;        //몬스터 위치 정보
     private Movement2D movement2D;
-
+    
     private float maxHP; //최대 체력
-    private float currentHP; //현재 체력
+    public float currentHP; //현재 체력
     private int demage;//입는 데미지
+    private int Recovery;//회복하는 데미지
     private bool criticalFlag;//크리티컬데미지인지확인
     private SpriteRenderer spriteRenderer;
     private Transform canvasTransform; // UI를 표현하는 canvas 오브젝트의 transform
-
+    public MonsterStats.Stats monsterStats;///몬스터 스텟 정보
     [SerializeField]
     private TextMeshProUGUI DemageTextPrefab;//몬스터가 입는 데미지 prefab
+    [SerializeField]
+    private TextMeshProUGUI RecoveryTextPrefab;//몬스터가 회복하는 데미지 prefab
     
+    public float experience;//몬스터 처치시 얻는 경험치
+    public float gold;//몬스터 처치시 얻는 골드
     public MonsterSpawner monsterSpawner;  //몬스터 생성자 정보
     public float MaxHP => maxHP;
     public float CurrentHP => currentHP;
 
-    public void Setup(MonsterSpawner monsterSpawner ,Transform monsterPoints)
+    public void Setup(MonsterSpawner monsterSpawner ,Transform monsterPoints, MonsterStats.Stats monsterStats)
     {
         movement2D = GetComponent<Movement2D>();
         //몬스터 배치 정보 설정
@@ -30,10 +35,12 @@ public class Monster : MonoBehaviour
         //몬스터 생성자 정보
         this.monsterSpawner = monsterSpawner;
         this.canvasTransform = monsterSpawner.canvasTransform;
-        
-        maxHP = monsterSpawner.startMonsterSpawners[0].monsterStats.stats[0].health;
+        this.monsterStats = monsterStats;//몬스터 정보 저장
+        this.experience = monsterStats.experience;//몬스터 처치시 얻는 경험치
+        this.gold = monsterStats.gold;//몬스터 처치시 얻는 골드
+        maxHP = monsterStats.health;//몬스터의 최대 hp
         currentHP = maxHP;
-
+        
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         //몬스터의 위치를 설정된 곳으로 이동
@@ -66,6 +73,7 @@ public class Monster : MonoBehaviour
 
         if (currentHP <= 0)
         {
+            
             OnDie();
         }
 
@@ -101,13 +109,13 @@ public class Monster : MonoBehaviour
 
         while (color.a > 0)
         {
-            color.a -= 0.1f;
+            color.a -= 0.08f;
             spriteRenderer.color = color;
             yield return new WaitForSeconds(0.05f);
         }
 
         monsterSpawner.DestroyMonster(this);
-
+        
         yield return null;
     }
     public void vampire(int demage)//데미지 흡혈
@@ -143,9 +151,12 @@ public class Monster : MonoBehaviour
             DemageText.text = "MISS";
         }
 
-        while (DemageText.transform.position.y - this.transform.position.y < 0.7f)
+        int count = 50;
+
+        while (count < 60)
         {
-            DemageText.transform.position += Vector3.up * 0.01f;
+            count++;
+            DemageText.transform.position = this.transform.position + (Vector3.up * (count * 0.01f));
             yield return new WaitForSeconds(0.05f);
         }
         
@@ -154,5 +165,44 @@ public class Monster : MonoBehaviour
         yield return null;
 
     }
+    public void RecoveryText(int Recovery)
+    {
+        this.Recovery = Recovery;
+        StartCoroutine("RecoveryTextView");
+    }
+
+    private IEnumerator RecoveryTextView()
+    {
+        //플래이어 위치을 나타내는 Text UI 생성
+        TextMeshProUGUI RecoveryText = Instantiate(RecoveryTextPrefab);
+        //Text UI 오브젝트를 parent("Canvas" 오브젝트)의 자식으로 설정
+        //Tip.UI는 캔버스의 자식 오브젝트로 설정되어 있어야화면에 보인다.
+        RecoveryText.transform.SetParent(canvasTransform);
+        //가장 앞쪽에 표시 UI에 보이지 않게
+        RecoveryText.transform.SetAsFirstSibling();
+        //계층 설정으로 바뀐 크기를 다시 (1,1,1)로 설정
+        RecoveryText.transform.localScale = Vector3.one;
+
+        RecoveryText.transform.position = this.transform.position + (Vector3.up * 0.45f);
+        if (Recovery > 0)
+        {
+            RecoveryText.text = "+ " + Recovery.ToString();
+        }
+
+        int count = 50;
+
+        while (count < 60)
+        {
+            count++;
+            RecoveryText.transform.position = this.transform.position + (Vector3.up * (count * 0.01f));
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        Destroy(RecoveryText.gameObject);
+
+        yield return null;
+
+    }
+
 
 }

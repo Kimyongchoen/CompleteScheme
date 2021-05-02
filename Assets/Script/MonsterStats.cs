@@ -5,14 +5,16 @@ using UnityEngine;
 [CreateAssetMenu]
 public class MonsterStats : ScriptableObject
 {
-    public Stats[] stats; //케릭터 정보
+    public Stats[] stats; //몬스터 정보
 
     [System.Serializable]
     public struct Stats
     {
         public GameObject MonsterPrefab;// 몬스터 프리팹
-        public int number; //몬스터Number (근거리(1), 원거리(2), 회복(3), 버퍼(4), Stage 보스(5) ) 1001 (1=type 001은 Number)
-
+        public int number; //몬스터Number (보통근거리(1), 강한근거리(2), 원거리(3), 버퍼(4), 회복(5), Stage 보스(6) ) 1201 (1=지역 2=type 01은 Number)
+        
+        public string name;//몬스터 이름
+        
         public int attackDamageMin; //공격력(min)
         public int attackDamageMax; //공격력(max)
         public int health;//체력
@@ -28,6 +30,9 @@ public class MonsterStats : ScriptableObject
 
         public float experience;//드랍 경험치
         public float gold;//드랍 골드
+
+        public float buff;//버프 공격력 추가 0.2 = 20%
+        public float recovery;//힐 추가 초당 +hp
 
     }
 }
