@@ -16,7 +16,7 @@ MonoBehaviour:
   - PlyerPrefab: {fileID: 4095418724830420596, guid: d9fb9e290afecb14685283f69e0b84d7,
       type: 3}
     level: 1
-    attackDamageMin: 5
+    attackDamageMin: 1
     attackDamageMax: 11
     health: 999
     defense: 0
