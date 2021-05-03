@@ -1074,7 +1074,7 @@ MonoBehaviour:
   startMonsterSpawners:
   - monsterPoints: {fileID: 405229265}
     monsterStats: {fileID: 11400000, guid: 6d621e2816937304b8626460acf2999e, type: 2}
-    number: 1101
+    number: 1601
   - monsterPoints: {fileID: 1011081813}
     monsterStats: {fileID: 11400000, guid: 6d621e2816937304b8626460acf2999e, type: 2}
     number: 1401

@@ -151,12 +151,43 @@ public class Monster : MonoBehaviour
             DemageText.text = "MISS";
         }
 
-        int count = 50;
+        
+        int count = 0;
+        int pox = 0;
+        int poy = 0;
+        //현재 적의 색사을 color 변수에 저장
+        Color color = DemageText.color;
 
-        while (count < 60)
+        color.a = 1.0f;
+        DemageText.color = color;
+
+        while (count < 10)
         {
             count++;
-            DemageText.transform.position = this.transform.position + (Vector3.up * (count * 0.01f));
+            pox++;
+            
+            if (count < 3)
+            {
+                poy++;
+            }
+            else if(count < 6)
+            {
+                //poy++;
+            }
+            else
+            {
+                poy--;
+            }
+
+            DemageText.transform.position =  
+                new Vector3 (
+                    this.transform.position.x + ((pox + 1) * 0.04f), 
+                    this.transform.position.y + ((poy + 2) * 0.09f),
+                    this.transform.position.z );
+            
+            color.a -= 0.04f;
+            DemageText.color = color;
+            DemageText.fontSize -= 7;
             yield return new WaitForSeconds(0.05f);
         }
         
@@ -189,9 +220,9 @@ public class Monster : MonoBehaviour
             RecoveryText.text = "+ " + Recovery.ToString();
         }
 
-        int count = 50;
+        int count = 20;
 
-        while (count < 60)
+        while (count < 30)
         {
             count++;
             RecoveryText.transform.position = this.transform.position + (Vector3.up * (count * 0.01f));

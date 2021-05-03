@@ -70,9 +70,9 @@ public class MonsterSpawner : MonoBehaviour
             monster.Setup(this, startMonsterSpawners[i].monsterPoints, monsterstats);
             //몬스터 리스트 저장 
             monsterList.Add(monster);
+            //MonsterName(monster.gameObject);// 몬스터 이름 표현
 
             clone.GetComponent<MonsterAttack>().Setup(monster,playerSpawner);//공격 target 검사 및 Attack
-            
         }
 
         playerSpawner.Setup();
@@ -89,7 +89,7 @@ public class MonsterSpawner : MonoBehaviour
             SpawnMonsterHPSlider(MonsterList[i].gameObject);
             //공격 시작
             monsterList[i].GetComponent<MonsterAttack>().StartAttack();
-            MonsterName(MonsterList[i].gameObject);
+            MonsterName(MonsterList[i].gameObject);// 몬스터 이름 표현
             //ObjectPosition(MonsterList[i].gameObject);
         }
     }
