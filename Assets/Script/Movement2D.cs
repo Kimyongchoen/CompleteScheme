@@ -11,7 +11,7 @@ public class Movement2D : MonoBehaviour
 
     public float MoveSpeed => moveSpeed;
 
-    public bool MoveFlag = true;
+    public bool MoveFlag = false;
 
     private void Update()
     {

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 571028033824408472}
   - component: {fileID: -3572807522663480906}
   m_Layer: 0
-  m_Name: Attack
+  m_Name: PlayerProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   moveDirection: {x: 0, y: 0, z: 0}
+  MoveFlag: 1
 --- !u!61 &4536807509541897970
 BoxCollider2D:
   m_ObjectHideFlags: 0

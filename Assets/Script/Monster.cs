@@ -153,24 +153,24 @@ public class Monster : MonoBehaviour
 
         
         int count = 0;
-        int pox = 0;
-        int poy = 0;
+        int pox = 1;
+        int poy = 2;
         //현재 적의 색사을 color 변수에 저장
         Color color = DemageText.color;
 
         color.a = 1.0f;
         DemageText.color = color;
 
-        while (count < 10)
+        while (count < 30)
         {
             count++;
             pox++;
             
-            if (count < 3)
+            if (count < 9)
             {
                 poy++;
             }
-            else if(count < 6)
+            else if(count < 18)
             {
                 //poy++;
             }
@@ -181,14 +181,14 @@ public class Monster : MonoBehaviour
 
             DemageText.transform.position =  
                 new Vector3 (
-                    this.transform.position.x + ((pox + 1) * 0.04f), 
-                    this.transform.position.y + ((poy + 2) * 0.09f),
+                    this.transform.position.x + ((pox) * 0.008f), 
+                    this.transform.position.y + ((poy) * 0.03f),
                     this.transform.position.z );
             
-            color.a -= 0.04f;
+            color.a -= 0.015f;
             DemageText.color = color;
-            DemageText.fontSize -= 7;
-            yield return new WaitForSeconds(0.05f);
+            DemageText.fontSize -= 3;
+            yield return new WaitForSeconds(0.015f);
         }
         
         Destroy(DemageText.gameObject);

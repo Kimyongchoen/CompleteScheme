@@ -29,6 +29,13 @@ public class Player : MonoBehaviour
     private Image imageScreenRed;//몬스터가 입는 데미지 prefab
 
     public PlayerSpawner playerSpawner;
+
+    private Animator animator; // 케릭터 애니메이션
+    
+    private Vector2 PlayerPosition; //케릭터 이동
+    float DirX = 0f; //케릭터 이동
+    float DirY = 0f; //케릭터 이동
+
     public float MaxHP => maxHP;
     public float CurrentHP => currentHP;
 
@@ -59,8 +66,10 @@ public class Player : MonoBehaviour
 
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-
+        animator = GetComponent<Animator>(); //케릭터 애니메이션
+        PlayerPosition = new Vector2(transform.position.x, transform.position.y); //플레이어의 현재위치
     }
+
 
     private IEnumerator OnMove()
     {
@@ -77,6 +86,7 @@ public class Player : MonoBehaviour
             {
                 //다음 이동 방향 설정
                 NextMoveTo();
+
             }
             yield return null;
         }
@@ -92,11 +102,13 @@ public class Player : MonoBehaviour
             currentIndex++;
             Vector3 direction = (wayPoints[currentIndex].position - transform.position).normalized;
             movement2D.MoveTo(direction);
+
+            MoveStart();
         }
         else//현재위치가 마지막 wayPoints 이면
         {
             //플레이어 오브젝트 이동정지
-            movement2D.MoveStop();
+            MoveStop();
 
             //테스트를 위한 재시작 가능하게 초기화 추후 삭제
             /*
@@ -106,13 +118,18 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void MoveStop()
-    {
-        movement2D.MoveStop();
-    }
     public void MoveStart()
     {
         movement2D.MoveStart();
+        animator.SetBool("Walking", true);
+        PlayerPosition = new Vector2(transform.position.x, transform.position.y);
+    }
+
+    public void MoveStop()
+    {
+        movement2D.MoveStop();
+        animator.SetBool("Walking", false);
+        PlayerPosition = new Vector2(transform.position.x, transform.position.y);
     }
 
     public bool GetMoveFlag()
@@ -124,9 +141,23 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        /* 키보드로 Player 이동
         float inputX = Input.GetAxisRaw("Horizontal");
         float inputY = Input.GetAxisRaw("Vertical");
         transform.Translate(new Vector2(inputX, inputY) * Time.deltaTime);
+        */
+
+        if (PlayerPosition.x < transform.position.x)
+            DirX = 1f;
+        if (PlayerPosition.x > transform.position.x)
+            DirX = -1f;
+        if (PlayerPosition.y < transform.position.y)
+            DirY = 1f;
+        if (PlayerPosition.y > transform.position.y)
+            DirY = -1f;
+
+        animator.SetFloat("DirX", DirX);
+        animator.SetFloat("DirY", DirY);
     }
 
     public void OnDie() //플래이어 삭제

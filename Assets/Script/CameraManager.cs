@@ -103,7 +103,7 @@ public class CameraManager : MonoBehaviour
         //마우스 클릭으로 이동
         if (Input.GetMouseButtonDown(0))
         {
-            if (Input.mousePosition.x > 0.0f && Input.mousePosition.x < 1440.0f && Input.mousePosition.y > 1200.0f && Input.mousePosition.y < 2960.0f)
+            if (Input.mousePosition.x > 0.0f && Input.mousePosition.x < 1440.0f && Input.mousePosition.y > 100.0f && Input.mousePosition.y < 2960.0f)
             {
                 MouseStart = new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z);
                 MouseStart = Camera.main.ScreenToWorldPoint(MouseStart);
@@ -130,7 +130,7 @@ public class CameraManager : MonoBehaviour
         //게임 시작 후 줌인 기능 비활성화
         if (target != null && target.gameObject != null)
         {
-            TargetPosition.Set(target.transform.position.x, target.transform.position.y - 0.6f, MainCamera.transform.position.z);
+            TargetPosition.Set(target.transform.position.x, target.transform.position.y - 0.3f, MainCamera.transform.position.z);
             MainCamera.transform.position = Vector3.Lerp(MainCamera.transform.position, TargetPosition, moveSpeed * Time.deltaTime);
 
             if (MainCamera.orthographicSize > 2.0f)
@@ -143,7 +143,7 @@ public class CameraManager : MonoBehaviour
         {
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             MainCamera.orthographicSize += scroll;
-/*
+
             //scrren out 방지
             if (MoveFlag != true)
             {
@@ -159,7 +159,7 @@ public class CameraManager : MonoBehaviour
                     ScreenMove -= 0.4f;
                     transform.position = new Vector3(ScreenMove, transform.position.y, transform.position.z);
                 }
-                if (transform.position.y < -2.8f)
+                if (transform.position.y < -2.0f)
                 {
                     float ScreenMove = transform.position.y;
                     ScreenMove += 0.2f;
@@ -171,14 +171,10 @@ public class CameraManager : MonoBehaviour
                     ScreenMove -= 0.2f;
                     transform.position = new Vector3(transform.position.x, ScreenMove, transform.position.z);
                 }
-                if (transform.position.y > 1.9f)
-                {
-                    float ScreenMove = transform.position.y;
-                    ScreenMove -= 0.2f;
-                    transform.position = new Vector3(transform.position.x, ScreenMove, transform.position.z);
-                }
+               
 
                 //화면 줌인 줌아웃시 원래 값으로 되돌림
+                /*
                 if (MainCamera.orthographicSize > 5.0f)
                 {
                     MainCamera.orthographicSize -= 0.1f;
@@ -187,8 +183,9 @@ public class CameraManager : MonoBehaviour
                 {
                     MainCamera.orthographicSize += 0.1f;
                 }
+                */
             }
-*/
+
 
         }
 
