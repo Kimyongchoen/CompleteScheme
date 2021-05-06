@@ -15,6 +15,7 @@ public class CameraManager : MonoBehaviour
     private Vector3 MouseStart;
     private Vector3 derp;
     private bool MoveFlag = false;
+    private bool GameStartFlag = false;
 
     //카메라 흔들기
     public float ShakeAmount = 1f;
@@ -22,11 +23,16 @@ public class CameraManager : MonoBehaviour
     Vector3 initialPosition;
 
 
-    public void Setup(GameObject target)
+    public void Setup(GameObject target, bool GameStartFlag)
     {
         this.target = target;
+        this.GameStartFlag = GameStartFlag;
     }
 
+    public bool getGameStartFlag()
+    {
+        return GameStartFlag;
+    }
     // Update is called once per frame
     private void Update()
     {
@@ -104,7 +110,7 @@ public class CameraManager : MonoBehaviour
 
 
         //게임 시작 후 줌인 기능 비활성화
-        if (target != null && target.gameObject != null)
+        if (target != null && target.gameObject != null && GameStartFlag)
         {
             TargetPosition.Set(target.transform.position.x, target.transform.position.y - 0.3f, MainCamera.transform.position.z);
             MainCamera.transform.position = Vector3.Lerp(MainCamera.transform.position, TargetPosition, moveSpeed * Time.deltaTime);
@@ -115,6 +121,11 @@ public class CameraManager : MonoBehaviour
             }
 
         }
+        else if (target != null && target.gameObject != null)
+        {
+            TargetPosition.Set(target.transform.position.x, target.transform.position.y - 2f, MainCamera.transform.position.z);
+            MainCamera.transform.position = Vector3.Lerp(MainCamera.transform.position, TargetPosition, moveSpeed * Time.deltaTime);
+        }
         else //게임 시작 전 줌인 가능
         {
             //마우스가 UI에 머물러 있을 때는 아래 코드가 실행되지 않도록 함
@@ -123,8 +134,11 @@ public class CameraManager : MonoBehaviour
                 return;
             }
 
+            /*
+            //마우스 스크롤
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             MainCamera.orthographicSize += scroll;
+            */
 
             //scrren out 방지
             if (MoveFlag != true)

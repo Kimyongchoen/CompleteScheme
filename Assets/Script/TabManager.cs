@@ -20,18 +20,9 @@ public class TabManager : MonoBehaviour
 
             if (i == n)
             {
-                if (Tab[i].activeSelf == true)
-                {
-                    Tab[4].SetActive(true);
-                    Tab[i].SetActive(false);
-                    TabBtnImage[i].sprite = IdleSprite[i];
-                }
-                else
-                {
-                    Tab[4].SetActive(false);
-                    Tab[i].SetActive(true);
-                    TabBtnImage[i].sprite = SelectSprite[i]; 
-                }
+                Tab[4].SetActive(false);
+                Tab[i].SetActive(true);
+                TabBtnImage[i].sprite = SelectSprite[i]; 
             }
             else
             {

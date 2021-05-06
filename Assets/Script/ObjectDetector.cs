@@ -8,6 +8,15 @@ public class ObjectDetector : MonoBehaviour
 {
     [SerializeField]
     private MonsterSpawner monsterSpawner;
+    [SerializeField]
+    private GameObject TileSelectfrefab;
+    [SerializeField]
+    private TabManager tabManager;
+    [SerializeField]
+    private CameraManager cameraManager;
+
+    [SerializeField]
+    private Transform[] TileList;//현재 생성되어있는 모든 타일
     //[SerializeField]
     //private TowerDataViewer towerDataViewer;
 
@@ -15,12 +24,14 @@ public class ObjectDetector : MonoBehaviour
     private Ray ray;
     private RaycastHit hit;
     private Transform hitTransform = null;//마우스 픽킹으로 선택한 오프젝트 임시저장
+    private GameObject TileSelect = null;
 
     private void Awake()
     {
         // "MainCamera" 태그를 가지고 있는 오브젝트 탐색 후 Camera 컴포넌트 정보 전달
         // GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>(); 와 동일
         mainCamera = Camera.main;
+
     }
 
     // Update is called once per frame
@@ -28,6 +39,16 @@ public class ObjectDetector : MonoBehaviour
     {
         //마우스가 UI에 머물러 있을 때는 아래 코드가 실행되지 않도록 함
         if (EventSystem.current.IsPointerOverGameObject() == true)
+        {
+            if (Input.GetMouseButtonDown(0)) 
+            { 
+                if (TileSelect != null)
+                Destroy(TileSelect.gameObject);
+            }
+            return;
+        }
+
+        if (cameraManager.getGameStartFlag()) //게임시작하면 기능 정지
         {
             return;
         }
@@ -49,15 +70,24 @@ public class ObjectDetector : MonoBehaviour
                 //광선에 부딪힌 오브젝트의 태그가 "Tile" 이면
                 if (hit.transform.CompareTag("Tile"))
                 {
-                    //몬스터를 생성하는 SpawnTower()호출
-                    Debug.Log("hit.transform==" + hit.transform);
-                    monsterSpawner.SpawnMonster(hit.transform);
+                    if (TileSelect == null)
+                    {
+                        TileSelect = Instantiate(TileSelectfrefab);//Tile 선택 오브젝트 생성
+                    }
+
+                    for (int i=0; TileList.Length > i; i++)
+                    {
+                        if (TileList[i].transform.position == hit.transform.position)
+                        {
+                            TileSelect.transform.position = hit.transform.position;
+                            tabManager.TabClick(1);
+
+                            cameraManager.Setup(TileSelect, false);
+                        }
+                    }
                     
-                }
-                else if (hit.transform.CompareTag("monster"))
-                {
-                    Debug.Log("monster");
-                    //towerDataViewer.OnPanel(hit.transform);
+                    //몬스터를 생성하는 SpawnTower()호출
+                    //monsterSpawner.SpawnMonster(hit.transform);
                 }
 
             }
@@ -65,8 +95,10 @@ public class ObjectDetector : MonoBehaviour
         else if (Input.GetMouseButtonUp(0))
         {
             //마우스를 눌렀을 때 선택한 오브젝트가 없거나 선택한 오브젝트가 타워가 아니면
-            if (hitTransform == null || hitTransform.CompareTag("monster") == false)
+            if (hitTransform == null || hitTransform.CompareTag("Tile") == false)
             {
+                if (TileSelect != null)
+                    Destroy(TileSelect.gameObject);
                 //타워 정보 패널을 비활성화 한다
                 //towerDataViewer.OffPanel();
             }

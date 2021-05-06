@@ -120,6 +120,6 @@ public class PlayerSpawner : MonoBehaviour
     {
         //clone.GetComponent<PlayerAttack>().Setup(player, monsterSpawner);
 
-        cameraManager.Setup(player);
+        cameraManager.Setup(player,true);
     }
 }
