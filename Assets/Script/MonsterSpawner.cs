@@ -43,10 +43,10 @@ public class MonsterSpawner : MonoBehaviour
         //몬스터 리스트 메모리 할당
         monsterList = new List<Monster>();
         //몬스터 생성 코루틴 함수
-        StartCoroutine("SpawnMonster");
+        StartCoroutine("SpawnMonsterCoroutine");
     }
 
-    private IEnumerator SpawnMonster()
+    private IEnumerator SpawnMonsterCoroutine()
     {
         for (int i = 0; i < startMonsterSpawners.Length ;i++)
         {
@@ -81,6 +81,21 @@ public class MonsterSpawner : MonoBehaviour
         yield return null;
     }
 
+    public void SpawnMonster(Transform transform)
+    {
+        MonsterStats.Stats monsterstats = startMonsterSpawners[0].monsterStats.stats[0];
+
+        GameObject clone = Instantiate(monsterstats.MonsterPrefab);//플레이어 오브젝트 생성
+        Monster monster = clone.GetComponent<Monster>();//방금 생성된 몬스터의 Monster 컴포넌트
+
+        //몬스터 생성자, 몬스터 생성위치, 몬스터 정보 전달
+        monster.Setup(this, transform, monsterstats);
+        //몬스터 리스트 저장 
+        monsterList.Add(monster);
+        //MonsterName(monster.gameObject);// 몬스터 이름 표현
+
+        clone.GetComponent<MonsterAttack>().Setup(monster, playerSpawner);//공격 target 검사 및 Attack
+    }
     public void Setup()
     {
 

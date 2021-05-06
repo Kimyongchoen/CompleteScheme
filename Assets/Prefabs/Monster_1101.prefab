@@ -93,9 +93,9 @@ GameObject:
   - component: {fileID: 4999730627470717639}
   - component: {fileID: -491270489370480030}
   - component: {fileID: 4999730627470717638}
-  - component: {fileID: 4999730627470717633}
-  - component: {fileID: 6958943407651052160}
   - component: {fileID: -5334984788839181997}
+  - component: {fileID: -1565900849735935899}
+  - component: {fileID: -8816477712461521791}
   m_Layer: 0
   m_Name: Monster_1101
   m_TagString: monster
@@ -222,7 +222,23 @@ MonoBehaviour:
   moveSpeed: 0
   moveDirection: {x: 0, y: 0, z: 0}
   MoveFlag: 1
---- !u!70 &4999730627470717633
+--- !u!114 &-5334984788839181997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4999730627470717632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d95e0e861503f4aa569952b7257ec8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackPrefab: {fileID: 3831742887674782194, guid: b24bbe062b6b50a4c9cee2e51abb6c0c,
+    type: 3}
+  spawnPoint: {fileID: 2836206423463887389}
+  addedDamage: 0
+--- !u!70 &-1565900849735935899
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -235,10 +251,10 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 0.68}
+  m_Offset: {x: -0.02217643, y: 0.22502896}
+  m_Size: {x: 0.41621462, y: 0.6500748}
   m_Direction: 0
---- !u!50 &6958943407651052160
+--- !u!50 &-8816477712461521791
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -258,20 +274,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 7
---- !u!114 &-5334984788839181997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4999730627470717632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d95e0e861503f4aa569952b7257ec8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackPrefab: {fileID: 3831742887674782194, guid: b24bbe062b6b50a4c9cee2e51abb6c0c,
-    type: 3}
-  spawnPoint: {fileID: 2836206423463887389}
-  addedDamage: 0
+  m_Constraints: 0

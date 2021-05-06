@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 2924921681358967474}
   - component: {fileID: 1416878332840552349}
   - component: {fileID: 7853321751433953550}
-  - component: {fileID: 5574639953622681450}
+  - component: {fileID: 3182203170566394315}
   m_Layer: 0
   m_Name: TileWall
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b5920719e448ffd4cb42f7c09f98359e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3882353}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -121,19 +121,17 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!70 &5574639953622681450
-CapsuleCollider2D:
+--- !u!136 &3182203170566394315
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5628661666262672060}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0073714587, y: 0.23036179}
-  m_Size: {x: 0.5503392, y: 0.34761956}
-  m_Direction: 1
+  m_Enabled: 1
+  m_Radius: 0.19802883
+  m_Height: 0.50528127
+  m_Direction: 0
+  m_Center: {x: -0.0064073503, y: -0.0012611449, z: 0}

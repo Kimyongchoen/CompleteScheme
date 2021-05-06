@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraManager : MonoBehaviour
 {
@@ -100,32 +101,7 @@ public class CameraManager : MonoBehaviour
                     return;
                 }*/
 
-        //마우스 클릭으로 이동
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (Input.mousePosition.x > 0.0f && Input.mousePosition.x < 1440.0f && Input.mousePosition.y > 100.0f && Input.mousePosition.y < 2960.0f)
-            {
-                MouseStart = new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z);
-                MouseStart = Camera.main.ScreenToWorldPoint(MouseStart);
-                
-                MoveFlag = true;
-            }
-        }
-        else if (Input.GetMouseButton(0))
-        {
-            if (MoveFlag)
-            {
 
-                var MouseMove = new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z);
-                MouseMove = Camera.main.ScreenToWorldPoint(MouseMove);
-                
-                transform.position = transform.position - (MouseMove - MouseStart);
-            }
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            MoveFlag = false;
-        }
 
         //게임 시작 후 줌인 기능 비활성화
         if (target != null && target.gameObject != null)
@@ -141,6 +117,12 @@ public class CameraManager : MonoBehaviour
         }
         else //게임 시작 전 줌인 가능
         {
+            //마우스가 UI에 머물러 있을 때는 아래 코드가 실행되지 않도록 함
+            if (EventSystem.current.IsPointerOverGameObject() == true)
+            {
+                return;
+            }
+
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             MainCamera.orthographicSize += scroll;
 
@@ -205,6 +187,36 @@ public class CameraManager : MonoBehaviour
         }
 
 
+        //마우스가 UI에 머물러 있을 때는 아래 코드가 실행되지 않도록 함
+        if (EventSystem.current.IsPointerOverGameObject() == true)
+        {
+            return;
+        }
+        //마우스 클릭으로 이동
+        if (Input.GetMouseButtonDown(0))
+        {
+
+            MouseStart = new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z);
+            MouseStart = Camera.main.ScreenToWorldPoint(MouseStart);
+
+            MoveFlag = true;
+
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            if (MoveFlag)
+            {
+
+                var MouseMove = new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z);
+                MouseMove = Camera.main.ScreenToWorldPoint(MouseMove);
+
+                transform.position = transform.position - (MouseMove - MouseStart);
+            }
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            MoveFlag = false;
+        }
     }
 
     public void VibrateForTime(float time)
