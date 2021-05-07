@@ -10,7 +10,7 @@ public class TabManager : MonoBehaviour
     public Image[] TabBtnImage;
     public Sprite[] IdleSprite, SelectSprite;
 
-    void Start() => TabClick(1);
+    //void Start() => TabClick(1);
 
     public void TabClick(int n)
     {

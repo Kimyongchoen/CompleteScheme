@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1416878332840552349}
   - component: {fileID: 7853321751433953550}
   - component: {fileID: 3182203170566394315}
+  - component: {fileID: 6127522308243686565}
   m_Layer: 0
   m_Name: TileWall
   m_TagString: Tile
@@ -135,3 +136,15 @@ CapsuleCollider:
   m_Height: 0.50528127
   m_Direction: 0
   m_Center: {x: -0.0064073503, y: -0.0012611449, z: 0}
+--- !u!114 &6127522308243686565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5628661666262672060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0543a9339733e9541a56b014721d9587, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

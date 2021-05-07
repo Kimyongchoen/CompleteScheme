@@ -14,11 +14,16 @@ public class ObjectDetector : MonoBehaviour
     private TabManager tabManager;
     [SerializeField]
     private CameraManager cameraManager;
+    [SerializeField]
+    private TileTabManager tileTabManager;
+
+    
 
     [SerializeField]
     private Transform[] TileList;//현재 생성되어있는 모든 타일
     //[SerializeField]
     //private TowerDataViewer towerDataViewer;
+    private TileManager tileManager;
 
     private Camera mainCamera;
     private Ray ray;
@@ -52,7 +57,7 @@ public class ObjectDetector : MonoBehaviour
         {
             return;
         }
-
+        
         //마우스 왼쪽 버튼 눌렀을때
         if (Input.GetMouseButtonDown(0))
         {
@@ -79,10 +84,39 @@ public class ObjectDetector : MonoBehaviour
                     {
                         if (TileList[i].transform.position == hit.transform.position)
                         {
-                            TileSelect.transform.position = hit.transform.position;
-                            tabManager.TabClick(1);
+                            TileSelect.transform.position = TileList[i].transform.position;//타일리스트에 있는 위치로 이동
+                            
 
-                            cameraManager.Setup(TileSelect, false);
+                            cameraManager.Setup(TileSelect, false);//타일로 카메라 이동 
+
+                            tileManager = TileList[i].GetComponent<TileManager>();//TileSelect의 TileManager 컴포넌트
+                            if (tileManager.getMonsterFlag()==0)//아무것도 없다면 (0)
+                            {
+                                tabManager.TabClick(1);
+
+                                //Tile 관련 script 작성 에서 버튼 활성화
+
+                                //몬스터 생성 버튼 활성화 / 몬스터는 무제한
+                                //공격력 증가 버튼 활성화 / 공격력 증가 버프가 있는 경우
+                                //방어력 증가 버튼 활성화 / 방어력 증가 버프가 있는 경우 
+                                //회복 버튼 활성화 회복이 있는 경우
+                            }
+                            else if (tileManager.getMonsterFlag() == 1)//처음 생성되어있는 몬스터
+                            {
+                                tabManager.TabClick(2);
+                                tileTabManager.SetMonsterInfomation(tileManager.getnumber());
+
+                            }
+                            else if (tileManager.getMonsterFlag() == 2)//사용자가 추가한 몬스터
+                            {
+
+                            }
+                            else if (tileManager.getMonsterFlag() == 3)//사용자가 버프 회복
+                            {
+
+                            }
+                            Debug.Log("tileFlag==" + tileManager.getMonsterFlag());
+
                         }
                     }
                     
@@ -99,6 +133,7 @@ public class ObjectDetector : MonoBehaviour
             {
                 if (TileSelect != null)
                     Destroy(TileSelect.gameObject);
+
                 //타워 정보 패널을 비활성화 한다
                 //towerDataViewer.OffPanel();
             }

@@ -66,6 +66,9 @@ public class MonsterSpawner : MonoBehaviour
             GameObject clone = Instantiate(monsterstats.MonsterPrefab);//플레이어 오브젝트 생성
             Monster monster = clone.GetComponent<Monster>();//방금 생성된 몬스터의 Monster 컴포넌트
 
+            TileManager tileManager = startMonsterSpawners[i].monsterPoints.GetComponent<TileManager>();//TileSelect의 TileManager 컴포넌트
+            tileManager.setMonsterFlag(1, startMonsterSpawners[i].number); //몬스터 생성 타일에 stats를 1로 세팅
+            
             //몬스터 생성자, 몬스터 생성위치, 몬스터 정보 전달
             monster.Setup(this, startMonsterSpawners[i].monsterPoints, monsterstats);
             //몬스터 리스트 저장 
