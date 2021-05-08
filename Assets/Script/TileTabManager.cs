@@ -12,7 +12,9 @@ public class TileTabManager : MonoBehaviour
 
     public void SetMonsterInfomation(int Number)
     {
-        MonsterInfomationText.text = Number.ToString();
+
+
+    MonsterInfomationText.text = Number.ToString();
         //몬스터 넘버
 
         //공력력증가 넘버

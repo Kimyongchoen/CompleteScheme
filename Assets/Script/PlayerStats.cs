@@ -12,7 +12,8 @@ public class PlayerStats : ScriptableObject
     [System.Serializable]
     public struct Stats
     {
-        public GameObject PlyerPrefab;// 케릭터 프리팹
+        public GameObject PlayerPrefab;// 케릭터 프리팹
+        public string Playername;
         public int level; //레벨
 
         public int attackDamageMin; //공격력(min)

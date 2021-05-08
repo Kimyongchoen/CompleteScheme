@@ -35,13 +35,16 @@ public class PlayerSpawner : MonoBehaviour
 
         this.playerStats = playerStatsScriptableObject.stats[0];//플레이어 타입 1 (기사)
 
-        GameObject clone = Instantiate(playerStats.PlyerPrefab);//플레이어 오브젝트 생성
+        GameObject clone = Instantiate(playerStats.PlayerPrefab);//플레이어 오브젝트 생성
         Player player = clone.GetComponent<Player>();//방금 생성된 플레이어의 Player 컴포넌트
         this.clone = clone;
         this.player = player;
         player.transform.position = wayPoints[0].position; //플레이어의 위치를 첫번째 wayPoint 위치로 설정
         player.Setup(this, wayPoints);
-        
+
+        TileManager tileManager = wayPoints[0].GetComponent<TileManager>();//TileSelect의 TileManager 컴포넌트
+        tileManager.setMonsterFlag(4, 0); //몬스터 생성 타일에 stats를 1로 세팅
+
     }
 
     private IEnumerator SpawnPlayer()

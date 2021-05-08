@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   stats:
-  - PlyerPrefab: {fileID: 4095418724830420596, guid: d9fb9e290afecb14685283f69e0b84d7,
+  - PlayerPrefab: {fileID: 4095418724830420596, guid: d9fb9e290afecb14685283f69e0b84d7,
       type: 3}
+    Playername: "\uD669\uD63C\uC758 \uBAA8\uD5D8\uAC00"
     level: 1
     attackDamageMin: 1
-    attackDamageMax: 11
-    health: 999
+    attackDamageMax: 10
+    health: 200
     defense: 0
     attackSpeed: 1
     attackRange: 0.3

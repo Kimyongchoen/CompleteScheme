@@ -16,8 +16,12 @@ public class ObjectDetector : MonoBehaviour
     private CameraManager cameraManager;
     [SerializeField]
     private TileTabManager tileTabManager;
+    [SerializeField]
+    private MonsterTabManager monsterTabManager;
+    [SerializeField]
+    private PlayerTabManager playerTabManager;
 
-    
+
 
     [SerializeField]
     private Transform[] TileList;//현재 생성되어있는 모든 타일
@@ -36,6 +40,7 @@ public class ObjectDetector : MonoBehaviour
         // "MainCamera" 태그를 가지고 있는 오브젝트 탐색 후 Camera 컴포넌트 정보 전달
         // GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>(); 와 동일
         mainCamera = Camera.main;
+        monsterTabManager.SetMonsterInfomation(1101);
 
     }
 
@@ -104,8 +109,7 @@ public class ObjectDetector : MonoBehaviour
                             else if (tileManager.getMonsterFlag() == 1)//처음 생성되어있는 몬스터
                             {
                                 tabManager.TabClick(2);
-                                tileTabManager.SetMonsterInfomation(tileManager.getnumber());
-
+                                monsterTabManager.SetMonsterInfomation(tileManager.getnumber());
                             }
                             else if (tileManager.getMonsterFlag() == 2)//사용자가 추가한 몬스터
                             {
@@ -115,8 +119,11 @@ public class ObjectDetector : MonoBehaviour
                             {
 
                             }
-                            Debug.Log("tileFlag==" + tileManager.getMonsterFlag());
-
+                            else if (tileManager.getMonsterFlag() == 4)//Player
+                            {
+                                tabManager.TabClick(0);
+                                playerTabManager.SetPlayerInfomation(1);//기사 1
+                            }
                         }
                     }
                     
