@@ -266,8 +266,8 @@ public class Player : MonoBehaviour
         if (experienceBonus > 0)
             experience += experience * experienceBonus;
 
-        playerSpawner.playerStats.gold += gold;
-        playerSpawner.playerStats.experience += experience;
+        playerSpawner.playerStatsScriptableObject.stats[0].gold += gold;
+        playerSpawner.playerStatsScriptableObject.stats[0].experience += experience;
     }
 
 

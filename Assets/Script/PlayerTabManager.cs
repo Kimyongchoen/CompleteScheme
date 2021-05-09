@@ -32,6 +32,7 @@ public class PlayerTabManager : MonoBehaviour
     private void Awake()
     {
         playerStats = playerStats_temp.stats[0];
+        ChangeMonsterInfomation(1);//처음 세팅
     }
 
     public void SetPlayerInfomation(int PlayerNum)
@@ -57,21 +58,13 @@ public class PlayerTabManager : MonoBehaviour
         experienceBonus.text = "경험치 보너스 : " + playerStats.experienceBonus.ToString();//경험치 보너스
         experience.text = "보유 경험치 : " + playerStats.experience.ToString();//보유 경험치
         gold.text = "보유 골드 : " + playerStats.gold.ToString();//보유 골드
+        
         Color color = PlayerImage.color;
         color.a = 1.0f;
         PlayerImage.color = color;
-        
-        Debug.Log("1");
-
-        Debug.Log("=1=" + playerStats.PlayerPrefab);
-        Debug.Log("=2=" + playerStats.PlayerPrefab.GetComponentInChildren<Image>());
-
+     
         sprite_temp = playerStats.PlayerPrefab.GetComponentInChildren<Image>().sprite;
-        Debug.Log("2");
 
         PlayerImage.sprite = sprite_temp;
-        
-        Debug.Log("4");
-
     }
 }

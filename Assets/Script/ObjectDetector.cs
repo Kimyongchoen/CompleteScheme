@@ -135,7 +135,10 @@ public class ObjectDetector : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            //마우스를 눌렀을 때 선택한 오브젝트가 없거나 선택한 오브젝트가 타워가 아니면
+            //마우스를 눌렀을 때 선택한 오브젝트가 없거나 선택한 오브젝트가 타일이 아니면
+            
+            //Debug.Log("hitTransform.CompareTag(Tile)==" + hitTransform.CompareTag("Tile"));
+
             if (hitTransform == null || hitTransform.CompareTag("Tile") == false)
             {
                 if (TileSelect != null)
