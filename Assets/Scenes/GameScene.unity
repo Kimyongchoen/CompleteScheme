@@ -131,7 +131,7 @@ PrefabInstance:
     - target: {fileID: 2924921681358967474, guid: 5c5f15bcac06f8b4cacbbfada1cdc0f3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2924921681358967474, guid: 5c5f15bcac06f8b4cacbbfada1cdc0f3,
         type: 3}
@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 2977979}
   - component: {fileID: 2977978}
   m_Layer: 5
-  m_Name: DefenseUpInfo
+  m_Name: RecoveryUpInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -237,11 +237,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2019287297}
-  m_RootOrder: 8
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 179, y: 159.21}
+  m_AnchoredPosition: {x: -526.99994, y: 162.21002}
   m_SizeDelta: {x: 300, y: 103.58948}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2977978
@@ -286,7 +286,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2977979}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1484996106}
+        m_MethodName: SetRecoveryInfo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2977979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,11 +366,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2019287297}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -521, y: 162.21}
+  m_AnchoredPosition: {x: -182, y: 162.21002}
   m_SizeDelta: {x: 300, y: 103.58948}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &54947621
@@ -404,7 +415,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 54947622}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1484996106}
+        m_MethodName: SetAttackDamageUpInfo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &54947622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1319,7 +1341,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 384235929}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1691188937}
+        m_MethodName: SetMonster
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &384235929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1333,7 +1366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.45882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.49803922}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2114,7 +2147,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1977260005}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2854,7 +2887,7 @@ PrefabInstance:
     - target: {fileID: 2924921681358967474, guid: 5c5f15bcac06f8b4cacbbfada1cdc0f3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2924921681358967474, guid: 5c5f15bcac06f8b4cacbbfada1cdc0f3,
         type: 3}
@@ -3612,7 +3645,7 @@ MonoBehaviour:
   - monsterPoints: {fileID: 2114410012}
     monsterStats: {fileID: 11400000, guid: 6d621e2816937304b8626460acf2999e, type: 2}
     number: 1101
-  monsterHPSliderPrefab: {fileID: 3897780413018904377, guid: 6dd37bfe3067cee419f8e59d90a6d245,
+  monsterHPSliderPrefab: {fileID: 3897780413018904377, guid: 70dab8ee001303f43bcb09b31cc9c677,
     type: 3}
   canvasTransform: {fileID: 1977260005}
   ObjectPositionPrefab: {fileID: 1247309823852680911, guid: 3fc8a5d87a08a1042a35cd9e583a6df2,
@@ -4146,11 +4179,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2019287297}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -182, y: 162.21002}
+  m_AnchoredPosition: {x: 179, y: 151.79}
   m_SizeDelta: {x: 300, y: 103.58948}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &825187286
@@ -4195,7 +4228,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 825187287}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1484996106}
+        m_MethodName: SetDefenseUpInfo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &825187287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4246,7 +4290,7 @@ GameObject:
   - component: {fileID: 902457671}
   m_Layer: 0
   m_Name: Tilemap - Tile
-  m_TagString: Tile
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4812,7 +4856,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 916208541}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1484996106}
+        m_MethodName: SetMonsterInfo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &916208541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5354,7 +5409,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1977260005}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5753,7 +5808,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1977260005}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5829,11 +5884,11 @@ RectTransform:
   m_Children:
   - {fileID: 1703570154}
   m_Father: {fileID: 2019287297}
-  m_RootOrder: 7
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 179, y: 364}
+  m_AnchoredPosition: {x: -526.99994, y: 361}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1208498029
@@ -5860,7 +5915,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -5878,7 +5933,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1208498030}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1691188937}
+        m_MethodName: SetRecovery
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1208498030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5892,7 +5958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.45882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.49803922}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -6042,11 +6108,11 @@ RectTransform:
   m_Children:
   - {fileID: 399186940}
   m_Father: {fileID: 2019287297}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -521, y: 361}
+  m_AnchoredPosition: {x: -182, y: 361}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1211755791
@@ -6091,7 +6157,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1211755792}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1691188937}
+        m_MethodName: SetAttackDamageUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1211755792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6105,7 +6182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.45882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.49803922}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -6462,8 +6539,8 @@ Transform:
   m_LocalPosition: {x: -0.39, y: 0.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2904738}
   - {fileID: 581741087}
+  - {fileID: 2904738}
   - {fileID: 1399742364}
   - {fileID: 1274608258}
   - {fileID: 575036437}
@@ -6893,8 +6970,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD68C\uBCF5\n\n\uCCB4\uB825\uC758 50% \uB9CC\uD07C \uCCB4\uB825\uC744
-    \uD68C\uBCF5\uD55C\uB2E4.\n\uD68C\uBCF5\uD55C\uB2E4 \uD68C\uBCF5\n\uD68C\uBCF5\uD68C\uBCF5"
+  m_Text: 
 --- !u!222 &1340941356
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7472,10 +7548,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5cef4bf3ae8a65409be55fd132fd6c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TileInfomation: {fileID: 2020236806}
   TileInfomationText: {fileID: 1340941355}
-  MonsterInfomation: {fileID: 415205529}
-  MonsterInfomationText: {fileID: 1781079310}
+  TileRecoveryfrefab: {fileID: 8991373566182130110, guid: f923ec09466d3ce488317c9f4b16b2fd,
+    type: 3}
+  TileAttackDamageUpfrefab: {fileID: 8991373566182130110, guid: 11fdd80ee658cef408972a1e653a8943,
+    type: 3}
+  TileDefenseUpfrefab: {fileID: 8991373566182130110, guid: 93526238bdaf0f84e84ecd5003ff3a15,
+    type: 3}
+  TileMonsterfrefab: {fileID: 8991373566182130110, guid: e4cc3c3b9a4780e4bbe1764490605967,
+    type: 3}
 --- !u!4 &1484996107
 Transform:
   m_ObjectHideFlags: 0
@@ -8838,6 +8919,10 @@ MonoBehaviour:
   tileTabManager: {fileID: 1484996106}
   monsterTabManager: {fileID: 1102532643}
   playerTabManager: {fileID: 1237855922}
+  RecoveryBtn: {fileID: 1208498027}
+  AttackDamageUpBtn: {fileID: 1211755789}
+  DefenseUpBtn: {fileID: 2122677009}
+  MonsterBtn: {fileID: 384235926}
   TileList:
   - {fileID: 2904738}
   - {fileID: 581741087}
@@ -9405,7 +9490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1811873153
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10181,9 +10266,9 @@ RectTransform:
   - {fileID: 931041199}
   - {fileID: 1391050441}
   - {fileID: 1141847943}
+  - {fileID: 1174481973}
   - {fileID: 1034608156}
   - {fileID: 445925703}
-  - {fileID: 1174481973}
   - {fileID: 740274381}
   - {fileID: 482483593}
   - {fileID: 2106681966}
@@ -10426,7 +10511,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2019287297
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10441,12 +10526,12 @@ RectTransform:
   - {fileID: 118106115}
   - {fileID: 1857521511}
   - {fileID: 1417787269}
+  - {fileID: 1208498028}
+  - {fileID: 2977977}
   - {fileID: 1211755790}
   - {fileID: 54947620}
   - {fileID: 2122677010}
   - {fileID: 825187285}
-  - {fileID: 1208498028}
-  - {fileID: 2977977}
   - {fileID: 384235927}
   - {fileID: 916208539}
   - {fileID: 2020236805}
@@ -11075,11 +11160,11 @@ RectTransform:
   m_Children:
   - {fileID: 67313440}
   m_Father: {fileID: 2019287297}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -182, y: 364}
+  m_AnchoredPosition: {x: 178.99997, y: 361}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2122677011
@@ -11124,7 +11209,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2122677012}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1691188937}
+        m_MethodName: SetDefenseUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2122677012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11138,7 +11234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.45882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.49803922}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:

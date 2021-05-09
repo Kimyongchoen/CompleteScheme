@@ -16,8 +16,6 @@ public class TabManager : MonoBehaviour
     {
         for (int i =0; i < 4; i++)
         {
-            //Tab[i].SetActive(i == n);
-
             if (i == n)
             {
                 Tab[4].SetActive(false);

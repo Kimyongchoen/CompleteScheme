@@ -121,6 +121,10 @@ public class Monster : MonoBehaviour
     public void vampire(int demage)//데미지 흡혈
     {
         currentHP += demage;
+        if (currentHP > maxHP)
+        {
+            currentHP = maxHP;
+        }
     }
     private IEnumerator DemageTextView()
     {

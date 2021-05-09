@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8107108214511130795}
   - component: {fileID: 5377122692842387628}
-  - component: {fileID: 4024573801238687132}
-  - component: {fileID: 2456202335353052631}
+  - component: {fileID: 7246083087995900735}
+  - component: {fileID: -2263175172993144494}
   m_Layer: 5
   m_Name: SliderMonsterHP
   m_TagString: Untagged
@@ -90,19 +90,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4024573801238687132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3897780413018904377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8d1cad4ba6177a4b80f875f80c57cf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2456202335353052631
+--- !u!114 &7246083087995900735
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,6 +103,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: {x: 0, y: 20, z: 0}
+--- !u!114 &-2263175172993144494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3897780413018904377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8d1cad4ba6177a4b80f875f80c57cf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6341060357314496262
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,7 +176,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6597849015399062075}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []

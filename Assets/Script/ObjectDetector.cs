@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 
@@ -21,7 +22,14 @@ public class ObjectDetector : MonoBehaviour
     [SerializeField]
     private PlayerTabManager playerTabManager;
 
-
+    [SerializeField]
+    private GameObject RecoveryBtn;
+    [SerializeField]
+    private GameObject AttackDamageUpBtn;
+    [SerializeField]
+    private GameObject DefenseUpBtn;
+    [SerializeField]
+    private GameObject MonsterBtn;
 
     [SerializeField]
     private Transform[] TileList;//현재 생성되어있는 모든 타일
@@ -33,7 +41,8 @@ public class ObjectDetector : MonoBehaviour
     private Ray ray;
     private RaycastHit hit;
     private Transform hitTransform = null;//마우스 픽킹으로 선택한 오프젝트 임시저장
-    private GameObject TileSelect = null;
+    private GameObject TileSelectView = null;
+    private Transform TileSelect = null;
 
     private void Awake()
     {
@@ -52,8 +61,11 @@ public class ObjectDetector : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0)) 
             { 
-                if (TileSelect != null)
-                Destroy(TileSelect.gameObject);
+/*                if (TileSelectView != null)
+                {
+                    Destroy(TileSelectView.gameObject);
+                    TileSelect = null;
+                }*/
             }
             return;
         }
@@ -80,31 +92,32 @@ public class ObjectDetector : MonoBehaviour
                 //광선에 부딪힌 오브젝트의 태그가 "Tile" 이면
                 if (hit.transform.CompareTag("Tile"))
                 {
-                    if (TileSelect == null)
+                    if (TileSelectView == null)
                     {
-                        TileSelect = Instantiate(TileSelectfrefab);//Tile 선택 오브젝트 생성
+                        TileSelectView = Instantiate(TileSelectfrefab);//Tile 선택 오브젝트 생성
                     }
 
                     for (int i=0; TileList.Length > i; i++)
                     {
                         if (TileList[i].transform.position == hit.transform.position)
                         {
-                            TileSelect.transform.position = TileList[i].transform.position;//타일리스트에 있는 위치로 이동
-                            
+                            TileSelectView.transform.position = TileList[i].transform.position;//타일리스트에 있는 위치로 이동
+                            cameraManager.Setup(TileSelectView, false);//타일로 카메라 이동 
+                            tileManager = TileList[i].GetComponent<TileManager>();//TileList의 TileManager 컴포넌트
 
-                            cameraManager.Setup(TileSelect, false);//타일로 카메라 이동 
-
-                            tileManager = TileList[i].GetComponent<TileManager>();//TileSelect의 TileManager 컴포넌트
                             if (tileManager.getMonsterFlag()==0)//아무것도 없다면 (0)
                             {
                                 tabManager.TabClick(1);
+                                TileSelect = TileList[i];
 
-                                //Tile 관련 script 작성 에서 버튼 활성화
-
-                                //몬스터 생성 버튼 활성화 / 몬스터는 무제한
-                                //공격력 증가 버튼 활성화 / 공격력 증가 버프가 있는 경우
-                                //방어력 증가 버튼 활성화 / 방어력 증가 버프가 있는 경우 
                                 //회복 버튼 활성화 회복이 있는 경우
+                                btnColorChange(RecoveryBtn,1.0f);
+                                //공격력 증가 버튼 활성화 / 공격력 증가 버프가 있는 경우
+                                btnColorChange(AttackDamageUpBtn, 1.0f);
+                                //방어력 증가 버튼 활성화 / 방어력 증가 버프가 있는 경우
+                                btnColorChange(DefenseUpBtn, 1.0f);
+                                //몬스터 생성 버튼 활성화 / 몬스터는 무제한
+                                btnColorChange(MonsterBtn, 1.0f);
                             }
                             else if (tileManager.getMonsterFlag() == 1)//처음 생성되어있는 몬스터
                             {
@@ -121,37 +134,122 @@ public class ObjectDetector : MonoBehaviour
                             }
                             else if (tileManager.getMonsterFlag() == 4)//Player
                             {
+                                //플레이어 정보
                                 tabManager.TabClick(0);
                                 playerTabManager.SetPlayerInfomation(1);//기사 1
                             }
+
+                            if (tileManager.getMonsterFlag() != 0)//타일에 무언가 있다면 (! 0 )
+                            {
+                                //회복 버튼 비활성화 회복이 있는 경우
+                                btnColorChange(RecoveryBtn, 0.5f);
+                                //공격력 증가 버튼 비활성화
+                                btnColorChange(AttackDamageUpBtn, 0.5f);
+                                //방어력 증가 버튼 비활성화
+                                btnColorChange(DefenseUpBtn, 0.5f);
+                                //몬스터 생성 버튼 비활성화
+                                btnColorChange(MonsterBtn, 0.5f);
+
+                                //TileSelect 초기화
+                                TileSelect = null;
+                            }
                         }
                     }
-                    
+
                     //몬스터를 생성하는 SpawnTower()호출
                     //monsterSpawner.SpawnMonster(hit.transform);
                 }
+                else
+                {
+/*                    if (TileSelectView != null)
+                    {
+                        Destroy(TileSelectView.gameObject);
+                        TileSelect = null;
+                    }*/
+                }
 
+            }
+            else
+            {
+/*                if (TileSelectView != null)
+                {
+                    Destroy(TileSelectView.gameObject);
+                    TileSelect = null;
+                }*/
             }
         }
         else if (Input.GetMouseButtonUp(0))
         {
             //마우스를 눌렀을 때 선택한 오브젝트가 없거나 선택한 오브젝트가 타일이 아니면
-            
-            //Debug.Log("hitTransform.CompareTag(Tile)==" + hitTransform.CompareTag("Tile"));
-
             if (hitTransform == null || hitTransform.CompareTag("Tile") == false)
             {
-                if (TileSelect != null)
-                    Destroy(TileSelect.gameObject);
 
-                //타워 정보 패널을 비활성화 한다
-                //towerDataViewer.OffPanel();
             }
-
-            hitTransform = null;
+            
         }
 
+
+        
     }
+    
+    //회복 배치
+    public void SetRecovery()
+    {
+        if (TileSelect != null)
+        {
+            tileTabManager.SetRecovery(TileSelect);
+        }
+        else
+        {
+            Debug.Log("선택된 Tile이 없습니다.");
+        }
+    }
+
+    //공격력 증가 배치
+    public void SetAttackDamageUp()
+    {
+        if (TileSelect != null)
+        {
+            tileTabManager.SetAttackDamageUp(TileSelect);
+        }
+        else
+        {
+            Debug.Log("선택된 Tile이 없습니다.");
+        }
+    }
+    //공격력 증가 배치
+    public void SetDefenseUp()
+    {
+        if (TileSelect != null)
+        {
+            tileTabManager.SetDefenseUp(TileSelect);
+        }
+        else
+        {
+            Debug.Log("선택된 Tile이 없습니다.");
+        }
+    }
+    //공격력 증가 배치
+    public void SetMonster()
+    {
+        if (TileSelect != null)
+        {
+            tileTabManager.SetMonster(TileSelect);
+        }
+        else
+        {
+            Debug.Log("선택된 Tile이 없습니다.");
+        }
+    }
+
+    public void btnColorChange(GameObject btngameObject,float colorf)
+    {
+        Color color = btngameObject.GetComponentInChildren<Image>().color;
+        color.a = colorf;
+        btngameObject.GetComponentInChildren<Image>().color = color;
+    }
+
+    
     /*
      * file : ObjectDetector.cs
      * 

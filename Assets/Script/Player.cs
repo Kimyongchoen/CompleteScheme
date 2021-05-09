@@ -257,6 +257,11 @@ public class Player : MonoBehaviour
     public void vampire(int demage)//데미지 흡혈
     {
         currentHP += demage;
+
+        if (currentHP > maxHP)
+        {
+            currentHP = maxHP;
+        }
     }
 
     public void GoldExperience(float gold , float experience)//경험치 골드 획득
@@ -319,4 +324,35 @@ public class Player : MonoBehaviour
         yield return null;
 
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("buff"))
+        {
+            int BuffStats = collision.GetComponent<Buff>().getBuffStats();
+            float BuffValue = collision.GetComponent<Buff>().getBuffValue();
+
+            if (BuffStats == 1)// 1 회복 
+            {
+                currentHP += maxHP * BuffValue; //최대 체력의 BuffValue % 회복
+
+                if (currentHP > maxHP)
+                    currentHP = maxHP;
+
+                Destroy(collision.gameObject);
+            } 
+            else if (BuffStats == 2)//2 공격력 증가(시간초? 코루틴)
+            {
+
+            } 
+            else if (BuffStats == 3)//3 방어력 증가(시간초? 코루틴)
+            {
+
+            }
+
+            
+        }
+
+    }
+
 }
