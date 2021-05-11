@@ -533,7 +533,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 01
+  m_Text: 00
 --- !u!222 &67313442
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1553,7 +1553,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 01
+  m_Text: 00
 --- !u!222 &399186942
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7050,7 +7050,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 99
+  m_Text: 00
 --- !u!222 &1374062788
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8927,6 +8927,11 @@ MonoBehaviour:
   AttackDamageUpBtn: {fileID: 1211755789}
   DefenseUpBtn: {fileID: 2122677009}
   MonsterBtn: {fileID: 384235926}
+  RecoveryCnt: {fileID: 1703570155}
+  AttackDamageUpCnt: {fileID: 399186941}
+  DefenseUpCnt: {fileID: 67313441}
+  MonsterCnt: {fileID: 1374062787}
+  ItemStats: {fileID: 11400000, guid: 20f984c5d5d968d4881bc4b38e264f54, type: 2}
   TileList:
   - {fileID: 2904738}
   - {fileID: 581741087}
@@ -9028,7 +9033,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 02
+  m_Text: 00
 --- !u!222 &1703570156
 CanvasRenderer:
   m_ObjectHideFlags: 0
