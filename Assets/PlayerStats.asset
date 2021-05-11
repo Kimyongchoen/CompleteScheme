@@ -30,5 +30,5 @@ MonoBehaviour:
     vampire: 0
     experienceBonus: 0
     goldBonus: 0
-    experience: 0
-    gold: 0
+    experience: 1160
+    gold: 1160

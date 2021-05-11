@@ -12,6 +12,8 @@ public class ObjectDetector : MonoBehaviour
     [SerializeField]
     private GameObject TileSelectfrefab;
     [SerializeField]
+    private GameObject RemoveBtnfrefab;
+    [SerializeField]
     private TabManager tabManager;
     [SerializeField]
     private CameraManager cameraManager;
@@ -42,6 +44,7 @@ public class ObjectDetector : MonoBehaviour
     private RaycastHit hit;
     private Transform hitTransform = null;//마우스 픽킹으로 선택한 오프젝트 임시저장
     private GameObject TileSelectView = null;
+    private GameObject RemoveBtn = null;
     private Transform TileSelect = null;
 
     private void Awake()
@@ -72,6 +75,15 @@ public class ObjectDetector : MonoBehaviour
 
         if (cameraManager.getGameStartFlag()) //게임시작하면 기능 정지
         {
+            if (TileSelectView != null)//게임시작하면 선택된 Tile삭제
+            {
+                Destroy(TileSelectView.gameObject);
+                TileSelect = null;
+            }
+            if (RemoveBtn != null)//게임시작하면 회수버튼 삭제
+            {
+                Destroy(RemoveBtn.gameObject);
+            }
             return;
         }
         
@@ -96,7 +108,10 @@ public class ObjectDetector : MonoBehaviour
                     {
                         TileSelectView = Instantiate(TileSelectfrefab);//Tile 선택 오브젝트 생성
                     }
-
+                    if (RemoveBtn == null)
+                    {
+                        RemoveBtn = Instantiate(RemoveBtnfrefab);//제거버튼 오브젝트 생성
+                    }
                     for (int i=0; TileList.Length > i; i++)
                     {
                         if (TileList[i].transform.position == hit.transform.position)
@@ -111,32 +126,46 @@ public class ObjectDetector : MonoBehaviour
                                 TileSelect = TileList[i];
 
                                 //회복 버튼 활성화 회복이 있는 경우
-                                btnColorChange(RecoveryBtn,1.0f);
+                                btnColorChange(RecoveryBtn, 1.0f);
                                 //공격력 증가 버튼 활성화 / 공격력 증가 버프가 있는 경우
                                 btnColorChange(AttackDamageUpBtn, 1.0f);
                                 //방어력 증가 버튼 활성화 / 방어력 증가 버프가 있는 경우
                                 btnColorChange(DefenseUpBtn, 1.0f);
                                 //몬스터 생성 버튼 활성화 / 몬스터는 무제한
                                 btnColorChange(MonsterBtn, 1.0f);
+                                if (RemoveBtn!=null)
+                                {
+                                    Destroy(RemoveBtn.gameObject);
+                                }
                             }
                             else if (tileManager.getMonsterFlag() == 1)//처음 생성되어있는 몬스터
                             {
                                 tabManager.TabClick(2);
                                 monsterTabManager.SetMonsterInfomation(tileManager.getnumber());
+                                if (RemoveBtn != null)
+                                {
+                                    Destroy(RemoveBtn.gameObject);
+                                }
                             }
                             else if (tileManager.getMonsterFlag() == 2)//사용자가 추가한 몬스터
                             {
-
+                                tabManager.TabClick(1);
+                                SetRemoveBtn();//타일리스트에 있는 위치로 이동
                             }
-                            else if (tileManager.getMonsterFlag() == 3)//사용자가 버프 회복
+                            else if (tileManager.getMonsterFlag() == 3)//사용자가 추가한 버프 회복
                             {
-
+                                tabManager.TabClick(1);
+                                SetRemoveBtn();//타일리스트에 있는 위치로 이동
                             }
                             else if (tileManager.getMonsterFlag() == 4)//Player
                             {
                                 //플레이어 정보
                                 tabManager.TabClick(0);
                                 playerTabManager.SetPlayerInfomation(1);//기사 1
+                                if (RemoveBtn != null)
+                                {
+                                    Destroy(RemoveBtn.gameObject);
+                                }
                             }
 
                             if (tileManager.getMonsterFlag() != 0)//타일에 무언가 있다면 (! 0 )
@@ -159,23 +188,62 @@ public class ObjectDetector : MonoBehaviour
                     //몬스터를 생성하는 SpawnTower()호출
                     //monsterSpawner.SpawnMonster(hit.transform);
                 }
-                else
+                else if (hit.transform.CompareTag("RemoveBtn"))
                 {
-/*                    if (TileSelectView != null)
-                    {
-                        Destroy(TileSelectView.gameObject);
-                        TileSelect = null;
-                    }*/
-                }
 
+                    for (int i = 0; TileList.Length > i; i++)
+                    {
+                        if (TileList[i].transform.position + Vector3.down * 0.5f == hit.transform.position)
+                        {
+                            tileManager = TileList[i].GetComponent<TileManager>();//TileList의 TileManager 컴포넌트
+
+                            // 2 배치한 몬스터 3 회복 / 버프(1 회복 2 공격력 증가 3 방어력 증가)
+
+                            if (tileManager.getMonsterFlag() == 2)//사용자가 추가한 몬스터
+                            {
+                                Destroy(tileManager.getgameObject());//제거
+                            }
+                            else if (tileManager.getMonsterFlag() == 3)//사용자가 추가한 버프 회복
+                            {
+                                if (tileManager.getnumber() == 1)//회복
+                                {
+                                    Destroy(tileManager.getgameObject());//제거
+                                }
+                                else if (tileManager.getnumber() == 2)//공격력 증가
+                                {
+                                    Destroy(tileManager.getgameObject()); //제거
+                                }
+                                else if (tileManager.getnumber() == 3)//방어력 증가
+                                {
+                                    Destroy(tileManager.getgameObject());  //제거
+                                }
+                            }
+
+                            if (TileSelectView != null)
+                            {
+                                Destroy(TileSelectView.gameObject);
+                                TileSelect = null;
+                            }
+                            if (RemoveBtn != null)
+                            {
+                                Destroy(RemoveBtn.gameObject);
+                            }
+                            tileManager.setMonsterFlag(0, 0, null);//아무것도 없음으로 세팅
+                        }
+                    }
+                }
             }
             else
             {
-/*                if (TileSelectView != null)
+                if (TileSelectView != null)
                 {
                     Destroy(TileSelectView.gameObject);
                     TileSelect = null;
-                }*/
+                }
+                if (RemoveBtn != null)
+                {
+                    Destroy(RemoveBtn.gameObject);
+                }
             }
         }
         else if (Input.GetMouseButtonUp(0))
@@ -191,13 +259,19 @@ public class ObjectDetector : MonoBehaviour
 
         
     }
-    
+
     //회복 배치
     public void SetRecovery()
     {
         if (TileSelect != null)
         {
+            if (RemoveBtn == null)
+            {
+                RemoveBtn = Instantiate(RemoveBtnfrefab);//제거버튼 오브젝트 생성
+            }
+            SetRemoveBtn();
             tileTabManager.SetRecovery(TileSelect);
+
         }
         else
         {
@@ -210,6 +284,11 @@ public class ObjectDetector : MonoBehaviour
     {
         if (TileSelect != null)
         {
+            if (RemoveBtn == null)
+            {
+                RemoveBtn = Instantiate(RemoveBtnfrefab);//제거버튼 오브젝트 생성
+            }
+            SetRemoveBtn();
             tileTabManager.SetAttackDamageUp(TileSelect);
         }
         else
@@ -217,11 +296,16 @@ public class ObjectDetector : MonoBehaviour
             Debug.Log("선택된 Tile이 없습니다.");
         }
     }
-    //공격력 증가 배치
+    //방어력 증가 배치
     public void SetDefenseUp()
     {
         if (TileSelect != null)
         {
+            if (RemoveBtn == null)
+            {
+                RemoveBtn = Instantiate(RemoveBtnfrefab);//제거버튼 오브젝트 생성
+            }
+            SetRemoveBtn();
             tileTabManager.SetDefenseUp(TileSelect);
         }
         else
@@ -229,11 +313,16 @@ public class ObjectDetector : MonoBehaviour
             Debug.Log("선택된 Tile이 없습니다.");
         }
     }
-    //공격력 증가 배치
+    //몬스터 배치
     public void SetMonster()
     {
         if (TileSelect != null)
         {
+            if (RemoveBtn == null)
+            {
+                RemoveBtn = Instantiate(RemoveBtnfrefab);//제거버튼 오브젝트 생성
+            }
+            SetRemoveBtn();
             tileTabManager.SetMonster(TileSelect);
         }
         else
@@ -249,7 +338,22 @@ public class ObjectDetector : MonoBehaviour
         btngameObject.GetComponentInChildren<Image>().color = color;
     }
 
-    
+    //회수 버튼 생성
+    public void SetRemoveBtn()
+    {
+        RemoveBtn.transform.position = TileSelectView.transform.position + Vector3.down * 0.5f;
+        RemoveBtn.transform.position = new Vector3 (RemoveBtn.transform.position.x, RemoveBtn.transform.position.y , 0);
+        
+        //회복 버튼 비활성화
+        btnColorChange(RecoveryBtn, 0.5f);
+        //공격력 증가 버튼 비활성화
+        btnColorChange(AttackDamageUpBtn, 0.5f);
+        //방어력 증가 버튼 비활성화
+        btnColorChange(DefenseUpBtn, 0.5f);
+        //몬스터 생성 버튼 비활성화
+        btnColorChange(MonsterBtn, 0.5f);
+    }
+
     /*
      * file : ObjectDetector.cs
      * 

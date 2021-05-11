@@ -8,6 +8,7 @@ TagManager:
   - monster
   - Tile
   - buff
+  - RemoveBtn
   layers:
   - Default
   - TransparentFX

@@ -22,6 +22,12 @@ public class PlayerSpawner : MonoBehaviour
     public CameraManager cameraManager;
     [SerializeField]
     public Image imageScreenRed;//플레이어 hp20%미만일때 표시
+    [SerializeField]
+    private TabManager tabManager;
+
+    [SerializeField]
+    public PlayerTabManager playerTabManager;//플레이어 정보 표시
+    
 
     public PlayerStats.Stats playerStats; // 플레이어 정보 ( 공격력, 체력, 방어력 등)
 
@@ -43,12 +49,14 @@ public class PlayerSpawner : MonoBehaviour
         player.Setup(this, wayPoints);
 
         TileManager tileManager = wayPoints[0].GetComponent<TileManager>();//TileSelect의 TileManager 컴포넌트
-        tileManager.setMonsterFlag(4, 0); //몬스터 생성 타일에 stats를 1로 세팅
+        tileManager.setMonsterFlag(4, 0, player.gameObject); //몬스터 생성 타일에 stats를 1로 세팅
 
     }
 
     private IEnumerator SpawnPlayer()
     {
+        tabManager.TabClick(0);
+
         MainCameraColtroll(clone);
         //카메라 체력바 위치바 세팅 1초후 이동
         yield return new WaitForSeconds(1f);

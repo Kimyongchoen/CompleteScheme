@@ -20,18 +20,24 @@ public class Player : MonoBehaviour
     private bool criticalFlag;//크리티컬인지 확인
     private Transform canvasTransform; // UI를 표현하는 canvas 오브젝트의 transform
 
+    private int attackDamageMax; //공격력 최대값
+    private int attackDamageMin; //공격력 최소값
+    private int defense; //방어력
+
     private float experienceBonus;//경험치 획득 %
     private float goldBonus;//골드 획득 %
 
     [SerializeField]
     private TextMeshProUGUI DemageTextPrefab;//몬스터가 입는 데미지 prefab
 
+    private PlayerTabManager playerTabManager;
+
     private Image imageScreenRed;//몬스터가 입는 데미지 prefab
 
     public PlayerSpawner playerSpawner;
 
     private Animator animator; // 케릭터 애니메이션
-    
+
     private Vector2 PlayerPosition; //케릭터 이동
     float DirX = 0f; //케릭터 이동
     float DirY = 0f; //케릭터 이동
@@ -60,6 +66,12 @@ public class Player : MonoBehaviour
         this.goldBonus = playerSpawner.playerStats.goldBonus * 0.01f;//몬스터 처치시 얻는 골드 %로 변경
 
         this.imageScreenRed = playerSpawner.imageScreenRed;
+
+        this.playerTabManager = playerSpawner.playerTabManager;
+
+        this.attackDamageMax = playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMax;
+        this.attackDamageMin = playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMin;
+        this.defense = playerSpawner.playerStatsScriptableObject.stats[0].defense;
 
         maxHP = playerSpawner.playerStats.health;
         currentHP = maxHP;
@@ -186,12 +198,12 @@ public class Player : MonoBehaviour
         {
             StopCoroutine("HitAlphaAnimation");
         }
-        
+
         StartCoroutine("DemageTextView");
 
         if (maxHP * 0.2f > currentHP)
         {
-            StartCoroutine("ImageScreenRed"); 
+            StartCoroutine("ImageScreenRed");
         }
 
 
@@ -200,6 +212,7 @@ public class Player : MonoBehaviour
             OnDie();
         }
 
+        playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1
     }
 
     private IEnumerator HitAlphaAnimation()
@@ -251,7 +264,7 @@ public class Player : MonoBehaviour
             yield return null;
         }
 
-        
+
     }
 
     public void vampire(int demage)//데미지 흡혈
@@ -262,9 +275,10 @@ public class Player : MonoBehaviour
         {
             currentHP = maxHP;
         }
+        playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1
     }
 
-    public void GoldExperience(float gold , float experience)//경험치 골드 획득
+    public void GoldExperience(float gold, float experience)//경험치 골드 획득
     {
         if (goldBonus > 0)
             gold += gold * goldBonus;
@@ -273,6 +287,8 @@ public class Player : MonoBehaviour
 
         playerSpawner.playerStatsScriptableObject.stats[0].gold += gold;
         playerSpawner.playerStatsScriptableObject.stats[0].experience += experience;
+     
+        playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1
     }
 
 
@@ -299,12 +315,12 @@ public class Player : MonoBehaviour
             {
                 DemageText.text = demage.ToString();
             }
-            
-            if (addedDamage>0) //추가 데미지가 있으면 표기
+
+            if (addedDamage > 0) //추가 데미지가 있으면 표기
             {
-                DemageText.text = (demage- addedDamage).ToString() + " + " + addedDamage.ToString();
+                DemageText.text = (demage - addedDamage).ToString() + " + " + addedDamage.ToString();
             }
-            
+
         }
         else
         {
@@ -325,9 +341,10 @@ public class Player : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)//캐릭터 충돌 제어
     {
-        if (collision.CompareTag("buff"))
+        if (collision.CompareTag("buff"))//충돌된 대상이 버프 일 경우
         {
             int BuffStats = collision.GetComponent<Buff>().getBuffStats();
             float BuffValue = collision.GetComponent<Buff>().getBuffValue();
@@ -340,19 +357,83 @@ public class Player : MonoBehaviour
                     currentHP = maxHP;
 
                 Destroy(collision.gameObject);
-            } 
+            }
             else if (BuffStats == 2)//2 공격력 증가(시간초? 코루틴)
             {
-
-            } 
+                StartCoroutine("AttackDamageUp");
+                Destroy(collision.gameObject);
+            }
             else if (BuffStats == 3)//3 방어력 증가(시간초? 코루틴)
             {
-
+                StartCoroutine("DefenseUp");
+                Destroy(collision.gameObject);
             }
 
-            
+
         }
 
     }
 
+    private IEnumerator AttackDamageUp()
+    {
+        int attackDamageMax = playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMax;
+        int attackDamageMin = playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMin;
+
+        if (attackDamageMin == 0)
+        {
+            //30 % 공격력 증가
+            playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMin = 1;
+        }
+        else if (attackDamageMin <= 4)
+        {
+            //30 % 공격력 증가
+            playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMin = attackDamageMin + 1;
+        }
+        else
+        {
+            //30 % 공격력 증가
+            playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMin = (int)((float)attackDamageMin * 1.3f);
+        }
+
+        //30 % 공격력 증가
+        playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMax = (int)((float)attackDamageMax * 1.3f);
+        playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1
+        
+        yield return new WaitForSeconds(10f);//10초동안 공격력 UP
+        
+        playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMax = this.attackDamageMax;
+        playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMin = this.attackDamageMin;
+        playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1
+        
+        yield return null;
+    }
+    private IEnumerator DefenseUp()
+    {
+
+        int defense = playerSpawner.playerStatsScriptableObject.stats[0].defense;
+        
+        if(defense == 0)
+        {
+            //30% 방어력 증가
+            playerSpawner.playerStatsScriptableObject.stats[0].defense = 1;
+        }
+        else if (defense <= 4)
+        {
+            //30% 방어력 증가
+            playerSpawner.playerStatsScriptableObject.stats[0].defense = defense + 1;
+        }
+        else
+        {
+            //30% 방어력 증가
+            playerSpawner.playerStatsScriptableObject.stats[0].defense = (int)((float)defense * 1.3f);
+        }
+        playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1
+
+        yield return new WaitForSeconds(10f);//10초동안 방어력 UP
+
+        playerSpawner.playerStatsScriptableObject.stats[0].defense = this.defense;
+        playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1
+
+        yield return null;
+    }
 }

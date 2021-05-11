@@ -143,7 +143,7 @@ public class CameraManager : MonoBehaviour
             //scrren out 방지
             if (MoveFlag != true)
             {
-                if (transform.position.x < -1.2f)
+                /*if (transform.position.x < -1.2f)
                 {
                     float ScreenMove = transform.position.x;
                     ScreenMove += 0.4f;
@@ -166,7 +166,7 @@ public class CameraManager : MonoBehaviour
                     float ScreenMove = transform.position.y;
                     ScreenMove -= 0.2f;
                     transform.position = new Vector3(transform.position.x, ScreenMove, transform.position.z);
-                }
+                }*/
                
 
                 //화면 줌인 줌아웃시 원래 값으로 되돌림

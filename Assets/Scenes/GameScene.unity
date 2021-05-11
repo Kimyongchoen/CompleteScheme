@@ -3212,6 +3212,8 @@ MonoBehaviour:
     type: 3}
   cameraManager: {fileID: 519420030}
   imageScreenRed: {fileID: 2144446443}
+  tabManager: {fileID: 1841264091}
+  playerTabManager: {fileID: 1237855922}
   playerStats:
     PlayerPrefab: {fileID: 4095418724830420596, guid: d9fb9e290afecb14685283f69e0b84d7,
       type: 3}
@@ -8914,6 +8916,8 @@ MonoBehaviour:
   monsterSpawner: {fileID: 721929111}
   TileSelectfrefab: {fileID: 7127637020146996719, guid: efde26af9780516408fc769543e0ba78,
     type: 3}
+  RemoveBtnfrefab: {fileID: 7741926534339791051, guid: 6bbdcd4621423d24aacd87b4c7fa2a98,
+    type: 3}
   tabManager: {fileID: 1841264091}
   cameraManager: {fileID: 519420030}
   tileTabManager: {fileID: 1484996106}
@@ -11457,6 +11461,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1.6279552
+      objectReference: {fileID: 0}
+    - target: {fileID: 8497355676312042209, guid: d743f48204f428f44a64688c4dc5deb5,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8497355676312042209, guid: d743f48204f428f44a64688c4dc5deb5,
         type: 3}

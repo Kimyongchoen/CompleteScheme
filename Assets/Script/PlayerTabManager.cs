@@ -24,6 +24,8 @@ public class PlayerTabManager : MonoBehaviour
     public Text experience;
     public Text gold;
 
+    private int hp;
+
     public PlayerStats playerStats_temp;
     private PlayerStats.Stats playerStats;
 
@@ -32,20 +34,28 @@ public class PlayerTabManager : MonoBehaviour
     private void Awake()
     {
         playerStats = playerStats_temp.stats[0];
-        ChangeMonsterInfomation(1);//처음 세팅
+        this.hp = playerStats_temp.stats[0].health;
+        ChangeMonsterInfomation(1);//처음 세팅 기사
     }
 
     public void SetPlayerInfomation(int PlayerNum)
     {
+        playerStats = playerStats_temp.stats[0];
+        this.hp = playerStats_temp.stats[0].health;
         ChangeMonsterInfomation(PlayerNum);
     }
-
+    public void SetPlayerInfomation(int PlayerNum , int hp)
+    {
+        playerStats = playerStats_temp.stats[0];
+        this.hp = hp;
+        ChangeMonsterInfomation(PlayerNum);
+    }
     public void ChangeMonsterInfomation(int PlayerNum)
     {
         Playername.text = "플레이어 이름 : " + playerStats.Playername; // 레벨
         level.text = "level : " + playerStats.level; // 레벨
         attackDamage.text = "공력력 : " + playerStats.attackDamageMin.ToString() + " - " + playerStats.attackDamageMax.ToString(); //공격력
-        health.text = "체력 : " + playerStats.health.ToString();//체력
+        health.text = "체력 : " + hp.ToString() + " / " + playerStats.health.ToString();//체력
         defense.text = "방어력 : " + playerStats.defense.ToString();//방어력
         attackSpeed.text = "공격속도 : " + playerStats.attackSpeed.ToString(); //공격속도
         attackRange.text = "공격범위 : " + playerStats.attackRange.ToString(); //공격범위
