@@ -3213,6 +3213,7 @@ MonoBehaviour:
   cameraManager: {fileID: 519420030}
   imageScreenRed: {fileID: 2144446443}
   tabManager: {fileID: 1841264091}
+  objectDetector: {fileID: 1691188937}
   playerTabManager: {fileID: 1237855922}
   playerStats:
     PlayerPrefab: {fileID: 4095418724830420596, guid: d9fb9e290afecb14685283f69e0b84d7,

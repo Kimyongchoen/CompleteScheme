@@ -23,7 +23,11 @@ public class PlayerSpawner : MonoBehaviour
     [SerializeField]
     public Image imageScreenRed;//플레이어 hp20%미만일때 표시
     [SerializeField]
-    private TabManager tabManager;
+    private TabManager tabManager;//플레이어 탭
+    [SerializeField]
+    private ObjectDetector objectDetector;//몬스터 랜덤생성
+
+    
 
     [SerializeField]
     public PlayerTabManager playerTabManager;//플레이어 정보 표시
@@ -52,18 +56,29 @@ public class PlayerSpawner : MonoBehaviour
         tileManager.setMonsterFlag(4, 0, player.gameObject); //몬스터 생성 타일에 stats를 1로 세팅
 
     }
-
+    public void GameStart()
+    {
+        if (Playing == false)
+        {
+            StartCoroutine("SpawnPlayer");
+            //현재 웨이브 시작
+            Playing = true;
+        }
+    }
     private IEnumerator SpawnPlayer()
     {
+        objectDetector.RandomMonsterChange();
+
         tabManager.TabClick(0);
 
+        yield return new WaitForSeconds(3f);
         MainCameraColtroll(clone);
-        //카메라 체력바 위치바 세팅 1초후 이동
-        yield return new WaitForSeconds(1f);
+        //카메라 이동
 
-        //플레이어 Slider , Position 표시
+        yield return new WaitForSeconds(1f);
+        //플레이어 Slider 표시
         SpawnPlayerHPSlider(clone);
-        //ObjectPosition(clone);
+        //ObjectPosition(clone);//좌표값 표시
 
         yield return new WaitForSeconds(0.3f);
         //몬스터 Slider , Position 표시
@@ -77,15 +92,6 @@ public class PlayerSpawner : MonoBehaviour
         yield return null;
     }
 
-    public void GameStart()
-    {
-        if (Playing == false)
-        {
-            StartCoroutine("SpawnPlayer");
-            //현재 웨이브 시작
-            Playing = true;
-        }
-    }
     public void DestroyMonster(Player player)
     {
         //플레이어 오브젝트 삭제

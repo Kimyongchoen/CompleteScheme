@@ -76,9 +76,10 @@ public class ObjectDetector : MonoBehaviour
         //마우스가 UI에 머물러 있을 때는 아래 코드가 실행되지 않도록 함
         if (EventSystem.current.IsPointerOverGameObject() == true)
         {
-            if (Input.GetMouseButtonDown(0)) 
-            { 
-/*                if (TileSelectView != null)
+            if (Input.GetMouseButtonDown(0))
+            {
+                /*
+                if (TileSelectView != null)
                 {
                     Destroy(TileSelectView.gameObject);
                     TileSelect = null;
@@ -100,7 +101,7 @@ public class ObjectDetector : MonoBehaviour
             }
             return;
         }
-        
+
         //마우스 왼쪽 버튼 눌렀을때
         if (Input.GetMouseButtonDown(0))
         {
@@ -114,7 +115,7 @@ public class ObjectDetector : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 hitTransform = hit.transform;
-                
+
                 //광선에 부딪힌 오브젝트의 태그가 "Tile" 이면
                 if (hit.transform.CompareTag("Tile"))
                 {
@@ -126,7 +127,7 @@ public class ObjectDetector : MonoBehaviour
                     {
                         RemoveBtn = Instantiate(RemoveBtnfrefab);//제거버튼 오브젝트 생성
                     }
-                    for (int i=0; TileList.Length > i; i++)
+                    for (int i = 0; TileList.Length > i; i++)
                     {
                         if (TileList[i].transform.position == hit.transform.position)
                         {
@@ -134,11 +135,11 @@ public class ObjectDetector : MonoBehaviour
                             cameraManager.Setup(TileSelectView, false);//타일로 카메라 이동 
                             tileManager = TileList[i].GetComponent<TileManager>();//TileList의 TileManager 컴포넌트
 
-                            if (tileManager.getMonsterFlag()==0)//아무것도 없다면 (0)
+                            if (tileManager.getMonsterFlag() == 0)//아무것도 없다면 (0)
                             {
                                 tabManager.TabClick(1);
                                 TileSelect = TileList[i];
-                                
+
                                 if (ItemStats.RecoveryCnt > 0) //회복 버튼 활성화 회복이 있는 경우
                                 {
                                     btnColorChange(RecoveryBtn, 1.0f);
@@ -156,7 +157,7 @@ public class ObjectDetector : MonoBehaviour
                                     btnColorChange(MonsterBtn, 1.0f);
                                 }
 
-                                if (RemoveBtn!=null)
+                                if (RemoveBtn != null)
                                 {
                                     Destroy(RemoveBtn.gameObject);
                                 }
@@ -207,9 +208,6 @@ public class ObjectDetector : MonoBehaviour
                             }
                         }
                     }
-
-                    //몬스터를 생성하는 SpawnTower()호출
-                    //monsterSpawner.SpawnMonster(hit.transform);
                 }
                 else if (hit.transform.CompareTag("RemoveBtn"))
                 {
@@ -280,11 +278,11 @@ public class ObjectDetector : MonoBehaviour
             {
 
             }
-            
+
         }
 
 
-        
+
     }
 
     //회복 배치
@@ -391,7 +389,7 @@ public class ObjectDetector : MonoBehaviour
 
     }
 
-    public void btnColorChange(GameObject btngameObject,float colorf)
+    public void btnColorChange(GameObject btngameObject, float colorf)
     {
         Color color = btngameObject.GetComponentInChildren<Image>().color;
         color.a = colorf;
@@ -402,8 +400,8 @@ public class ObjectDetector : MonoBehaviour
     public void SetRemoveBtn()
     {
         RemoveBtn.transform.position = TileSelectView.transform.position + Vector3.down * 0.5f;
-        RemoveBtn.transform.position = new Vector3 (RemoveBtn.transform.position.x, RemoveBtn.transform.position.y , 0);
-        
+        RemoveBtn.transform.position = new Vector3(RemoveBtn.transform.position.x, RemoveBtn.transform.position.y, 0);
+
         //회복 버튼 비활성화
         btnColorChange(RecoveryBtn, 0.5f);
         //공격력 증가 버튼 비활성화
@@ -420,6 +418,22 @@ public class ObjectDetector : MonoBehaviour
         AttackDamageUpCnt.text = ItemStats.AttackDamageUpCnt.ToString();
         DefenseUpCnt.text = ItemStats.DefenseUpCnt.ToString();
         MonsterCnt.text = ItemStats.MonsterCnt.ToString();
+    }
+
+    public void RandomMonsterChange()
+    {
+        for (int i = 0; TileList.Length > i; i++)
+        {
+            tileManager = TileList[i].GetComponent<TileManager>();//TileList의 TileManager 컴포넌트
+
+            if (tileManager.getMonsterFlag() == 2)//배치한 몬스터이면
+            {
+                int RandomNumber = Random.Range(0, 5);// 0 ~ 4 까지 랜덤한 숫자 전달
+                //몬스터를 생성하는 SpawnMonster()호출
+                monsterSpawner.SpawnMonster(tileManager.transform, RandomNumber);
+                Destroy(tileManager.getgameObject());//제거
+            }
+        }
     }
 
     /*

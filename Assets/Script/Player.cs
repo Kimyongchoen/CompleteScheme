@@ -246,6 +246,7 @@ public class Player : MonoBehaviour
             spriteRenderer.color = color;
             yield return new WaitForSeconds(0.1f);
         }
+        this.playerSpawner.cameraManager.Setup(null, true);
 
         yield return null;
     }

@@ -84,11 +84,11 @@ public class MonsterSpawner : MonoBehaviour
         yield return null;
     }
 
-    public void SpawnMonster(Transform transform)
+    public void SpawnMonster(Transform transform, int MonsterNumber)
     {
-        MonsterStats.Stats monsterstats = startMonsterSpawners[0].monsterStats.stats[0];
+        MonsterStats.Stats monsterstats = startMonsterSpawners[0].monsterStats.stats[MonsterNumber];
 
-        GameObject clone = Instantiate(monsterstats.MonsterPrefab);//플레이어 오브젝트 생성
+        GameObject clone = Instantiate(monsterstats.MonsterPrefab);//몬스터 오브젝트 생성
         Monster monster = clone.GetComponent<Monster>();//방금 생성된 몬스터의 Monster 컴포넌트
 
         //몬스터 생성자, 몬스터 생성위치, 몬스터 정보 전달
