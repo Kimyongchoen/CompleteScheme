@@ -8,7 +8,7 @@ public class PlayerAttack : MonoBehaviour
     private GameObject AttackPrefab; //공격 프리펩
     [SerializeField]
     private Transform spawnPoint;//발사체 생성위치
-    
+
     private float attackSpeed;//공격속도
     private float attackRange;//공격범위
     
@@ -145,20 +145,42 @@ public class PlayerAttack : MonoBehaviour
     {
         GameObject clone = Instantiate(AttackPrefab, spawnPoint.position, Quaternion.identity);
 
-        int demage = Random.Range(playerStats.attackDamageMin, playerStats.attackDamageMax + 1); //플레이어의 데미지
+        int attackDamageMin = playerStats.attackDamageMin;
+        int attackDamageMax = playerStats.attackDamageMax;
+        float criticalChance = playerStats.criticalChance;
+        float criticalDamagema = playerStats.criticalDamagema;
+        int defense = attackTarget.monsterStats.defense;
+        float vampire = playerStats.vampire;
+
+        if (playerStats.weapon >= 0)//무기 강화에 따른 데미지 UP 무기가 없으면 -1
+        {
+            attackDamageMin += player.ItemStats.weapon[playerStats.weapon];
+            attackDamageMax += player.ItemStats.weapon[playerStats.weapon];
+        }
+
+        //버프에 의한 데미지 UP
+        attackDamageMin += player.ItemStats.AttackDamageUp;
+        attackDamageMax += player.ItemStats.AttackDamageUp;
+
+        int demage = Random.Range(attackDamageMin, attackDamageMax + 1); //플레이어의 데미지 ( int형은 마지막값 포함안되서 + 1)
         bool criticalFlag = false;
 
-        if (Random.Range(1f, 100f) < playerStats.criticalChance) // 크리티컬 확율 (0-100)
+        
+        if (playerStats.Gloves >= 0)//장갑 강화 따른 크리티컬 확율 UP 장갑 없으면 -1
         {
-            demage = (int)((float)demage * playerStats.criticalDamagema);//데미지 * 크리티컬 데미지(배)
+            criticalChance += player.ItemStats.Gloves[playerStats.Gloves];
+        }
+
+        if (Random.Range(1f, 100f) < criticalChance) // 크리티컬 확율 (0-100)
+        {
+            demage = (int)((float)demage * criticalDamagema);//데미지 * 크리티컬 데미지(배)
             criticalFlag = true;
         }
 
-        demage -= attackTarget.monsterStats.defense;//방어력 제외하고 데미지
+        demage -= defense;//방어력 제외하고 데미지
 
         if (demage <= 0) // 만약 방어력이 더 높다면 데미지는 1
             demage = 1;
-
         
         //회피 성공
         if (Random.Range(1f, 100f) > playerStats.hit - attackTarget.monsterStats.evasion) //플레이어의 명중률 - 몬스터의 회피률
@@ -167,8 +189,14 @@ public class PlayerAttack : MonoBehaviour
         }
         
         clone.GetComponent<PlayerProjectile>().Setup(attackTarget.transform, demage, criticalFlag);
+
         
-        if (playerStats.vampire > 0 && demage > 0)//체력 흡혈 %
+        if (playerStats.Cloak >= 0)//망토 강화 따른 흡혈율 UP 망토 없으면 -1
+        {
+            vampire += player.ItemStats.Cloak[playerStats.Cloak];
+        }
+
+        if (vampire > 0 && demage > 0)//체력 흡혈 %
         {
             player.vampire((int)((float)demage * playerStats.vampire));
         }

@@ -19,6 +19,7 @@ public class PlayerStats : ScriptableObject
         public int attackDamageMin; //공격력(min)
         public int attackDamageMax; //공격력(max)
         public int health;//체력
+        public int Maxhealth;//체력
         public int defense;//방어력
 
         public float attackSpeed; //공격속도
@@ -35,6 +36,12 @@ public class PlayerStats : ScriptableObject
         public float experience;//경험치
         public float gold;//골드
 
-
+        //아이템
+        public int weapon; //무기
+        public int Armor; //갑옷
+        public int hat; //투구
+        public int Gloves; //장갑
+        public int Boots; //부츠
+        public int Cloak; //망토
     }
 }

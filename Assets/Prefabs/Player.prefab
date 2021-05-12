@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6551857de6ce42942a76b94cca99f19d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemStats: {fileID: 11400000, guid: 20f984c5d5d968d4881bc4b38e264f54, type: 2}
   DemageTextPrefab: {fileID: 5413434756411167114, guid: fcde65c39f60d234e9049ff67d49fcb3,
     type: 3}
   playerSpawner: {fileID: 0}

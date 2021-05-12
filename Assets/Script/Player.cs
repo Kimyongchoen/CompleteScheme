@@ -26,7 +26,6 @@ public class Player : MonoBehaviour
 
     private float experienceBonus;//경험치 획득 %
     private float goldBonus;//골드 획득 %
-
     [SerializeField]
     private TextMeshProUGUI DemageTextPrefab;//몬스터가 입는 데미지 prefab
 
@@ -44,6 +43,8 @@ public class Player : MonoBehaviour
 
     public float MaxHP => maxHP;
     public float CurrentHP => currentHP;
+
+    public ItemStats ItemStats;//아이템정보
 
     public void GameStart()
     {
