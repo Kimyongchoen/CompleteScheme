@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ItmeStats
   m_EditorClassIdentifier: 
   RecoveryCnt: 2
-  AttackDamageUpCnt: 0
-  DefenseUpCnt: 1
-  MonsterCnt: 98
+  AttackDamageUpCnt: 2
+  DefenseUpCnt: 2
+  MonsterCnt: 80
   AttackDamageUp: 0
   DefenseUp: 0
   weapon: 030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e000000
