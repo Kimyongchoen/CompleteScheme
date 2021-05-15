@@ -72,7 +72,7 @@ public class TileTabManager : MonoBehaviour
     //공격력증가 정보
     public void SetAttackDamageUpInfo()
     {
-        TileInfomationText.text = "공격력증가\n\n배치한 곳에 플레이어가 지나가면 공격력이 10초간 30% 증가 됩니다.\n중복 습득 시 지속시간 동일 * 30% 추가 증가";
+        TileInfomationText.text = "공격력증가\n\n배치한 곳에 플레이어가 지나가면 공격력이 10초간 30% 증가 됩니다.(중첩 가능)";
     }
 
     //방어력증가 배치
@@ -98,7 +98,7 @@ public class TileTabManager : MonoBehaviour
     //방어력증가 정보
     public void SetDefenseUpInfo()
     {
-        TileInfomationText.text = "방어력증가\n\n배치한 곳에 플레이어가 지나가면 방어력이 10초간 30% 증가 됩니다.\n중복 습득 시 지속시간 동일 * 30% 추가 증가";
+        TileInfomationText.text = "방어력증가\n\n배치한 곳에 플레이어가 지나가면 방어력이 10초간 30% 증가 됩니다.(중첩 가능)";
     }
 
     //몬스터 배치

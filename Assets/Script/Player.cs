@@ -74,8 +74,18 @@ public class Player : MonoBehaviour
         this.attackDamageMin = playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMin;
         this.defense = playerSpawner.playerStatsScriptableObject.stats[0].defense;
 
-        maxHP = playerSpawner.playerStats.health;
-        currentHP = maxHP;
+        int Maxhealth = playerSpawner.playerStats.Maxhealth;
+        int health = playerSpawner.playerStats.health;
+        
+        /*투구 체력은 강화할때 적용필요      
+        if (playerSpawner.playerStats.hat >= 0)//투구 강화 따른 체력 UP 투구가 없으면 -1
+        {
+            Maxhealth += ItemStats.hat[playerSpawner.playerStats.hat];
+            health += ItemStats.hat[playerSpawner.playerStats.hat];
+        }*/
+
+        maxHP = Maxhealth;
+        currentHP = health;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -360,12 +370,12 @@ public class Player : MonoBehaviour
 
                 Destroy(collision.gameObject);
             }
-            else if (BuffStats == 2)//2 공격력 증가(시간초? 코루틴)
+            else if (BuffStats == 2)//2 공격력 증가
             {
                 StartCoroutine("AttackDamageUp");
                 Destroy(collision.gameObject);
             }
-            else if (BuffStats == 3)//3 방어력 증가(시간초? 코루틴)
+            else if (BuffStats == 3)//3 방어력 증가
             {
                 StartCoroutine("DefenseUp");
                 Destroy(collision.gameObject);
@@ -378,35 +388,32 @@ public class Player : MonoBehaviour
 
     private IEnumerator AttackDamageUp()
     {
-        int attackDamageMax = playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMax;
-        int attackDamageMin = playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMin;
+        int attackDamageUp = playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMin + playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMax / 2;
 
-        if (attackDamageMin == 0)
+        if (attackDamageUp <= 4)//공격력 평균이 4보다 작으면
         {
-            //30 % 공격력 증가
-            playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMin = 1;
-        }
-        else if (attackDamageMin <= 4)
-        {
-            //30 % 공격력 증가
-            playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMin = attackDamageMin + 1;
+            ItemStats.AttackDamageUp += 1;
         }
         else
         {
-            //30 % 공격력 증가
-            playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMin = (int)((float)attackDamageMin * 1.3f);
+            ItemStats.AttackDamageUp += (int)((float)attackDamageUp * 1.3f); //30 % 공격력 증가
         }
 
-        //30 % 공격력 증가
-        playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMax = (int)((float)attackDamageMax * 1.3f);
-        playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1
+        playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1 Player info 최신화
         
         yield return new WaitForSeconds(10f);//10초동안 공격력 UP
         
-        playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMax = this.attackDamageMax;
-        playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMin = this.attackDamageMin;
-        playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1
-        
+
+        if (attackDamageUp <= 4) //공격력 평균이 5보다 작으면
+        {
+            ItemStats.AttackDamageUp -= 1;
+        }
+        else
+        {
+            ItemStats.AttackDamageUp -= (int)((float)attackDamageUp * 1.3f); //30 % 공격력 증가
+        }
+        playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1 Player info 최신화
+
         yield return null;
     }
     private IEnumerator DefenseUp()
@@ -414,27 +421,30 @@ public class Player : MonoBehaviour
 
         int defense = playerSpawner.playerStatsScriptableObject.stats[0].defense;
         
-        if(defense == 0)
+        if (defense <= 4)//방어력이 5보다 작으면
         {
-            //30% 방어력 증가
-            playerSpawner.playerStatsScriptableObject.stats[0].defense = 1;
-        }
-        else if (defense <= 4)
-        {
-            //30% 방어력 증가
-            playerSpawner.playerStatsScriptableObject.stats[0].defense = defense + 1;
+            
+            ItemStats.DefenseUp += 1; //방어력 1증가
         }
         else
         {
-            //30% 방어력 증가
-            playerSpawner.playerStatsScriptableObject.stats[0].defense = (int)((float)defense * 1.3f);
+            ItemStats.DefenseUp += (int)((float)defense * 1.3f); ; //30% 방어력 증가
         }
-        playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1
+        playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1 Player info 최신화
 
         yield return new WaitForSeconds(10f);//10초동안 방어력 UP
 
-        playerSpawner.playerStatsScriptableObject.stats[0].defense = this.defense;
-        playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1
+        if (defense <= 4)//방어력이 5보다 작으면
+        {
+
+            ItemStats.DefenseUp -= 1; //방어력 1감소
+        }
+        else
+        {
+            ItemStats.DefenseUp -= (int)((float)defense * 1.3f); ; //30% 방어력 감소
+        }
+
+        playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1 Player info 최신화
 
         yield return null;
     }

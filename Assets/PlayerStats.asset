@@ -20,7 +20,7 @@ MonoBehaviour:
     attackDamageMin: 1
     attackDamageMax: 10
     health: 1000
-    Maxhealth: 0
+    Maxhealth: 1000
     defense: 0
     attackSpeed: 1
     attackRange: 0.3

@@ -128,6 +128,9 @@ public class MonsterAttack : MonoBehaviour
 
         int demage = Random.Range(monsterStats.attackDamageMin + (int)addedDamage, monsterStats.attackDamageMax + (int)addedDamage + 1); //몬스터 데미지 + addedDamage 버프 데미지
         bool criticalFlag = false;
+        int defense = playerStats.defense;
+        float evasion = playerStats.evasion;
+
 
         if (Random.Range(1f, 100f) < monsterStats.criticalChance) // 몬스터 크리티컬 확율 (0-100)
         {
@@ -135,13 +138,26 @@ public class MonsterAttack : MonoBehaviour
             criticalFlag = true;
         }
 
-        demage -= playerStats.defense;//방어력 제외하고 데미지
+        if (playerStats.Armor >= 0)//갑옷 강화 따른 방어력 UP 갑옷이 없으면 -1
+        {
+            defense += playerSpawner.player.ItemStats.Armor[playerStats.Armor];
+        }
+
+        //버프에 의한 방어력 UP
+        defense += playerSpawner.player.ItemStats.DefenseUp;
+
+        demage -= defense;//방어력 제외하고 데미지
 
         if (demage <= 0) // 만약 방어력이 더 높다면 데미지는 1
             demage = 1;
 
+        if (playerStats.Boots >= 0)//부츠 강화 따른 회피력 UP 부츠가 없으면 -1
+        {
+            evasion += playerSpawner.player.ItemStats.Boots[playerStats.Boots];
+        }
+
         //회피 성공
-        if (Random.Range(1f, 100f) > monsterStats.hit - playerStats.evasion) //몬스터의 명중률 - 플레이어의 회피률
+        if (Random.Range(1f, 100f) > monsterStats.hit - evasion) //몬스터의 명중률 - 플레이어의 회피률
         {
             demage = 0;
         }
