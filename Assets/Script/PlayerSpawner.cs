@@ -71,7 +71,7 @@ public class PlayerSpawner : MonoBehaviour
 
         tabManager.TabClick(0);
 
-        yield return new WaitForSeconds(3f);
+        //yield return new WaitForSeconds(3f);
         MainCameraColtroll(clone);
         //카메라 이동
 

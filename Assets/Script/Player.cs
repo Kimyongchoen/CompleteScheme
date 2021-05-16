@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     private int addedDamage;//입는 추가 데미지 (버프)
     private bool criticalFlag;//크리티컬인지 확인
     private Transform canvasTransform; // UI를 표현하는 canvas 오브젝트의 transform
+    
+    private float attackSpeed; //공격속도
 
     private int attackDamageMax; //공격력 최대값
     private int attackDamageMin; //공격력 최소값
@@ -41,6 +43,7 @@ public class Player : MonoBehaviour
     float DirX = 0f; //케릭터 이동
     float DirY = 0f; //케릭터 이동
 
+    bool GameEnd = false; //게임종료
     public float MaxHP => maxHP;
     public float CurrentHP => currentHP;
 
@@ -74,6 +77,14 @@ public class Player : MonoBehaviour
         this.attackDamageMin = playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMin;
         this.defense = playerSpawner.playerStatsScriptableObject.stats[0].defense;
 
+        
+        this.attackSpeed = playerSpawner.playerStatsScriptableObject.stats[0].attackSpeed;
+        
+        if (attackSpeed!=1)
+        {
+            attackSpeed = 2f;
+        }
+
         int Maxhealth = playerSpawner.playerStats.Maxhealth;
         int health = playerSpawner.playerStats.health;
         
@@ -90,6 +101,9 @@ public class Player : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         animator = GetComponent<Animator>(); //케릭터 애니메이션
+
+        animator.speed = attackSpeed;//케릭터 공격속도 애니메이션에 적용
+
         PlayerPosition = new Vector2(transform.position.x, transform.position.y); //플레이어의 현재위치
     }
 
@@ -130,6 +144,7 @@ public class Player : MonoBehaviour
         }
         else//현재위치가 마지막 wayPoints 이면
         {
+            GameEnd = true;
             //플레이어 오브젝트 이동정지
             MoveStop();
 
@@ -143,6 +158,7 @@ public class Player : MonoBehaviour
 
     public void MoveStart()
     {
+        animator.SetBool("Attacking", false);
         movement2D.MoveStart();
         animator.SetBool("Walking", true);
         PlayerPosition = new Vector2(transform.position.x, transform.position.y);
@@ -152,6 +168,10 @@ public class Player : MonoBehaviour
     {
         movement2D.MoveStop();
         animator.SetBool("Walking", false);
+        if (!GameEnd)
+        {
+            animator.SetBool("Attacking", true);
+        }
         PlayerPosition = new Vector2(transform.position.x, transform.position.y);
     }
 
@@ -181,6 +201,7 @@ public class Player : MonoBehaviour
 
         animator.SetFloat("DirX", DirX);
         animator.SetFloat("DirY", DirY);
+        
     }
 
     public void OnDie() //플래이어 삭제

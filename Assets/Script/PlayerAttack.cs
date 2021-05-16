@@ -136,7 +136,8 @@ public class PlayerAttack : MonoBehaviour
                 //공격
                 SpawnAttack();
             }
-            //attackRate 만큼 대기
+
+            //attackSpeed 만큼 대기
             yield return new WaitForSeconds(attackSpeed);
         }
     }
