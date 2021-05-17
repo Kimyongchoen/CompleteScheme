@@ -24,7 +24,7 @@ MonoBehaviour:
     defense: 0
     attackSpeed: 0.5
     attackRange: 0.3
-    hit: 100
+    hit: 50
     evasion: 0
     criticalChance: 50
     criticalDamagema: 1.5

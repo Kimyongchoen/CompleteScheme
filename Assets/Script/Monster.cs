@@ -141,14 +141,7 @@ public class Monster : MonoBehaviour
         DemageText.transform.position = this.transform.position + (Vector3.up* 0.45f);
         if (demage > 0)
         {
-            if (criticalFlag)
-            {
-                DemageText.text = "CRITICAL : "+demage.ToString();
-            }
-            else
-            {
-                DemageText.text = demage.ToString();
-            }
+            DemageText.text = demage.ToString();
         }
         else
         {
@@ -164,6 +157,8 @@ public class Monster : MonoBehaviour
 
         color.a = 1.0f;
         DemageText.color = color;
+        int sizex = 500;
+        int sizey = 250;
 
         while (count < 30)
         {
@@ -188,10 +183,25 @@ public class Monster : MonoBehaviour
                     this.transform.position.x + ((pox) * 0.008f), 
                     this.transform.position.y + ((poy) * 0.03f),
                     this.transform.position.z );
-            
+
             color.a -= 0.015f;
             DemageText.color = color;
             DemageText.fontSize -= 3;
+            if (criticalFlag && demage > 0)
+            {
+                color.b = 0;
+                DemageText.color = color;
+
+                sizex -= 10;
+                sizey -= 5;
+                DemageText.GetComponent<SpriteRenderer>().color = color;
+                DemageText.GetComponent<SpriteRenderer>().size = new Vector2(sizex, sizey);
+            }
+            if(demage <= 0)
+            {
+                color.g = 0;
+                DemageText.color = color;
+            }
             yield return new WaitForSeconds(0.015f);
         }
         
