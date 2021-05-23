@@ -49,14 +49,20 @@ public class Player : MonoBehaviour
 
     public ItemStats ItemStats;//아이템정보
 
+    Material material; //플레이어 버프 효과
+    float fade = 1f; //플레이어 버프 효과
+
     public void GameStart()
     {
         StartCoroutine("OnMove");//플레이어 이동/목표지점 설정 코루틴 함수 시작
+        StartCoroutine("BuffEffect1"); //공격력 버프 이팩트
+        StartCoroutine("BuffEffect2"); //방어력 버프 이팩트
     }
 
     public void Setup(PlayerSpawner playerSpawner, Transform[] wayPoinsts)
     {
         movement2D = GetComponent<Movement2D>();
+        material = GetComponent<SpriteRenderer>().material;
 
         //플레이어 이동 경로 WayPoint 정보 설정
         wayPointCount = wayPoinsts.Length;
@@ -105,6 +111,8 @@ public class Player : MonoBehaviour
         animator.speed = attackSpeed;//케릭터 공격속도 애니메이션에 적용
 
         PlayerPosition = new Vector2(transform.position.x, transform.position.y); //플레이어의 현재위치
+
+        
     }
 
 
@@ -172,6 +180,10 @@ public class Player : MonoBehaviour
         {
             animator.SetBool("Attacking", true);
         }
+        else
+        {
+            animator.SetBool("Attacking", false);
+        }
         PlayerPosition = new Vector2(transform.position.x, transform.position.y);
     }
 
@@ -201,11 +213,121 @@ public class Player : MonoBehaviour
 
         animator.SetFloat("DirX", DirX);
         animator.SetFloat("DirY", DirY);
-        
+
+
+
+    }
+
+    private IEnumerator BuffEffect1()
+    {
+        int a = 0;
+        bool flag = true;
+
+        while (true)
+        {
+            if (ItemStats.AttackDamageUp > 0)
+            {
+                material.SetFloat("_BuffFade1", fade);
+
+                a++;
+
+                if (a >= 10)
+                {
+                    if (flag)
+                        flag = false;
+                    else
+                        flag = true;
+
+                    a = 0;
+                }
+
+                if (flag)
+                    fade -= 0.1f;
+                else
+                    fade += 0.1f;
+            }
+            else
+            {
+                material.SetFloat("_BuffFade1", 0f);
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+    private IEnumerator BuffEffect2()
+    {
+        int a = 0;
+        bool flag = true;
+
+        while (true)
+        {
+            if (ItemStats.DefenseUp > 0)
+            {
+                material.SetFloat("_BuffFade2", fade);
+
+                a++;
+
+                if (a >= 10)
+                {
+                    if (flag)
+                        flag = false;
+                    else
+                        flag = true;
+
+                    a = 0;
+                }
+
+                if (flag)
+                    fade -= 0.1f;
+                else
+                    fade += 0.1f;
+
+            }
+            else
+            {
+                material.SetFloat("_BuffFade2", 0f);
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    private IEnumerator BuffEffect3()
+    {
+        int j = 0;
+        int a = 0;
+        bool flag = true;
+
+        while (j < 21)
+        {
+            material.SetFloat("_BuffFade3", fade);
+
+            a++;
+
+            if (a >= 10)
+            {
+                if (flag)
+                    flag = false;
+                else
+                    flag = true;
+
+                a = 0;
+            }
+
+            if (flag)
+                fade -= 0.1f;
+            else
+                fade += 0.1f;
+            
+            j++;
+
+            yield return new WaitForSeconds(0.1f);
+        }
+        material.SetFloat("_BuffFade3", 0f);
     }
 
     public void OnDie() //플래이어 삭제
     {
+        GameEnd = true;
+        MoveStop();
         StartCoroutine("DieAlphaAnimation");
         //playerSpawner.DestroyMonster(this);
     }
@@ -279,6 +401,9 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
         this.playerSpawner.cameraManager.Setup(null, true);
+        
+        
+
 
         yield return null;
     }
@@ -388,7 +513,8 @@ public class Player : MonoBehaviour
 
                 if (currentHP > maxHP)
                     currentHP = maxHP;
-
+                
+                StartCoroutine("BuffEffect3");
                 Destroy(collision.gameObject);
             }
             else if (BuffStats == 2)//2 공격력 증가
@@ -410,7 +536,7 @@ public class Player : MonoBehaviour
     private IEnumerator AttackDamageUp()
     {
         int attackDamageUp = playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMin + playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMax / 2;
-
+        
         if (attackDamageUp <= 4)//공격력 평균이 4보다 작으면
         {
             ItemStats.AttackDamageUp += 1;
@@ -421,7 +547,7 @@ public class Player : MonoBehaviour
         }
 
         playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1 Player info 최신화
-        
+
         yield return new WaitForSeconds(10f);//10초동안 공격력 UP
         
 
@@ -466,7 +592,8 @@ public class Player : MonoBehaviour
         }
 
         playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1 Player info 최신화
-
+        
         yield return null;
     }
 }
+

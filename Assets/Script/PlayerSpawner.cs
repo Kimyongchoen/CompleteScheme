@@ -67,11 +67,12 @@ public class PlayerSpawner : MonoBehaviour
     }
     private IEnumerator SpawnPlayer()
     {
+
         objectDetector.RandomMonsterChange();
+        yield return new WaitForSeconds(1f);
 
         tabManager.TabClick(0);
 
-        //yield return new WaitForSeconds(3f);
         MainCameraColtroll(clone);
         //카메라 이동
 
