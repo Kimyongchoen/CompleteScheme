@@ -27,6 +27,10 @@ public class Monster : MonoBehaviour
     public float MaxHP => maxHP;
     public float CurrentHP => currentHP;
 
+    Material material; //몬스터 삭제 효과
+    float fade = 1f; //몬스터 삭제 효과
+
+
     public void Setup(MonsterSpawner monsterSpawner ,Transform monsterPoints, MonsterStats.Stats monsterStats)
     {
         movement2D = GetComponent<Movement2D>();
@@ -40,7 +44,8 @@ public class Monster : MonoBehaviour
         this.gold = monsterStats.gold;//몬스터 처치시 얻는 골드
         maxHP = monsterStats.health;//몬스터의 최대 hp
         currentHP = maxHP;
-        
+
+        material = GetComponent<SpriteRenderer>().material;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         //몬스터의 위치를 설정된 곳으로 이동
@@ -101,16 +106,22 @@ public class Monster : MonoBehaviour
     }
     private IEnumerator DieAlphaAnimation()
     {
-        //현재 적의 색사을 color 변수에 저장
-        Color color = spriteRenderer.color;
-        
-        color.a = 1.0f;
-        spriteRenderer.color = color;
+        /*        //현재 적의 색사을 color 변수에 저장
+                Color color = spriteRenderer.color;
 
-        while (color.a > 0)
+                color.a = 1.0f;
+                spriteRenderer.color = color;
+
+                while (color.a > 0)
+                {
+                    color.a -= 0.08f;
+                    spriteRenderer.color = color;
+                    yield return new WaitForSeconds(0.05f);
+                }*/
+        while (fade > 0)
         {
-            color.a -= 0.08f;
-            spriteRenderer.color = color;
+            material.SetFloat("_Fade",fade);
+            fade -= 0.08f;
             yield return new WaitForSeconds(0.05f);
         }
 
