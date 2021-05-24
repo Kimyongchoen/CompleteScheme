@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TileTabManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class TileTabManager : MonoBehaviour
     private GameObject TileDefenseUpfrefab;
     [SerializeField]
     private GameObject TileMonsterfrefab;
+    [SerializeField]
+    private TextMeshProUGUI MainMessageBox;
 
     private GameObject TileRecovery = null;
     private GameObject TileAttackDamageUp = null;
@@ -39,7 +42,7 @@ public class TileTabManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Tile이 비어있지 않습니다.");
+            SetMainMessageBox("타일이 비어있지 않습니다");
         }
 
 
@@ -66,7 +69,7 @@ public class TileTabManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Tile이 비어있지 않습니다.");
+            SetMainMessageBox("타일이 비어있지 않습니다");
         }
     }
     //공격력증가 정보
@@ -92,7 +95,7 @@ public class TileTabManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Tile이 비어있지 않습니다.");
+            SetMainMessageBox("타일이 비어있지 않습니다");
         }
     }
     //방어력증가 정보
@@ -118,7 +121,7 @@ public class TileTabManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Tile이 비어있지 않습니다.");
+            SetMainMessageBox("타일이 비어있지 않습니다");
         }
     }
     //몬스터 정보
@@ -127,7 +130,33 @@ public class TileTabManager : MonoBehaviour
         TileInfomationText.text = "몬스터\n\n배치한 곳에 몬스터가 랜덤 생성 됩니다.";
     }
 
+    private void SetMainMessageBox(string msg)
+    {
+        MainMessageBox.text = msg;
+        StartCoroutine(AlphaLerp(1, 0));
 
+    }
+    private IEnumerator AlphaLerp(float start, float end)
+    {
+        float currentTime = 0.0f;
+        float percent = 0.0f;
+        float lerpTime = 0.5f;
+
+        while (percent < 1)
+        {
+            //lerpTime 동안 While()반복문 실행
+            currentTime += Time.deltaTime;
+            percent = currentTime / lerpTime;
+
+            // Text - TextMeshPro의 폰트 투명도를 start에서 end로 변경
+            Color color = MainMessageBox.color;
+            color.a = Mathf.Lerp(start, end, percent);
+            MainMessageBox.color = color;
+
+            yield return null;
+        }
+
+    }
 
 
 

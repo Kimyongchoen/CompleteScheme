@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-
+using TMPro;
 
 public class ObjectDetector : MonoBehaviour
 {
@@ -41,6 +41,9 @@ public class ObjectDetector : MonoBehaviour
     private Text DefenseUpCnt;
     [SerializeField]
     private Text MonsterCnt;
+
+    [SerializeField]
+    private TextMeshProUGUI MainMessageBox;
 
     [SerializeField]
     private ItemStats ItemStats;
@@ -302,12 +305,13 @@ public class ObjectDetector : MonoBehaviour
             }
             else
             {
-                Debug.Log("선택된 타일이 없습니다.");
+                SetMainMessageBox("선택된 타일이 없습니다");
             }
         }
         else
         {
-            Debug.Log("배치할 회복 버프가 부족합니다.");
+            SetMainMessageBox("배치할 회복 버프가 부족합니다");
+            
         }
     }
 
@@ -328,12 +332,12 @@ public class ObjectDetector : MonoBehaviour
             }
             else
             {
-                Debug.Log("선택된 타일이 없습니다.");
+                SetMainMessageBox("선택된 타일이 없습니다");
             }
         }
         else
         {
-            Debug.Log("배치할 공력력 증가 버프가 부족합니다.");
+            SetMainMessageBox("배치할 공력력 증가 버프가 부족합니다");
         }
     }
     //방어력 증가 배치
@@ -353,12 +357,12 @@ public class ObjectDetector : MonoBehaviour
             }
             else
             {
-                Debug.Log("선택된 타일이 없습니다.");
+                SetMainMessageBox("선택된 타일이 없습니다");
             }
         }
         else
         {
-            Debug.Log("배치할 방어력 증가 버프가 부족합니다.");
+            SetMainMessageBox("배치할 방어력 증가 버프가 부족합니다");
         }
     }
     //몬스터 배치
@@ -378,13 +382,13 @@ public class ObjectDetector : MonoBehaviour
             }
             else
             {
-                Debug.Log("선택된 타일이 없습니다.");
+                SetMainMessageBox("선택된 타일이 없습니다");
             }
 
         }
         else
         {
-            Debug.Log("배치할 몬스터가 부족합니다.");
+            SetMainMessageBox("배치할 몬스터가 부족합니다");
         }
 
     }
@@ -435,7 +439,34 @@ public class ObjectDetector : MonoBehaviour
             }
         }
     }
+    
+    private void SetMainMessageBox(string msg)
+    {
+        MainMessageBox.text = msg;
+        StartCoroutine(AlphaLerp(1, 0));
+        
+    }
+    private IEnumerator AlphaLerp(float start, float end)
+    {
+        float currentTime = 0.0f;
+        float percent = 0.0f;
+        float lerpTime = 0.5f;
 
+        while (percent < 1)
+        {
+            //lerpTime 동안 While()반복문 실행
+            currentTime += Time.deltaTime;
+            percent = currentTime / lerpTime;
+
+            // Text - TextMeshPro의 폰트 투명도를 start에서 end로 변경
+            Color color = MainMessageBox.color;
+            color.a = Mathf.Lerp(start, end, percent);
+            MainMessageBox.color = color;
+
+            yield return null;
+        }
+
+    }
     /*
      * file : ObjectDetector.cs
      * 
