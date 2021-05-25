@@ -138,11 +138,11 @@ public class ObjectDetector : MonoBehaviour
                             cameraManager.Setup(TileSelectView, false);//타일로 카메라 이동 
                             tileManager = TileList[i].GetComponent<TileManager>();//TileList의 TileManager 컴포넌트
 
+                            tabManager.TabClick(1);
+                            TileSelect = TileList[i];
+
                             if (tileManager.getMonsterFlag() == 0)//아무것도 없다면 (0)
                             {
-                                tabManager.TabClick(1);
-                                TileSelect = TileList[i];
-
                                 if (ItemStats.RecoveryCnt > 0) //회복 버튼 활성화 회복이 있는 경우
                                 {
                                     btnColorChange(RecoveryBtn, 1.0f);
@@ -207,58 +207,14 @@ public class ObjectDetector : MonoBehaviour
                                 btnColorChange(MonsterBtn, 0.5f);
 
                                 //TileSelect 초기화
-                                TileSelect = null;
+                                //TileSelect = null;
                             }
                         }
                     }
                 }
                 else if (hit.transform.CompareTag("RemoveBtn"))
                 {
-
-                    for (int i = 0; TileList.Length > i; i++)
-                    {
-                        if (TileList[i].transform.position + Vector3.down * 0.5f == hit.transform.position)
-                        {
-                            tileManager = TileList[i].GetComponent<TileManager>();//TileList의 TileManager 컴포넌트
-
-                            // 2 배치한 몬스터 3 회복 / 버프(1 회복 2 공격력 증가 3 방어력 증가)
-
-                            if (tileManager.getMonsterFlag() == 2)//사용자가 추가한 몬스터
-                            {
-                                Destroy(tileManager.getgameObject());//제거
-                                ItemStats.MonsterCnt += 1;
-                            }
-                            else if (tileManager.getMonsterFlag() == 3)//사용자가 추가한 버프 회복
-                            {
-                                if (tileManager.getnumber() == 1)//회복
-                                {
-                                    Destroy(tileManager.getgameObject());//제거
-                                    ItemStats.RecoveryCnt += 1;
-                                }
-                                else if (tileManager.getnumber() == 2)//공격력 증가
-                                {
-                                    Destroy(tileManager.getgameObject()); //제거
-                                    ItemStats.AttackDamageUpCnt += 1;
-                                }
-                                else if (tileManager.getnumber() == 3)//방어력 증가
-                                {
-                                    Destroy(tileManager.getgameObject());  //제거
-                                    ItemStats.DefenseUpCnt += 1;
-                                }
-                            }
-
-                            if (TileSelectView != null)
-                            {
-                                Destroy(TileSelectView.gameObject);
-                                TileSelect = null;
-                            }
-                            if (RemoveBtn != null)
-                            {
-                                Destroy(RemoveBtn.gameObject);
-                            }
-                            tileManager.setMonsterFlag(0, 0, null);//아무것도 없음으로 세팅
-                        }
-                    }
+                    Remove();//선택된 타일 삭제
                 }
             }
             else
@@ -281,27 +237,99 @@ public class ObjectDetector : MonoBehaviour
             {
 
             }
-
         }
-
-
-
     }
+    public void Remove()
+    {
+        if (TileSelect != null)//선택된 타일이 있을경우에만 삭제
+        {
+            tileManager = TileSelect.GetComponent<TileManager>();//TileList의 TileManager 컴포넌트
 
+            // 2 배치한 몬스터 3 회복 / 버프(1 회복 2 공격력 증가 3 방어력 증가)
+
+            if (tileManager.getMonsterFlag() == 2)//사용자가 추가한 몬스터
+            {
+                Destroy(tileManager.getgameObject());//제거
+                ItemStats.MonsterCnt += 1;
+            }
+            else if (tileManager.getMonsterFlag() == 3)//사용자가 추가한 버프 회복
+            {
+                if (tileManager.getnumber() == 1)//회복
+                {
+                    Destroy(tileManager.getgameObject());//제거
+                    ItemStats.RecoveryCnt += 1;
+                }
+                else if (tileManager.getnumber() == 2)//공격력 증가
+                {
+                    Destroy(tileManager.getgameObject()); //제거
+                    ItemStats.AttackDamageUpCnt += 1;
+                }
+                else if (tileManager.getnumber() == 3)//방어력 증가
+                {
+                    Destroy(tileManager.getgameObject());  //제거
+                    ItemStats.DefenseUpCnt += 1;
+                }
+            }
+            else if (tileManager.getMonsterFlag() == 0)//비어 있다면
+            {
+                SetMainMessageBox("회수 할 몬스터나 버프가 없습니다");
+                return;
+            }
+            else
+            {
+                SetMainMessageBox("회수 할 수 없습니다");
+                return;
+            }
+
+            /*
+            if (TileSelectView != null)
+            {
+                Destroy(TileSelectView.gameObject);
+                TileSelect = null;
+            }
+            */
+            if (RemoveBtn != null)
+            {
+                Destroy(RemoveBtn.gameObject);
+            }
+
+            tileManager.setMonsterFlag(0, 0, null);//아무것도 없음으로 세팅
+
+            //회복 버튼 활성화 회복이 있는 경우
+            btnColorChange(RecoveryBtn, 1f);
+            //공격력 증가 버튼 활성화
+            btnColorChange(AttackDamageUpBtn, 1f);
+            //방어력 증가 버튼 활성화
+            btnColorChange(DefenseUpBtn, 1f);
+            //몬스터 생성 버튼 활성화
+            btnColorChange(MonsterBtn, 1f);
+        }
+        else
+        {
+            SetMainMessageBox("선택된 타일이 없습니다");
+        }
+    }
     //회복 배치
     public void SetRecovery()
     {
-        if (ItemStats.RecoveryCnt > 0) //회복 버튼 활성화 회복이 있는 경우
+        if (ItemStats.RecoveryCnt > 0) //회복이 있는 경우
         {
             if (TileSelect != null)
             {
-                if (RemoveBtn == null)
-                {
-                    RemoveBtn = Instantiate(RemoveBtnfrefab);//제거버튼 오브젝트 생성
+                if (tileManager.getMonsterFlag() == 0)//타일이 비어있다면
+                { 
+                    if (RemoveBtn == null)
+                    {
+                        RemoveBtn = Instantiate(RemoveBtnfrefab);//제거버튼 오브젝트 생성
+                    }
+                    SetRemoveBtn();
+                    tileTabManager.SetRecovery(TileSelect);
+                    ItemStats.RecoveryCnt -= 1;
                 }
-                SetRemoveBtn();
-                tileTabManager.SetRecovery(TileSelect);
-                ItemStats.RecoveryCnt -= 1;
+                else
+                {
+                    SetMainMessageBox("이미 몬스터나 버프가 있습니다");
+                }
             }
             else
             {
@@ -322,13 +350,20 @@ public class ObjectDetector : MonoBehaviour
         {
             if (TileSelect != null)
             {
-                if (RemoveBtn == null)
-                {
-                    RemoveBtn = Instantiate(RemoveBtnfrefab);//제거버튼 오브젝트 생성
+                if (tileManager.getMonsterFlag() == 0)//타일이 비어있다면
+                { 
+                    if (RemoveBtn == null)
+                    {
+                        RemoveBtn = Instantiate(RemoveBtnfrefab);//제거버튼 오브젝트 생성
+                    }
+                    SetRemoveBtn();
+                    tileTabManager.SetAttackDamageUp(TileSelect);
+                    ItemStats.AttackDamageUpCnt -= 1;
                 }
-                SetRemoveBtn();
-                tileTabManager.SetAttackDamageUp(TileSelect);
-                ItemStats.AttackDamageUpCnt -= 1;
+                else
+                {
+                    SetMainMessageBox("이미 몬스터나 버프가 있습니다");
+                }
             }
             else
             {
@@ -347,13 +382,20 @@ public class ObjectDetector : MonoBehaviour
         {
             if (TileSelect != null)
             {
-                if (RemoveBtn == null)
-                {
-                    RemoveBtn = Instantiate(RemoveBtnfrefab);//제거버튼 오브젝트 생성
+                if (tileManager.getMonsterFlag() == 0)//타일이 비어있다면
+                { 
+                    if (RemoveBtn == null)
+                    {
+                        RemoveBtn = Instantiate(RemoveBtnfrefab);//제거버튼 오브젝트 생성
+                    }
+                    SetRemoveBtn();
+                    tileTabManager.SetDefenseUp(TileSelect);
+                    ItemStats.DefenseUpCnt -= 1;
                 }
-                SetRemoveBtn();
-                tileTabManager.SetDefenseUp(TileSelect);
-                ItemStats.DefenseUpCnt -= 1;
+                else
+                {
+                    SetMainMessageBox("이미 몬스터나 버프가 있습니다");
+                }
             }
             else
             {
@@ -372,13 +414,20 @@ public class ObjectDetector : MonoBehaviour
         {
             if (TileSelect != null)
             {
-                if (RemoveBtn == null)
+                if (tileManager.getMonsterFlag() == 0) //타일이 비어있다면
                 {
-                    RemoveBtn = Instantiate(RemoveBtnfrefab);//제거버튼 오브젝트 생성
+                    if (RemoveBtn == null)
+                    {
+                        RemoveBtn = Instantiate(RemoveBtnfrefab);//제거버튼 오브젝트 생성
+                    }
+                    SetRemoveBtn();
+                    tileTabManager.SetMonster(TileSelect);
+                    ItemStats.MonsterCnt -= 1;
                 }
-                SetRemoveBtn();
-                tileTabManager.SetMonster(TileSelect);
-                ItemStats.MonsterCnt -= 1;
+                else
+                {
+                    SetMainMessageBox("이미 몬스터나 버프가 있습니다");
+                }
             }
             else
             {

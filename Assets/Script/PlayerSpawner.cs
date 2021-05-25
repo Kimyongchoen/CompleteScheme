@@ -27,7 +27,10 @@ public class PlayerSpawner : MonoBehaviour
     [SerializeField]
     private ObjectDetector objectDetector;//몬스터 랜덤생성
 
-    
+    [SerializeField]
+    private GameObject GameStartBtn;
+    [SerializeField]
+    private GameObject ButtonExitBtn;
 
     [SerializeField]
     public PlayerTabManager playerTabManager;//플레이어 정보 표시
@@ -56,15 +59,37 @@ public class PlayerSpawner : MonoBehaviour
         tileManager.setMonsterFlag(4, 0, player.gameObject); //몬스터 생성 타일에 stats를 1로 세팅
 
     }
-    public void GameStart()
+    public void GameStart()//게임 시작버튼
     {
-        if (Playing == false)
+        if (!Playing)
         {
+            GameStartBtn.SetActive(false);
+            ButtonExitBtn.SetActive(true);
             StartCoroutine("SpawnPlayer");
             //현재 웨이브 시작
             Playing = true;
         }
     }
+    public void GameReset()//게임 리셋 버튼
+    {
+        if (Playing)//게임중 일때 리셋 가능
+        {
+            //플레이어 정보 초기화 ( 버프 회수, 경험치, 골드 회수 )
+
+
+        }
+        else
+        {
+            //게임이 실행 중이지 않습니다.
+        }
+    }
+
+    public void StageClear() //게임 완료
+    {
+        //플레이어 정보 저장 ( 버프 회수, 경험치, 골드 저장 )
+
+    }
+
     private IEnumerator SpawnPlayer()
     {
 
@@ -93,7 +118,7 @@ public class PlayerSpawner : MonoBehaviour
         yield return null;
     }
 
-    public void DestroyMonster(Player player)
+    public void DestroyPlayer(Player player)
     {
         //플레이어 오브젝트 삭제
         Destroy(player.gameObject);

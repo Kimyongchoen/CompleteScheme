@@ -42,7 +42,7 @@ public class TileTabManager : MonoBehaviour
         }
         else
         {
-            SetMainMessageBox("타일이 비어있지 않습니다");
+            SetMainMessageBox("이미 몬스터나 버프가 있습니다");
         }
 
 
@@ -69,7 +69,7 @@ public class TileTabManager : MonoBehaviour
         }
         else
         {
-            SetMainMessageBox("타일이 비어있지 않습니다");
+            SetMainMessageBox("이미 몬스터나 버프가 있습니다");
         }
     }
     //공격력증가 정보
@@ -95,7 +95,7 @@ public class TileTabManager : MonoBehaviour
         }
         else
         {
-            SetMainMessageBox("타일이 비어있지 않습니다");
+            SetMainMessageBox("이미 몬스터나 버프가 있습니다");
         }
     }
     //방어력증가 정보
@@ -121,7 +121,7 @@ public class TileTabManager : MonoBehaviour
         }
         else
         {
-            SetMainMessageBox("타일이 비어있지 않습니다");
+            SetMainMessageBox("이미 몬스터나 버프가 있습니다");
         }
     }
     //몬스터 정보

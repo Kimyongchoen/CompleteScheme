@@ -153,6 +153,7 @@ public class Player : MonoBehaviour
         else//현재위치가 마지막 wayPoints 이면
         {
             GameEnd = true;
+            
             //플레이어 오브젝트 이동정지
             MoveStop();
 
@@ -363,6 +364,7 @@ public class Player : MonoBehaviour
 
         if (currentHP <= 0)
         {
+            currentHP = 0; //체력의 최소값은 0
             OnDie();
         }
 
