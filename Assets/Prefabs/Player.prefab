@@ -127,6 +127,7 @@ MonoBehaviour:
     type: 3}
   playerSpawner: {fileID: 0}
   ItemStats: {fileID: 11400000, guid: 20f984c5d5d968d4881bc4b38e264f54, type: 2}
+  Stage10: {fileID: 11400000, guid: 3fac9d22cced260438424900f7d85112, type: 2}
 --- !u!70 &-1647429118298568676
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

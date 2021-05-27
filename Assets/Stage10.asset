@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fd9dee4fcd1e1f47a50368d240b9bc1, type: 3}
+  m_Name: Stage10
+  m_EditorClassIdentifier: 
+  stage:
+  - StageName: "\uC2DC\uC791\uC758\uCD08\uC6D0"
+    MonsterNumberMin: 0
+    MonsterNumberMax: 5
+    experience: 0
+    gold: 0
+  - StageName: 
+    MonsterNumberMin: 0
+    MonsterNumberMax: 0
+    experience: 0
+    gold: 0
+  - StageName: 
+    MonsterNumberMin: 0
+    MonsterNumberMax: 0
+    experience: 0
+    gold: 0
+  - StageName: 
+    MonsterNumberMin: 0
+    MonsterNumberMax: 0
+    experience: 0
+    gold: 0
+  - StageName: 
+    MonsterNumberMin: 0
+    MonsterNumberMax: 0
+    experience: 0
+    gold: 0
+  - StageName: 
+    MonsterNumberMin: 0
+    MonsterNumberMax: 0
+    experience: 0
+    gold: 0
+  - StageName: 
+    MonsterNumberMin: 0
+    MonsterNumberMax: 0
+    experience: 0
+    gold: 0
+  - StageName: 
+    MonsterNumberMin: 0
+    MonsterNumberMax: 0
+    experience: 0
+    gold: 0
+  - StageName: 
+    MonsterNumberMin: 0
+    MonsterNumberMax: 0
+    experience: 0
+    gold: 0

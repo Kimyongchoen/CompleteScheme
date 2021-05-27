@@ -19,7 +19,7 @@ MonoBehaviour:
     level: 1
     attackDamageMin: 5
     attackDamageMax: 10
-    health: 1
+    health: 15
     Maxhealth: 100
     defense: 0
     attackSpeed: 1
@@ -31,8 +31,8 @@ MonoBehaviour:
     vampire: 0
     experienceBonus: 0
     goldBonus: 0
-    experience: 1505
-    gold: 1505
+    experience: 0
+    gold: 0
     weapon: -1
     Armor: -1
     hat: -1

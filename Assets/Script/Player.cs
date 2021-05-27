@@ -51,6 +51,9 @@ public class Player : MonoBehaviour
 
     Material material; //플레이어 버프 효과
     float fade = 1f; //플레이어 버프 효과
+    
+    [SerializeField]
+    private Stage10 Stage10;//스테이지 정보
 
     public void GameStart()
     {
@@ -445,8 +448,11 @@ public class Player : MonoBehaviour
         if (experienceBonus > 0)
             experience += experience * experienceBonus;
 
-        playerSpawner.playerStatsScriptableObject.stats[0].gold += gold;
-        playerSpawner.playerStatsScriptableObject.stats[0].experience += experience;
+        Stage10.stage[0].gold += gold;
+        Stage10.stage[0].experience += experience;
+
+        //playerSpawner.playerStatsScriptableObject.stats[0].gold += gold;
+        //playerSpawner.playerStatsScriptableObject.stats[0].experience += experience;
      
         playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1
     }

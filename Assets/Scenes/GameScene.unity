@@ -3149,7 +3149,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 562330899}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 608566320}
+        m_MethodName: GameReset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &562330899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3701,6 +3712,8 @@ MonoBehaviour:
   GameStartBtn: {fileID: 1553468293}
   ButtonExitBtn: {fileID: 562330896}
   playerTabManager: {fileID: 1237855922}
+  stage10: {fileID: 11400000, guid: 3fac9d22cced260438424900f7d85112, type: 2}
+  itemStats: {fileID: 11400000, guid: 20f984c5d5d968d4881bc4b38e264f54, type: 2}
   playerStats:
     PlayerPrefab: {fileID: 4095418724830420596, guid: d9fb9e290afecb14685283f69e0b84d7,
       type: 3}
@@ -7767,6 +7780,7 @@ MonoBehaviour:
   ScreenLevel: {fileID: 2053311513}
   playerStats_temp: {fileID: 11400000, guid: a8385fae81328c7458a1a83dd2c80e52, type: 2}
   ItemStats: {fileID: 11400000, guid: 20f984c5d5d968d4881bc4b38e264f54, type: 2}
+  Stage10: {fileID: 11400000, guid: 3fac9d22cced260438424900f7d85112, type: 2}
 --- !u!4 &1237855923
 Transform:
   m_ObjectHideFlags: 0
@@ -10748,6 +10762,7 @@ MonoBehaviour:
   - {fileID: 2114410012}
   - {fileID: 683971516}
   - {fileID: 1284119355}
+  Stage10: {fileID: 11400000, guid: 3fac9d22cced260438424900f7d85112, type: 2}
 --- !u!4 &1691188938
 Transform:
   m_ObjectHideFlags: 0

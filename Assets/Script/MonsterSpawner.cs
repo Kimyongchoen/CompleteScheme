@@ -40,6 +40,10 @@ public class MonsterSpawner : MonoBehaviour
 
     private void Awake()
     {
+        GameReset();
+    }
+
+    public void GameReset() {
         //몬스터 리스트 메모리 할당
         monsterList = new List<Monster>();
         //몬스터 생성 코루틴 함수

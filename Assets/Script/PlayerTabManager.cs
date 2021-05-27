@@ -35,6 +35,9 @@ public class PlayerTabManager : MonoBehaviour
 
     private Sprite sprite_temp;
 
+    [SerializeField]
+    private Stage10 Stage10;//스테이지 정보
+
     private void Awake()
     {
         playerStats = playerStats_temp.stats[0];
@@ -114,11 +117,11 @@ public class PlayerTabManager : MonoBehaviour
         
         experienceBonus.text = "경험치 보너스 : " + playerStats.experienceBonus.ToString();//경험치 보너스
         
-        experience.text = "보유 경험치 : " + playerStats.experience.ToString();//보유 경험치
+        experience.text = "보유 경험치 : " + (playerStats.experience + Stage10.stage[0].experience).ToString();//보유 경험치
         
-        gold.text = "보유 골드 : " + playerStats.gold.ToString();//보유 골드
+        gold.text = "보유 골드 : " + (playerStats.gold+ Stage10.stage[0].gold).ToString();//보유 골드
 
-        ScreenGold.text = "Gold "+playerStats.gold.ToString(); //화면 상단 골드 표시
+        ScreenGold.text = "Gold "+(playerStats.gold+ Stage10.stage[0].gold).ToString(); //화면 상단 골드 표시
         
         Color color = PlayerImage.color;
         color.a = 1.0f;

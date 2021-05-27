@@ -54,6 +54,9 @@ public class ObjectDetector : MonoBehaviour
     //private TowerDataViewer towerDataViewer;
     private TileManager tileManager;
 
+    [SerializeField]
+    private Stage10 Stage10;//스테이지 정보
+
     private Camera mainCamera;
     private Ray ray;
     private RaycastHit hit;
@@ -481,7 +484,8 @@ public class ObjectDetector : MonoBehaviour
 
             if (tileManager.getMonsterFlag() == 2)//배치한 몬스터이면
             {
-                int RandomNumber = Random.Range(0, 5);// 0 ~ 4 까지 랜덤한 숫자 전달
+                
+                int RandomNumber = Random.Range(Stage10.stage[0].MonsterNumberMin, Stage10.stage[0].MonsterNumberMax);// 0 ~ 4 까지 랜덤한 숫자 전달
                 //몬스터를 생성하는 SpawnMonster()호출
                 monsterSpawner.SpawnMonster(tileManager.transform, RandomNumber);
                 Destroy(tileManager.getgameObject());//제거

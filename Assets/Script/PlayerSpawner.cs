@@ -34,7 +34,11 @@ public class PlayerSpawner : MonoBehaviour
 
     [SerializeField]
     public PlayerTabManager playerTabManager;//플레이어 정보 표시
-    
+
+    [SerializeField]
+    private Stage10 stage10;//스테이지 정보
+    [SerializeField]
+    private ItemStats itemStats;//아이템 정보
 
     public PlayerStats.Stats playerStats; // 플레이어 정보 ( 공격력, 체력, 방어력 등)
 
@@ -75,8 +79,37 @@ public class PlayerSpawner : MonoBehaviour
         if (Playing)//게임중 일때 리셋 가능
         {
             //플레이어 정보 초기화 ( 버프 회수, 경험치, 골드 회수 )
+            stage10.stage[0].gold = 0;
+            stage10.stage[0].experience = 0;
+            itemStats.AttackDamageUp = 0;
+            itemStats.DefenseUp = 0;
 
+            Destroy(player.gameObject);//플레이어 삭제
 
+            //스타트 버튼 활성화 리셋 버튼 비활성화
+            GameStartBtn.SetActive(false);
+            ButtonExitBtn.SetActive(true);
+            bool resetBuffflag = false;
+/*
+            if (monster.monsterStats.buff > 0) //죽는 몬스터가 버프 몬스터라면
+            {
+                resetBuffflag = true;
+            }
+            // 리스트에서 사망하는 몬스터 정보 삭제
+            monsterList.Remove(monster);
+            //몬스터 오브젝트 삭제
+            Destroy(monster.gameObject);
+
+            if (resetBuffflag)//버프 재설정
+            {
+                resetBuff();
+            }*/
+
+            //게임 초기 상태로 리셋
+            monsterSpawner.GameReset();
+
+            //게임중 아님으로 변경
+            Playing = false;
         }
         else
         {
