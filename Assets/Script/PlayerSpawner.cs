@@ -28,7 +28,7 @@ public class PlayerSpawner : MonoBehaviour
     private ObjectDetector objectDetector;//몬스터 랜덤생성
 
     [SerializeField]
-    private GameObject GameStartBtn;
+    private GameObject GameStartBtn; 
     [SerializeField]
     private GameObject ButtonExitBtn;
 
