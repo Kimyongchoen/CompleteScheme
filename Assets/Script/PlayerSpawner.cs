@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public enum WeaponState { SearchTarget = 0, AttackToTarget }
 public class PlayerSpawner : MonoBehaviour
@@ -47,6 +48,10 @@ public class PlayerSpawner : MonoBehaviour
     public Player player;
     private GameObject clone;
 
+    [SerializeField]
+    private TextMeshProUGUI MainMessageBox;
+
+
     public void Setup()
     {
 
@@ -74,9 +79,9 @@ public class PlayerSpawner : MonoBehaviour
             Playing = true;
         }
     }
-    public void GameReset()//게임 리셋 버튼
+    public void GameReset()//게임 리셋 버튼 플레이어 사망시
     {
-        if (Playing)//게임중 일때 리셋 가능
+        if (!Playing)//게임중 일때 리셋 가능
         {
             //플레이어 정보 초기화 ( 버프 회수, 경험치, 골드 회수 )
             stage10.stage[0].gold = 0;
@@ -86,34 +91,27 @@ public class PlayerSpawner : MonoBehaviour
 
             Destroy(player.gameObject);//플레이어 삭제
 
-            //스타트 버튼 활성화 리셋 버튼 비활성화
-            GameStartBtn.SetActive(false);
-            ButtonExitBtn.SetActive(true);
-            bool resetBuffflag = false;
-/*
-            if (monster.monsterStats.buff > 0) //죽는 몬스터가 버프 몬스터라면
+            for (int i = 0; i < monsterSpawner.MonsterList.Count; ++i)
             {
-                resetBuffflag = true;
+                monsterSpawner.MonsterList[i].GetComponent<MonsterAttack>().addedDamage = 0;//몬스터 버프 초기화
+                monsterSpawner.MonsterList.Remove(monsterSpawner.MonsterList[i]); //리스트에서 몬스터 삭제
+                //Destroy(monsterSpawner.MonsterList[i].gameObject);//모든 오브젝스 삭제몬스터삭제
             }
-            // 리스트에서 사망하는 몬스터 정보 삭제
-            monsterList.Remove(monster);
-            //몬스터 오브젝트 삭제
-            Destroy(monster.gameObject);
 
-            if (resetBuffflag)//버프 재설정
-            {
-                resetBuff();
-            }*/
 
+            //스타트 버튼 활성화 리셋 버튼 비활성화
+            GameStartBtn.SetActive(true);
+            ButtonExitBtn.SetActive(false);
+            
             //게임 초기 상태로 리셋
             monsterSpawner.GameReset();
 
-            //게임중 아님으로 변경
-            Playing = false;
+            cameraManager.Setup(null, false);
+
         }
         else
         {
-            //게임이 실행 중이지 않습니다.
+            SetMainMessageBox("게임이 진행 중입니다");
         }
     }
 
@@ -197,5 +195,32 @@ public class PlayerSpawner : MonoBehaviour
         //clone.GetComponent<PlayerAttack>().Setup(player, monsterSpawner);
 
         cameraManager.Setup(player,true);
+    }
+    private void SetMainMessageBox(string msg)
+    {
+        MainMessageBox.text = msg;
+        StartCoroutine(AlphaLerp(1, 0));
+
+    }
+    private IEnumerator AlphaLerp(float start, float end)
+    {
+        float currentTime = 0.0f;
+        float percent = 0.0f;
+        float lerpTime = 0.5f;
+
+        while (percent < 1)
+        {
+            //lerpTime 동안 While()반복문 실행
+            currentTime += Time.deltaTime;
+            percent = currentTime / lerpTime;
+
+            // Text - TextMeshPro의 폰트 투명도를 start에서 end로 변경
+            Color color = MainMessageBox.color;
+            color.a = Mathf.Lerp(start, end, percent);
+            MainMessageBox.color = color;
+
+            yield return null;
+        }
+
     }
 }

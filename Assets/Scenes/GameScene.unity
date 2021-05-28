@@ -3743,6 +3743,7 @@ MonoBehaviour:
     Cloak: 0
   Playing: 0
   player: {fileID: 0}
+  MainMessageBox: {fileID: 713718638}
 --- !u!4 &608566321
 Transform:
   m_ObjectHideFlags: 0

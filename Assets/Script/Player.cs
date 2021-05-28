@@ -163,8 +163,8 @@ public class Player : MonoBehaviour
             //테스트를 위한 재시작 가능하게 초기화 추후 삭제
             /*
             Destroy(gameObject);
-            this.playerSpawner.Playing = false;
             */
+            this.playerSpawner.Playing = false;
         }
     }
 
@@ -405,10 +405,9 @@ public class Player : MonoBehaviour
             spriteRenderer.color = color;
             yield return new WaitForSeconds(0.1f);
         }
-        this.playerSpawner.cameraManager.Setup(null, true);
-        
-        
 
+        this.playerSpawner.cameraManager.Setup(null, true);
+        this.playerSpawner.Playing = false;
 
         yield return null;
     }

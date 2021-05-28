@@ -22,11 +22,24 @@ public class CameraManager : MonoBehaviour
     float ShakeTime = 0f;
     Vector3 initialPosition;
 
-
+    //리셋 카메라
+    private Transform ResetMainCamera;
+    private float ResetMainCameraOrthographicSize;
+    private void Start()
+    {
+        ResetMainCamera = MainCamera.transform;
+        ResetMainCameraOrthographicSize = MainCamera.orthographicSize;
+    }
     public void Setup(GameObject target, bool GameStartFlag)
     {
         this.target = target;
         this.GameStartFlag = GameStartFlag;
+        //게임 시작 전으로 되면
+        if (target==null && !GameStartFlag)
+        {
+            MainCamera.orthographicSize = ResetMainCameraOrthographicSize;
+            MainCamera.transform.position = ResetMainCamera.position;
+        }
     }
 
     public bool getGameStartFlag()
@@ -114,7 +127,7 @@ public class CameraManager : MonoBehaviour
         {
             TargetPosition.Set(target.transform.position.x, target.transform.position.y - 0.3f, MainCamera.transform.position.z);
             MainCamera.transform.position = Vector3.Lerp(MainCamera.transform.position, TargetPosition, moveSpeed * Time.deltaTime);
-
+            
             if (MainCamera.orthographicSize > 2.0f)
             {
                 MainCamera.orthographicSize -= moveSpeed * Time.deltaTime;//moveSpeed로 줌 인 속도 조절 expandCamera.orthographicSize -= moveSpeed * Time.deltaTime; }
@@ -133,6 +146,7 @@ public class CameraManager : MonoBehaviour
             {
                 return;
             }
+
 
             /*
             //마우스 스크롤
