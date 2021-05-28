@@ -93,9 +93,17 @@ public class PlayerSpawner : MonoBehaviour
 
             for (int i = 0; i < monsterSpawner.MonsterList.Count; ++i)
             {
-                monsterSpawner.MonsterList[i].GetComponent<MonsterAttack>().addedDamage = 0;//몬스터 버프 초기화
-                monsterSpawner.MonsterList.Remove(monsterSpawner.MonsterList[i]); //리스트에서 몬스터 삭제
-                //Destroy(monsterSpawner.MonsterList[i].gameObject);//모든 오브젝스 삭제몬스터삭제
+                if (monsterSpawner.MonsterList[i]!=null)
+                {
+                    // 리스트에서 사망하는 몬스터 정보 삭제
+                    monsterSpawner.MonsterList[i].GetComponent<MonsterAttack>().addedDamage = 0;//몬스터 버프 초기화\
+
+                    Debug.Log("monsterSpawner.MonsterList[i]==" + monsterSpawner.MonsterList[i]);
+                    monsterSpawner.MonsterList.Remove(monsterSpawner.MonsterList[i]); //리스트에서 몬스터 삭제
+                    
+                    Debug.Log("monsterSpawner.MonsterList[i]==" + monsterSpawner.MonsterList[i].gameObject);
+                    Destroy(monsterSpawner.MonsterList[i].gameObject);//모든 오브젝스 삭제
+                }
             }
 
 
