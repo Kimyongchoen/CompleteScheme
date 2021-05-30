@@ -73,7 +73,7 @@ public class PlayerSpawner : MonoBehaviour
         if (!Playing)
         {
             GameStartBtn.SetActive(false);
-            ButtonExitBtn.SetActive(true);
+            //ButtonExitBtn.SetActive(true);
             StartCoroutine("SpawnPlayer");
             //현재 웨이브 시작
             Playing = true;
@@ -91,28 +91,17 @@ public class PlayerSpawner : MonoBehaviour
 
             Destroy(player.gameObject);//플레이어 삭제
 
-            for (int i = 0; i < monsterSpawner.MonsterList.Count; ++i)
-            {
-                if (monsterSpawner.MonsterList[i]!=null)
-                {
-                    // 리스트에서 사망하는 몬스터 정보 삭제
-                    monsterSpawner.MonsterList[i].GetComponent<MonsterAttack>().addedDamage = 0;//몬스터 버프 초기화\
-
-                    Debug.Log("monsterSpawner.MonsterList[i]==" + monsterSpawner.MonsterList[i]);
-                    monsterSpawner.MonsterList.Remove(monsterSpawner.MonsterList[i]); //리스트에서 몬스터 삭제
-                    
-                    Debug.Log("monsterSpawner.MonsterList[i]==" + monsterSpawner.MonsterList[i].gameObject);
-                    Destroy(monsterSpawner.MonsterList[i].gameObject);//모든 오브젝스 삭제
-                }
-            }
-
+            monsterSpawner.MonsterALLClaer();//몬스터 삭제
 
             //스타트 버튼 활성화 리셋 버튼 비활성화
-            GameStartBtn.SetActive(true);
             ButtonExitBtn.SetActive(false);
+            GameStartBtn.SetActive(true);
             
+            playerTabManager.SetPlayerInfomation(1);//플레이어정보 리셋
+
             //게임 초기 상태로 리셋
             monsterSpawner.GameReset();
+
 
             cameraManager.Setup(null, false);
 
@@ -121,6 +110,11 @@ public class PlayerSpawner : MonoBehaviour
         {
             SetMainMessageBox("게임이 진행 중입니다");
         }
+    }
+    public void GameEnd()
+    {
+        Playing = false;
+        ButtonExitBtn.SetActive(true);
     }
 
     public void StageClear() //게임 완료

@@ -19,7 +19,8 @@ public class MonsterSpawner : MonoBehaviour
     private GameObject ObjectPositionPrefab;//몬스터 Vector Text UI
     [SerializeField]
     private GameObject MonsterNamePrefab;//몬스터 이름 Text UI
-
+    [SerializeField]
+    private ObjectDetector ObjectDetector;//타일삭제 용
 
     private List<Monster> monsterList; //현재 맵에 존재하는 모든 몬스터의 정보
 
@@ -201,5 +202,19 @@ public class MonsterSpawner : MonoBehaviour
         PositionClone.GetComponent<PositionAutoSetter>().Setup(monster.transform, 2);//type 0 Slider 1 Vector
         //Slider UI에 자신의 체력 정보를 표시하도록 설정
         PositionClone.GetComponent<MonsterHPViewer>().Setup(monster.GetComponent<Monster>(), 2);
+    }
+
+    public void MonsterALLClaer()
+    {
+        //몬스터 삭제
+        while (MonsterList.Count>0)
+        {
+            if (MonsterList[0] != null)
+            {
+                DestroyMonster(MonsterList[0]);
+            }
+
+        }
+        ObjectDetector.TileAllClaer();
     }
 }

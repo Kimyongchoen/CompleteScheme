@@ -29,4 +29,12 @@ public class TileManager : MonoBehaviour
     {
         return Object;
     }
+    public void setMonsertClaer()
+    {
+        this.getMonsterStats = 0;
+        this.number = 0;
+        Destroy(this.Object);
+    }
+
+
 }

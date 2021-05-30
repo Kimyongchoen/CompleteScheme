@@ -131,7 +131,7 @@ PrefabInstance:
     - target: {fileID: 2924921681358967474, guid: 5c5f15bcac06f8b4cacbbfada1cdc0f3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2924921681358967474, guid: 5c5f15bcac06f8b4cacbbfada1cdc0f3,
         type: 3}
@@ -3288,7 +3288,7 @@ PrefabInstance:
     - target: {fileID: 2924921681358967474, guid: 5c5f15bcac06f8b4cacbbfada1cdc0f3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2924921681358967474, guid: 5c5f15bcac06f8b4cacbbfada1cdc0f3,
         type: 3}
@@ -4390,6 +4390,7 @@ MonoBehaviour:
     type: 3}
   MonsterNamePrefab: {fileID: 1247309823852680911, guid: a9738f6d53205164287e0453ee1a59ed,
     type: 3}
+  ObjectDetector: {fileID: 1691188937}
 --- !u!1 &740274380
 GameObject:
   m_ObjectHideFlags: 0
@@ -8162,8 +8163,8 @@ Transform:
   m_LocalPosition: {x: -0.39, y: 0.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 581741087}
   - {fileID: 2904738}
+  - {fileID: 581741087}
   - {fileID: 1399742364}
   - {fileID: 1274608258}
   - {fileID: 575036437}

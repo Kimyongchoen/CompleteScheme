@@ -164,7 +164,7 @@ public class Player : MonoBehaviour
             /*
             Destroy(gameObject);
             */
-            this.playerSpawner.Playing = false;
+            this.playerSpawner.GameEnd();
         }
     }
 
@@ -407,7 +407,7 @@ public class Player : MonoBehaviour
         }
 
         this.playerSpawner.cameraManager.Setup(null, true);
-        this.playerSpawner.Playing = false;
+        this.playerSpawner.GameEnd();
 
         yield return null;
     }

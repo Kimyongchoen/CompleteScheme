@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0150a64d5d0be0419b06945c36645b9, type: 3}
   m_Name: ItmeStats
   m_EditorClassIdentifier: 
-  RecoveryCnt: 97
-  AttackDamageUpCnt: 78
-  DefenseUpCnt: 86
-  MonsterCnt: 73
+  RecoveryCnt: 98
+  AttackDamageUpCnt: 97
+  DefenseUpCnt: 98
+  MonsterCnt: 99
   AttackDamageUp: 0
   DefenseUp: 0
   weapon: 030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e000000

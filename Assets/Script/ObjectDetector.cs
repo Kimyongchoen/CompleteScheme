@@ -252,24 +252,24 @@ public class ObjectDetector : MonoBehaviour
 
             if (tileManager.getMonsterFlag() == 2)//사용자가 추가한 몬스터
             {
-                Destroy(tileManager.getgameObject());//제거
+                tileManager.setMonsertClaer();//제거
                 ItemStats.MonsterCnt += 1;
             }
             else if (tileManager.getMonsterFlag() == 3)//사용자가 추가한 버프 회복
             {
                 if (tileManager.getnumber() == 1)//회복
                 {
-                    Destroy(tileManager.getgameObject());//제거
+                    tileManager.setMonsertClaer();//제거
                     ItemStats.RecoveryCnt += 1;
                 }
                 else if (tileManager.getnumber() == 2)//공격력 증가
                 {
-                    Destroy(tileManager.getgameObject()); //제거
+                    tileManager.setMonsertClaer();//제거
                     ItemStats.AttackDamageUpCnt += 1;
                 }
                 else if (tileManager.getnumber() == 3)//방어력 증가
                 {
-                    Destroy(tileManager.getgameObject());  //제거
+                    tileManager.setMonsertClaer();//제거
                     ItemStats.DefenseUpCnt += 1;
                 }
             }
@@ -296,7 +296,7 @@ public class ObjectDetector : MonoBehaviour
                 Destroy(RemoveBtn.gameObject);
             }
 
-            tileManager.setMonsterFlag(0, 0, null);//아무것도 없음으로 세팅
+            
 
             //회복 버튼 활성화 회복이 있는 경우
             btnColorChange(RecoveryBtn, 1f);
@@ -519,6 +519,36 @@ public class ObjectDetector : MonoBehaviour
             yield return null;
         }
 
+    }
+    public void TileAllClaer()
+    {
+        //타일 초기화
+        for (int i = 0; TileList.Length > i; i++)
+        {
+            if (TileList[i].GetComponent<TileManager>().getMonsterFlag() == 2)//사용자가 추가한 몬스터
+            {
+                TileList[i].GetComponent<TileManager>().setMonsertClaer();//제거
+                ItemStats.MonsterCnt += 1;
+            }
+            else if (TileList[i].GetComponent<TileManager>().getMonsterFlag() == 3)//사용자가 추가한 버프 회복
+            {
+                if (TileList[i].GetComponent<TileManager>().getnumber() == 1)//회복
+                {
+                    TileList[i].GetComponent<TileManager>().setMonsertClaer();//제거
+                    ItemStats.RecoveryCnt += 1;
+                }
+                else if (TileList[i].GetComponent<TileManager>().getnumber() == 2)//공격력 증가
+                {
+                    TileList[i].GetComponent<TileManager>().setMonsertClaer();//제거
+                    ItemStats.AttackDamageUpCnt += 1;
+                }
+                else if (TileList[i].GetComponent<TileManager>().getnumber() == 3)//방어력 증가
+                {
+                    TileList[i].GetComponent<TileManager>().setMonsertClaer();//제거
+                    ItemStats.DefenseUpCnt += 1;
+                }
+            }
+        }
     }
     /*
      * file : ObjectDetector.cs

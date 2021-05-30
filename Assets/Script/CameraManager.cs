@@ -23,11 +23,10 @@ public class CameraManager : MonoBehaviour
     Vector3 initialPosition;
 
     //리셋 카메라
-    private Transform ResetMainCamera;
     private float ResetMainCameraOrthographicSize;
+
     private void Start()
     {
-        ResetMainCamera = MainCamera.transform;
         ResetMainCameraOrthographicSize = MainCamera.orthographicSize;
     }
     public void Setup(GameObject target, bool GameStartFlag)
@@ -38,7 +37,7 @@ public class CameraManager : MonoBehaviour
         if (target==null && !GameStartFlag)
         {
             MainCamera.orthographicSize = ResetMainCameraOrthographicSize;
-            MainCamera.transform.position = ResetMainCamera.position;
+            MainCamera.transform.position = new Vector3(0,1,-10);
         }
     }
 
