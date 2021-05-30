@@ -146,6 +146,8 @@ public class CameraManager : MonoBehaviour
                 return;
             }
 
+            if (target == null && GameStartFlag) //카메라 타겟이 없고 게임중이 아니면
+                return;
 
             /*
             //마우스 스크롤

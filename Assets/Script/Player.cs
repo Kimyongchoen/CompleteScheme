@@ -441,18 +441,21 @@ public class Player : MonoBehaviour
 
     public void GoldExperience(float gold, float experience)//경험치 골드 획득
     {
-        if (goldBonus > 0)
-            gold += gold * goldBonus;
-        if (experienceBonus > 0)
-            experience += experience * experienceBonus;
+        if (playerSpawner.Playing)
+        {
+            if (goldBonus > 0)
+                gold += gold * goldBonus;
+            if (experienceBonus > 0)
+                experience += experience * experienceBonus;
 
-        Stage10.stage[0].gold += gold;
-        Stage10.stage[0].experience += experience;
+            Stage10.stage[0].gold += gold;
+            Stage10.stage[0].experience += experience;
 
-        //playerSpawner.playerStatsScriptableObject.stats[0].gold += gold;
-        //playerSpawner.playerStatsScriptableObject.stats[0].experience += experience;
-     
-        playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1
+            //playerSpawner.playerStatsScriptableObject.stats[0].gold += gold;
+            //playerSpawner.playerStatsScriptableObject.stats[0].experience += experience;
+
+            playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1
+        }
     }
 
 

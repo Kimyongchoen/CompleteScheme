@@ -19,7 +19,7 @@ MonoBehaviour:
     level: 1
     attackDamageMin: 5
     attackDamageMax: 10
-    health: 40
+    health: 12
     Maxhealth: 100
     defense: 0
     attackSpeed: 1

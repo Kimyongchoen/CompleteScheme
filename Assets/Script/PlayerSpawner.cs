@@ -29,9 +29,13 @@ public class PlayerSpawner : MonoBehaviour
     private ObjectDetector objectDetector;//몬스터 랜덤생성
 
     [SerializeField]
-    private GameObject GameStartBtn; 
+    private GameObject GameStartBtn;//게임 시작 버튼
     [SerializeField]
-    private GameObject ButtonExitBtn;
+    private GameObject StageSelectBtn;//게임 시작전 스테이지 이동 버튼
+    [SerializeField]
+    private GameObject ButtonExitBtn;//게임 재시작 버튼
+    [SerializeField]
+    private GameObject StageSelect2Btn;//게임 종료후 스테이지 이동 버튼
 
     [SerializeField]
     public PlayerTabManager playerTabManager;//플레이어 정보 표시
@@ -73,7 +77,8 @@ public class PlayerSpawner : MonoBehaviour
         if (!Playing)
         {
             GameStartBtn.SetActive(false);
-            //ButtonExitBtn.SetActive(true);
+            StageSelectBtn.SetActive(false);
+
             StartCoroutine("SpawnPlayer");
             //현재 웨이브 시작
             Playing = true;
@@ -90,26 +95,20 @@ public class PlayerSpawner : MonoBehaviour
         }
         else //플레이어 행동불가
         {
-            Color color = imageScreenRed.color;
-            color.a = 0.4f;
-            imageScreenRed.color = color;
-
-            GameStartBtn.SetActive(true);
+            PlayerDie();
         }
     }
+
     public void GameReset()//게임 리셋 버튼 플레이어 사망시
     {
         if (!Playing)//게임중 일때 리셋 가능
         {
             Color color = imageScreenRed.color;
             color.a = 0f;
+            color.r = 255f;
             imageScreenRed.color = color;
 
-            //플레이어 정보 초기화 ( 버프 회수, 경험치, 골드 회수 )
-            stage10.stage[0].gold = 0;
-            stage10.stage[0].experience = 0;
-            itemStats.AttackDamageUp = 0;
-            itemStats.DefenseUp = 0;
+            MainMessageBox.text = "";
 
             Destroy(player.gameObject);//플레이어 삭제
 
@@ -117,8 +116,10 @@ public class PlayerSpawner : MonoBehaviour
 
             //스타트 버튼 활성화 리셋 버튼 비활성화
             ButtonExitBtn.SetActive(false);
+            StageSelect2Btn.SetActive(false);
+            StageSelectBtn.SetActive(true);
             GameStartBtn.SetActive(true);
-            
+
             playerTabManager.SetPlayerInfomation(1);//플레이어정보 리셋
 
             //게임 초기 상태로 리셋
@@ -134,11 +135,35 @@ public class PlayerSpawner : MonoBehaviour
         }
     }
 
-
-    public void StageClear() //게임 완료
+    private void StageClear() //게임 완료
     {
         //플레이어 정보 저장 ( 버프 회수, 경험치, 골드 저장 )
+        playerStats.gold = stage10.stage[0].gold;
+        playerStats.experience = stage10.stage[0].experience;
 
+        //스테이지 정보 초기화 ( 버프 회수, 경험치, 골드 회수 )
+        stage10.stage[0].gold = 0;
+        stage10.stage[0].experience = 0;
+        itemStats.AttackDamageUp = 0;
+        itemStats.DefenseUp = 0;
+    }
+    private void PlayerDie()
+    {
+        Color color = imageScreenRed.color;
+        color.a = 0.4f;
+        color.r = 0f;
+        imageScreenRed.color = color;
+
+        ButtonExitBtn.SetActive(true);
+        StageSelect2Btn.SetActive(true);
+
+        MainMessageBox.text = "게임 오버";
+
+        //스테이지 정보 초기화 ( 버프 회수, 경험치, 골드 회수 )
+        stage10.stage[0].gold = 0;
+        stage10.stage[0].experience = 0;
+        itemStats.AttackDamageUp = 0;
+        itemStats.DefenseUp = 0;
     }
 
     private IEnumerator SpawnPlayer()

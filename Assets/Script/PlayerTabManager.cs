@@ -64,9 +64,9 @@ public class PlayerTabManager : MonoBehaviour
 
         Playername.text = "플레이어 이름 : " + playerStats.Playername; // 플레이어 이름
         
-        level.text = "level : " + playerStats.level; // 레벨
+        level.text = "Level : " + playerStats.level; // 레벨
 
-        ScreenLevel.text = "level "+ playerStats.level;//화면 상단 레벨 표시
+        ScreenLevel.text = "Level " + playerStats.level;//화면 상단 레벨 표시
 
         attackDamage.text = "공력력 : " + playerStats.attackDamageMin.ToString() + " - " + playerStats.attackDamageMax.ToString(); //공격력
         if (ItemStats.AttackDamageUp > 0)//공격력 버프 증가시

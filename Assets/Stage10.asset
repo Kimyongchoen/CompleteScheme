@@ -13,48 +13,53 @@ MonoBehaviour:
   m_Name: Stage10
   m_EditorClassIdentifier: 
   stage:
-  - StageName: "\uC2DC\uC791\uC758\uCD08\uC6D0"
+  - StageName: "\uCD08\uC6D01"
     MonsterNumberMin: 0
     MonsterNumberMax: 5
     experience: 0
     gold: 0
-  - StageName: 
+  - StageName: "\uCD08\uC6D02"
     MonsterNumberMin: 0
-    MonsterNumberMax: 0
+    MonsterNumberMax: 5
     experience: 0
     gold: 0
-  - StageName: 
+  - StageName: "\uCD08\uC6D03"
     MonsterNumberMin: 0
-    MonsterNumberMax: 0
+    MonsterNumberMax: 5
     experience: 0
     gold: 0
-  - StageName: 
+  - StageName: "\uCD08\uC6D04"
     MonsterNumberMin: 0
-    MonsterNumberMax: 0
+    MonsterNumberMax: 5
     experience: 0
     gold: 0
-  - StageName: 
+  - StageName: "\uCD08\uC6D05"
     MonsterNumberMin: 0
-    MonsterNumberMax: 0
+    MonsterNumberMax: 5
     experience: 0
     gold: 0
-  - StageName: 
-    MonsterNumberMin: 0
-    MonsterNumberMax: 0
+  - StageName: "\uCD08\uC6D06"
+    MonsterNumberMin: 6
+    MonsterNumberMax: 10
     experience: 0
     gold: 0
-  - StageName: 
-    MonsterNumberMin: 0
-    MonsterNumberMax: 0
+  - StageName: "\uCD08\uC6D07"
+    MonsterNumberMin: 6
+    MonsterNumberMax: 10
     experience: 0
     gold: 0
-  - StageName: 
-    MonsterNumberMin: 0
-    MonsterNumberMax: 0
+  - StageName: "\uCD08\uC6D08"
+    MonsterNumberMin: 6
+    MonsterNumberMax: 10
     experience: 0
     gold: 0
-  - StageName: 
-    MonsterNumberMin: 0
-    MonsterNumberMax: 0
+  - StageName: "\uCD08\uC6D09"
+    MonsterNumberMin: 6
+    MonsterNumberMax: 10
+    experience: 0
+    gold: 0
+  - StageName: "\uCD08\uC6D010"
+    MonsterNumberMin: 6
+    MonsterNumberMax: 10
     experience: 0
     gold: 0

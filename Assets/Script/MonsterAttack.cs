@@ -200,36 +200,37 @@ public class MonsterAttack : MonoBehaviour
     {
         while (true)
         {
-            if (monsterStats.recovery > 0) //버프 가능 몬스터 일경우
+            if (playerSpawner.Playing)
             {
-                //현재 맵에 배치된 모든 monster 태그를 가진 오브젝트 탐색
-                GameObject[] monster = GameObject.FindGameObjectsWithTag("monster");
-
-                for (int i = 0; i < monster.Length; ++i)
+                if (monsterStats.recovery > 0) //버프 가능 몬스터 일경우
                 {
-                    MonsterAttack attack = monster[i].GetComponent<MonsterAttack>();
+                    //현재 맵에 배치된 모든 monster 태그를 가진 오브젝트 탐색
+                    GameObject[] monster = GameObject.FindGameObjectsWithTag("monster");
 
-                    //HP가 가득 차있으면 pass
-                    if (attack.monster.MaxHP == attack.monster.CurrentHP)
+                    for (int i = 0; i < monster.Length; ++i)
                     {
-                        continue;
-                    }
+                        MonsterAttack attack = monster[i].GetComponent<MonsterAttack>();
 
-                    if (Vector3.Distance(attack.transform.position, transform.position) <= 0.9f)//버프 범위 고정 0.9
-                    {
-                        if (attack.monster.CurrentHP > 0)
+                        //HP가 가득 차있으면 pass
+                        if (attack.monster.MaxHP == attack.monster.CurrentHP)
                         {
-                            attack.monster.currentHP += monsterStats.recovery;
+                            continue;
+                        }
 
-                            attack.monster.RecoveryText((int)monsterStats.recovery);
-                            if (attack.monster.currentHP > attack.monster.MaxHP)
-                                attack.monster.currentHP = attack.monster.MaxHP;
+                        if (Vector3.Distance(attack.transform.position, transform.position) <= 0.9f)//버프 범위 고정 0.9
+                        {
+                            if (attack.monster.CurrentHP > 0)
+                            {
+                                attack.monster.currentHP += monsterStats.recovery;
+
+                                attack.monster.RecoveryText((int)monsterStats.recovery);
+                                if (attack.monster.currentHP > attack.monster.MaxHP)
+                                    attack.monster.currentHP = attack.monster.MaxHP;
+                            }
                         }
                     }
                 }
             }
-
-
             //1초 만큼 대기
             yield return new WaitForSeconds(1f);
         }
