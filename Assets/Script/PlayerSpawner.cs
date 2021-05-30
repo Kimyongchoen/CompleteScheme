@@ -79,10 +79,32 @@ public class PlayerSpawner : MonoBehaviour
             Playing = true;
         }
     }
+    public void GameEnd(bool Claer)
+    {
+        Playing = false;
+        cameraManager.Setup(null, true);
+
+        if (Claer)//게임 클리어
+        {
+            StageClear();
+        }
+        else //플레이어 행동불가
+        {
+            Color color = imageScreenRed.color;
+            color.a = 0.4f;
+            imageScreenRed.color = color;
+
+            GameStartBtn.SetActive(true);
+        }
+    }
     public void GameReset()//게임 리셋 버튼 플레이어 사망시
     {
         if (!Playing)//게임중 일때 리셋 가능
         {
+            Color color = imageScreenRed.color;
+            color.a = 0f;
+            imageScreenRed.color = color;
+
             //플레이어 정보 초기화 ( 버프 회수, 경험치, 골드 회수 )
             stage10.stage[0].gold = 0;
             stage10.stage[0].experience = 0;
@@ -111,11 +133,7 @@ public class PlayerSpawner : MonoBehaviour
             SetMainMessageBox("게임이 진행 중입니다");
         }
     }
-    public void GameEnd()
-    {
-        Playing = false;
-        ButtonExitBtn.SetActive(true);
-    }
+
 
     public void StageClear() //게임 완료
     {

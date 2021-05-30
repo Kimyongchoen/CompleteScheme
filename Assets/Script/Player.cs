@@ -164,7 +164,7 @@ public class Player : MonoBehaviour
             /*
             Destroy(gameObject);
             */
-            this.playerSpawner.GameEnd();
+            playerSpawner.GameEnd(true);
         }
     }
 
@@ -406,8 +406,7 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
-        this.playerSpawner.cameraManager.Setup(null, true);
-        this.playerSpawner.GameEnd();
+        playerSpawner.GameEnd(false);
 
         yield return null;
     }
