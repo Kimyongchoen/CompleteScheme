@@ -5,48 +5,57 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour
 {
-    public void ChangeSecenBtn()
+    [SerializeField]
+    private GameObject Questionpanel;
+    private string StageName;
+
+    public void ChangeSecenBtn(string StageName)
     {
-        switch (this.gameObject.name)
+        this.StageName = StageName;
+        ChangeSecen();
+        //Questionpanel.SetActive(true);
+        //ChangeSecen();
+    }
+
+    private void ChangeSecen()
+    {
+        switch (StageName)
         {
-            case "StageSelectBtn":
-                SceneManager.LoadScene("StageSelect");
-                break;
-            case "StageSelect2Btn":
+            case "StageSelect":
                 SceneManager.LoadScene("StageSelect");
                 break;
             case "Stage1":
                 SceneManager.LoadScene("GameScene");
                 break;
-            /*
-            case "Stage2":
-                SceneManager.LoadScene("GameScene2");
-                break;
-            case "Stage3":
-                SceneManager.LoadScene("GameScene3");
-                break;
-            case "Stage4":
-                SceneManager.LoadScene("GameScene4");
-                break;
-            case "Stage5":
-                SceneManager.LoadScene("GameScene5");
-                break;
-            case "Stage6":
-                SceneManager.LoadScene("GameScene6");
-                break;
-            case "Stage7":
-                SceneManager.LoadScene("GameScene7");
-                break;
-            case "Stage8":
-                SceneManager.LoadScene("GameScene8");
-                break;
-            case "Stage9":
-                SceneManager.LoadScene("GameScene9");
-                break;
-            case "Stage10":
-                SceneManager.LoadScene("GameScene10");
-                break;
-            */
+                /*
+                case "Stage2":
+                    SceneManager.LoadScene("GameScene2");
+                    break;
+                case "Stage3":
+                    SceneManager.LoadScene("GameScene3");
+                    break;
+                case "Stage4":
+                    SceneManager.LoadScene("GameScene4");
+                    break;
+                case "Stage5":
+                    SceneManager.LoadScene("GameScene5");
+                    break;
+                case "Stage6":
+                    SceneManager.LoadScene("GameScene6");
+                    break;
+                case "Stage7":
+                    SceneManager.LoadScene("GameScene7");
+                    break;
+                case "Stage8":
+                    SceneManager.LoadScene("GameScene8");
+                    break;
+                case "Stage9":
+                    SceneManager.LoadScene("GameScene9");
+                    break;
+                case "Stage10":
+                    SceneManager.LoadScene("GameScene10");
+                    break;
+                */
         }
     }
 }

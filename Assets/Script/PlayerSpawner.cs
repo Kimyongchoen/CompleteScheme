@@ -161,7 +161,7 @@ public class PlayerSpawner : MonoBehaviour
         ButtonExitBtn.SetActive(true);
         StageSelect2Btn.SetActive(true);
 
-        MainMessageBox.text = "스테이지 클리어";
+        MainMessageBox.text = "지역 클리어";
 
     }
     private void PlayerDie()
