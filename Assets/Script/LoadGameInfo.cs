@@ -85,6 +85,8 @@ public class LoadGameInfo : MonoBehaviour
         Stage10Exp.text = stage10.stage[9].experience.ToString();
         Stage10Gold.text = stage10.stage[9].gold.ToString();
 
+        /*      
+        //스테이지 선택 화면에서 골드 및 경험치 획득 초기화
         playerStats.stats[0].experience = 0;
         playerStats.stats[0].gold = 0;
 
@@ -93,6 +95,7 @@ public class LoadGameInfo : MonoBehaviour
             playerStats.stats[0].experience += stage10.stage[i].experience;
             playerStats.stats[0].gold += stage10.stage[i].gold;
         }
+        */
     }
 
 }

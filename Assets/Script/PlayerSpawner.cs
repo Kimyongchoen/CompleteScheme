@@ -58,6 +58,11 @@ public class PlayerSpawner : MonoBehaviour
 
     public void Setup()
     {
+        playerStatsScriptableObject.stats[0].gold -= stage10.stage[0].gold;
+        playerStatsScriptableObject.stats[0].experience -= stage10.stage[0].experience;
+        
+        stage10.stage[0].gold = 0;
+        stage10.stage[0].experience = 0;
 
         this.playerStats = playerStatsScriptableObject.stats[0];//플레이어 타입 1 (기사)
 
@@ -138,14 +143,26 @@ public class PlayerSpawner : MonoBehaviour
     private void StageClear() //게임 완료
     {
         //플레이어 정보 저장 ( 버프 회수, 경험치, 골드 저장 )
-        playerStats.gold = stage10.stage[0].gold;
-        playerStats.experience = stage10.stage[0].experience;
+        playerStatsScriptableObject.stats[0].gold += stage10.stage[0].gold;
+        playerStatsScriptableObject.stats[0].experience += stage10.stage[0].experience;
 
         //스테이지 정보 초기화 ( 버프 회수, 경험치, 골드 회수 )
-        stage10.stage[0].gold = 0;
-        stage10.stage[0].experience = 0;
+        //stage10.stage[0].gold = 0;
+        //stage10.stage[0].experience = 0;
+
         itemStats.AttackDamageUp = 0;
         itemStats.DefenseUp = 0;
+
+        Color color = imageScreenRed.color;
+        color.a = 0.4f;
+        color.r = 0f;
+        imageScreenRed.color = color;
+
+        ButtonExitBtn.SetActive(true);
+        StageSelect2Btn.SetActive(true);
+
+        MainMessageBox.text = "스테이지 클리어";
+
     }
     private void PlayerDie()
     {

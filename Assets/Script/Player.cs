@@ -155,16 +155,18 @@ public class Player : MonoBehaviour
         }
         else//현재위치가 마지막 wayPoints 이면
         {
-            GameEnd = true;
-            
-            //플레이어 오브젝트 이동정지
             MoveStop();
-
-            //테스트를 위한 재시작 가능하게 초기화 추후 삭제
-            /*
-            Destroy(gameObject);
-            */
-            playerSpawner.GameEnd(true);
+            
+            if (!GameEnd)//1번만 실행
+            {
+                GameEnd = true;
+                //플레이어 오브젝트 이동정지
+                //테스트를 위한 재시작 가능하게 초기화 추후 삭제
+                /*
+                Destroy(gameObject);
+                */
+                playerSpawner.GameEnd(true);
+            }
         }
     }
 
