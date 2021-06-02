@@ -12,8 +12,9 @@ public class ChangeScene : MonoBehaviour
     public void ChangeSecenBtn(string StageName)
     {
         this.StageName = StageName;
-        ChangeSecen();
-        //Questionpanel.SetActive(true);
+        Questionpanel.SetActive(true);
+        Questionpanel.GetComponent<QuestionManager>().setStageName(StageName);
+        
         //ChangeSecen();
     }
 
