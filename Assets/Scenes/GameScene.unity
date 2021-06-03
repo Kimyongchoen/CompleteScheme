@@ -1609,11 +1609,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 592691762}
         m_MethodName: ChangeSecenBtn
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: -1
           m_FloatArgument: 0
           m_StringArgument: StageSelect
           m_BoolArgument: 0
@@ -3597,6 +3597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Questionpanel: {fileID: 765082488}
+  stage10: {fileID: 0}
 --- !u!4 &592691763
 Transform:
   m_ObjectHideFlags: 0
@@ -4944,6 +4945,7 @@ GameObject:
   - component: {fileID: 765082491}
   - component: {fileID: 765082490}
   - component: {fileID: 765082489}
+  - component: {fileID: 765082492}
   m_Layer: 5
   m_Name: Questionpanel
   m_TagString: Untagged
@@ -5010,6 +5012,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -395.99997}
   m_SizeDelta: {x: 1440, y: 2750}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &765082492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765082488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25b2963e6d452314bb28bd83b5b53613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &768416779
 GameObject:
   m_ObjectHideFlags: 0
@@ -9178,13 +9192,13 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 592691762}
         m_MethodName: ChangeSecenBtn
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: -1
           m_FloatArgument: 0
-          m_StringArgument: StageSelect
+          m_StringArgument: -1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1317802600

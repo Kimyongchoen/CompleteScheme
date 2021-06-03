@@ -12,6 +12,11 @@ public class LoadGameInfo : MonoBehaviour
     private PlayerStats playerStats;//스테이지 정보
 
     [SerializeField]
+    private Text Level;
+    [SerializeField]
+    private Text Gold;
+    
+    [SerializeField]
     private Text Stage1Exp;
     [SerializeField]
     private Text Stage1Gold;
@@ -55,6 +60,9 @@ public class LoadGameInfo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Level.text = "Level " + playerStats.stats[0].level.ToString();
+        Gold.text = "Gold " + playerStats.stats[0].gold.ToString();
+
         Stage1Exp.text = stage10.stage[0].experience.ToString();
         Stage1Gold.text = stage10.stage[0].gold.ToString();
 

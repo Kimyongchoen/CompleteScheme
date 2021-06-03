@@ -7,25 +7,39 @@ public class ChangeScene : MonoBehaviour
 {
     [SerializeField]
     private GameObject Questionpanel;
-    private string StageName;
+    [SerializeField]
+    private Stage10 stage10;
+    private int Stage = 0;
 
-    public void ChangeSecenBtn(string StageName)
+    public void ChangeSecenBtn(int Stage)
     {
-        this.StageName = StageName;
-        Questionpanel.SetActive(true);
-        Questionpanel.GetComponent<QuestionManager>().setStageName(StageName);
-        
-        //ChangeSecen();
+        this.Stage = Stage;
+
+        if (Stage < 0 )
+        {
+            ChangeSecen();//스테이지 선택으로 이동시 메시지 없이 이동
+        }
+        else
+        {
+            if (stage10.stage[Stage].gold + stage10.stage[Stage].experience > 0)
+            {
+                Questionpanel.SetActive(true);
+            }
+            else
+            {
+                ChangeSecen();//저장된 골드 경험치가 없다면
+            }
+        }
     }
 
-    private void ChangeSecen()
+    public void ChangeSecen()
     {
-        switch (StageName)
+        switch (Stage)
         {
-            case "StageSelect":
+            case -1: //StageSelect
                 SceneManager.LoadScene("StageSelect");
                 break;
-            case "Stage1":
+            case 0: //Stage1
                 SceneManager.LoadScene("GameScene");
                 break;
                 /*
@@ -58,5 +72,11 @@ public class ChangeScene : MonoBehaviour
                     break;
                 */
         }
+    }
+
+    public void Cancel()
+    {
+        Questionpanel.SetActive(false);
+        Questionpanel.GetComponent<QuestionManager>().setStageName(null);
     }
 }
