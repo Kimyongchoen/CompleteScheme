@@ -27,6 +27,9 @@ public class PlayerSpawner : MonoBehaviour
     private TabManager tabManager;//플레이어 탭
     [SerializeField]
     private ObjectDetector objectDetector;//몬스터 랜덤생성
+    
+    [SerializeField]
+    private int StageNumber;//현재 스테이지 번호
 
     [SerializeField]
     private GameObject GameStartBtn;//게임 시작 버튼
@@ -36,6 +39,10 @@ public class PlayerSpawner : MonoBehaviour
     private GameObject ButtonExitBtn;//게임 재시작 버튼
     [SerializeField]
     private GameObject StageSelect2Btn;//게임 종료후 스테이지 이동 버튼
+    [SerializeField]
+    private GameObject NextStageBtn;//게임 종료후 다음 스테이지 이동 버튼
+
+    
 
     [SerializeField]
     public PlayerTabManager playerTabManager;//플레이어 정보 표시
@@ -44,6 +51,9 @@ public class PlayerSpawner : MonoBehaviour
     private Stage10 stage10;//스테이지 정보
     [SerializeField]
     private ItemStats itemStats;//아이템 정보
+
+    [SerializeField]
+    private ChangeScene changeScene;//스테이지 변경
 
     public PlayerStats.Stats playerStats; // 플레이어 정보 ( 공격력, 체력, 방어력 등)
 
@@ -158,7 +168,9 @@ public class PlayerSpawner : MonoBehaviour
         color.r = 0f;
         imageScreenRed.color = color;
 
-        ButtonExitBtn.SetActive(true);
+        if (StageNumber < 10)
+            NextStageBtn.SetActive(true);
+
         StageSelect2Btn.SetActive(true);
 
         MainMessageBox.text = "지역 클리어";
@@ -284,5 +296,13 @@ public class PlayerSpawner : MonoBehaviour
             yield return null;
         }
 
+    }
+    public void NextStage()
+    {
+        if (StageNumber<10)
+        {
+            changeScene.SetStage(++StageNumber);
+            changeScene.ChangeSecen();
+        }
     }
 }

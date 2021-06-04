@@ -15,7 +15,7 @@ public class ChangeScene : MonoBehaviour
     {
         this.Stage = Stage;
 
-        if (Stage < 0 )
+        if (Stage < 0)
         {
             ChangeSecen();//스테이지 선택으로 이동시 메시지 없이 이동
         }
@@ -30,6 +30,11 @@ public class ChangeScene : MonoBehaviour
                 ChangeSecen();//저장된 골드 경험치가 없다면
             }
         }
+    }
+
+    public void SetStage(int Stage)
+    {
+        this.Stage = Stage;
     }
 
     public void ChangeSecen()
