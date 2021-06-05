@@ -14,10 +14,13 @@ public class ChangeScene : MonoBehaviour
     public void ChangeSecenBtn(int Stage)
     {
         this.Stage = Stage;
-
-        if (Stage < 0)
+        //-1 스테이지선택
+        //1000 지역선택
+        //1001 캐릭터 스탯
+        //1002 상점
+        if (Stage < 0 || Stage > 999)
         {
-            ChangeSecen();//스테이지 선택으로 이동시 메시지 없이 이동
+            ChangeSecen();//스테이지 선택 or 지역선택 으로 이동시 메시지 없이 이동
         }
         else
         {
@@ -41,6 +44,15 @@ public class ChangeScene : MonoBehaviour
     {
         switch (Stage)
         {
+            case 1000: //지역선택
+                SceneManager.LoadScene("AreaSelect");
+                break;
+            case 1001: //캐릭터 스탯 
+                SceneManager.LoadScene("PlayerStats");
+                break;
+            case 1002: //상점
+                SceneManager.LoadScene("Shop");
+                break;
             case -1: //StageSelect
                 SceneManager.LoadScene("StageSelect");
                 break;

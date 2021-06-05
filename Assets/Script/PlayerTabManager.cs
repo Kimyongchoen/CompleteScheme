@@ -26,6 +26,7 @@ public class PlayerTabManager : MonoBehaviour
     public Text ScreenGold;
     public Text ScreenLevel;
 
+    public PlayerSpawner playerSpawner;
 
     private int hp;
 
@@ -65,8 +66,6 @@ public class PlayerTabManager : MonoBehaviour
         Playername.text = "플레이어 이름 : " + playerStats.Playername; // 플레이어 이름
         
         level.text = "Level : " + playerStats.level; // 레벨
-
-        ScreenLevel.text = "Level " + playerStats.level;//화면 상단 레벨 표시
 
         attackDamage.text = "공력력 : " + playerStats.attackDamageMin.ToString() + " - " + playerStats.attackDamageMax.ToString(); //공격력
         if (ItemStats.AttackDamageUp > 0)//공격력 버프 증가시
@@ -117,12 +116,21 @@ public class PlayerTabManager : MonoBehaviour
         
         experienceBonus.text = "경험치 보너스 : " + playerStats.experienceBonus.ToString();//경험치 보너스
         
-        experience.text = "보유 경험치 : " + (playerStats.experience + Stage10.stage[0].experience).ToString();//보유 경험치
+        experience.text = "보유 경험치 : " + (playerStats.experience).ToString();//보유 경험치
         
-        gold.text = "보유 골드 : " + (playerStats.gold+ Stage10.stage[0].gold).ToString();//보유 골드
+        gold.text = "보유 골드 : " + (playerStats.gold).ToString();//보유 골드
 
-        ScreenGold.text = "Gold "+(playerStats.gold+ Stage10.stage[0].gold).ToString(); //화면 상단 골드 표시
-        
+        if (Stage10.stage[0].experience+ Stage10.stage[0].gold>0)
+        {
+            ScreenLevel.text = "지역경험치\n" + (playerSpawner.experience).ToString() + " / " + (Stage10.stage[0].experience).ToString(); //화면 상단 골드 표시
+            ScreenGold.text = "지역Gold\n" + (playerSpawner.gold).ToString() + " / " + (Stage10.stage[0].gold).ToString(); //화면 상단 골드 표시
+        }
+        else
+        {
+            ScreenLevel.text = "지역경험치\n" + (playerSpawner.experience).ToString(); //화면 상단 골드 표시
+            ScreenGold.text = "지역Gold\n" + (playerSpawner.gold).ToString(); //화면 상단 골드 표시
+        }
+
         Color color = PlayerImage.color;
         color.a = 1.0f;
         PlayerImage.color = color;

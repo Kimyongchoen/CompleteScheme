@@ -450,11 +450,8 @@ public class Player : MonoBehaviour
             if (experienceBonus > 0)
                 experience += experience * experienceBonus;
 
-            Stage10.stage[0].gold += gold;
-            Stage10.stage[0].experience += experience;
-
-            //playerSpawner.playerStatsScriptableObject.stats[0].gold += gold;
-            //playerSpawner.playerStatsScriptableObject.stats[0].experience += experience;
+            playerSpawner.gold += gold;
+            playerSpawner.experience += gold;
 
             playerTabManager.SetPlayerInfomation(1, (int)currentHP);//기사 1
         }

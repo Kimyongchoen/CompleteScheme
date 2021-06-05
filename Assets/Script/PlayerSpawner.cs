@@ -62,17 +62,17 @@ public class PlayerSpawner : MonoBehaviour
     public Player player;
     private GameObject clone;
 
+    public float gold; //게임 중 gold
+    public float experience; //게임 중 경험치
+
+
     [SerializeField]
     private TextMeshProUGUI MainMessageBox;
 
 
     public void Setup()
     {
-        playerStatsScriptableObject.stats[0].gold -= stage10.stage[0].gold;
-        playerStatsScriptableObject.stats[0].experience -= stage10.stage[0].experience;
-        
-        stage10.stage[0].gold = 0;
-        stage10.stage[0].experience = 0;
+
 
         this.playerStats = playerStatsScriptableObject.stats[0];//플레이어 타입 1 (기사)
 
@@ -152,13 +152,24 @@ public class PlayerSpawner : MonoBehaviour
 
     private void StageClear() //게임 완료
     {
-        //플레이어 정보 저장 ( 버프 회수, 경험치, 골드 저장 )
-        playerStatsScriptableObject.stats[0].gold += stage10.stage[0].gold;
-        playerStatsScriptableObject.stats[0].experience += stage10.stage[0].experience;
+        MainMessageBox.text = "지역 클리어";
 
-        //스테이지 정보 초기화 ( 버프 회수, 경험치, 골드 회수 )
-        //stage10.stage[0].gold = 0;
-        //stage10.stage[0].experience = 0;
+        //플레이어 정보 저장 기존 점수보다 높다면 갱신
+        if ( gold + experience > stage10.stage[0].gold + stage10.stage[0].experience)
+        {
+            playerStatsScriptableObject.stats[0].gold -= stage10.stage[0].gold;
+            playerStatsScriptableObject.stats[0].experience -= stage10.stage[0].experience;
+
+            stage10.stage[0].gold = gold;
+            stage10.stage[0].experience = experience;
+
+            playerStatsScriptableObject.stats[0].experience += stage10.stage[0].experience;
+            playerStatsScriptableObject.stats[0].gold += stage10.stage[0].gold;
+        }
+        else
+        {
+            MainMessageBox.text = "지역 클리어\n 기존 획득한 경험치와 골드보다\n획득한 경험치와 골드가 적습니다\n경험치와 골드가 유지 됩니다";
+        }
 
         itemStats.AttackDamageUp = 0;
         itemStats.DefenseUp = 0;
@@ -168,12 +179,12 @@ public class PlayerSpawner : MonoBehaviour
         color.r = 0f;
         imageScreenRed.color = color;
 
-        if (StageNumber < 10)
-            NextStageBtn.SetActive(true);
+        //if (StageNumber < 10)
+            //NextStageBtn.SetActive(true);
 
         StageSelect2Btn.SetActive(true);
 
-        MainMessageBox.text = "지역 클리어";
+        
 
     }
     private void PlayerDie()
@@ -189,8 +200,8 @@ public class PlayerSpawner : MonoBehaviour
         MainMessageBox.text = "게임 오버";
 
         //스테이지 정보 초기화 ( 버프 회수, 경험치, 골드 회수 )
-        stage10.stage[0].gold = 0;
-        stage10.stage[0].experience = 0;
+        gold = 0;
+        experience = 0;
         itemStats.AttackDamageUp = 0;
         itemStats.DefenseUp = 0;
     }
