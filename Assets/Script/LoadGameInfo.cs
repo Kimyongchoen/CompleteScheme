@@ -9,7 +9,7 @@ public class LoadGameInfo : MonoBehaviour
     private Stage10 stage10;//스테이지 정보
 
     [SerializeField]
-    private PlayerStats playerStats;//스테이지 정보
+    private PlayerStats playerStats;//플래이어 정보
 
     [SerializeField]
     private Text Level;

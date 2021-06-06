@@ -5,8 +5,6 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PlayerStats : ScriptableObject
 {
-
-    
     public Stats[] stats; //케릭터 정보
 
     [System.Serializable]
@@ -35,6 +33,7 @@ public class PlayerStats : ScriptableObject
 
         public float experience;//경험치
         public float gold;//골드
+        public float goldMax;//획득한 골드
 
         //아이템
         public int weapon; //무기

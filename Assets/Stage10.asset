@@ -16,8 +16,8 @@ MonoBehaviour:
   - StageName: "\uCD08\uC6D01"
     MonsterNumberMin: 0
     MonsterNumberMax: 5
-    experience: 265
-    gold: 265
+    experience: 315
+    gold: 315
   - StageName: "\uCD08\uC6D02"
     MonsterNumberMin: 0
     MonsterNumberMax: 5

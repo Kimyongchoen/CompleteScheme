@@ -69,6 +69,11 @@ public class PlayerSpawner : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI MainMessageBox;
 
+    [SerializeField]
+    private Levelinfo levelinfo;
+
+    [SerializeField]
+    private PlayerStat playerStat;
 
     public void Setup()
     {
@@ -158,17 +163,45 @@ public class PlayerSpawner : MonoBehaviour
         if ( gold + experience > stage10.stage[0].gold + stage10.stage[0].experience)
         {
             playerStatsScriptableObject.stats[0].gold -= stage10.stage[0].gold;
+            playerStatsScriptableObject.stats[0].goldMax -= stage10.stage[0].gold;//획득한 총 골드 추후 초기화에 사용
             playerStatsScriptableObject.stats[0].experience -= stage10.stage[0].experience;
 
             stage10.stage[0].gold = gold;
             stage10.stage[0].experience = experience;
 
-            playerStatsScriptableObject.stats[0].experience += stage10.stage[0].experience;
             playerStatsScriptableObject.stats[0].gold += stage10.stage[0].gold;
+            playerStatsScriptableObject.stats[0].goldMax += stage10.stage[0].gold;//획득한 총 골드 추후 초기화에 사용
+            playerStatsScriptableObject.stats[0].experience += stage10.stage[0].experience;
+
         }
         else
         {
-            MainMessageBox.text = "지역 클리어\n 기존 획득한 경험치와 골드보다\n획득한 경험치와 골드가 적습니다\n경험치와 골드가 유지 됩니다";
+            MainMessageBox.text = "지역 클리어\n 기존 획득한 경험치와 골드보다\n획득한 경험치와 골드가 적습니다\n기존 경험치와 골드가 유지 됩니다";
+        }
+
+        int LevelUp = 0;
+        //레벨 계산 & 보너스 스텟 저장
+        for (int i = 0; levelinfo.levelInfo.Length > i; i++)
+        {
+            if (playerStatsScriptableObject.stats[0].experience < levelinfo.levelInfo[0].experience) break; //레벨1 경험치라면 정지
+
+            if (playerStatsScriptableObject.stats[0].experience < levelinfo.levelInfo[i].experience) { //경험치에 따라서 레벨 변경
+                
+                LevelUp = levelinfo.levelInfo[i-1].Level - playerStatsScriptableObject.stats[0].level; //레벨 업 한 수
+                
+                playerStatsScriptableObject.stats[0].level = levelinfo.levelInfo[i-1].Level;
+                break;
+            }
+        }
+
+        if (playerStatsScriptableObject.stats[0].level > playerStat.Level) // 레벨업 했다면
+        {
+            //레벨업 한만큼 보너스 스텟 추가..
+            for (int i = 0; LevelUp > i; i++)
+            {
+                playerStat.BonusStat += levelinfo.levelInfo[ playerStatsScriptableObject.stats[0].level - 2 - i ].Stat;
+            }
+            playerStat.Level = playerStatsScriptableObject.stats[0].level;
         }
 
         itemStats.AttackDamageUp = 0;

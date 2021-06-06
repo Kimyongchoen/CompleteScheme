@@ -10,6 +10,11 @@ public class ItemStats : ScriptableObject
     public int DefenseUpCnt; //방어력증가 타일 갯수
     public int MonsterCnt; //몬스터 타일 갯수
 
+    public int RecoveryGold; //회복 타일 가격
+    public int AttackDamageUpGold; //공격력증가 타일 가격
+    public int DefenseUpGold; //방어력증가 타일 가격
+    public int MonsterGold; //몬스터 타일 가격
+
     public int AttackDamageUp; //공격력 증가 버프
     public int DefenseUp; //방어력 증가 버프
 

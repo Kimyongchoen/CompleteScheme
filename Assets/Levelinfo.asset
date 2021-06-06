@@ -1,0 +1,312 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0bce5cd8df24e438b55fdb958c844f, type: 3}
+  m_Name: Levelinfo
+  m_EditorClassIdentifier: 
+  levelInfo:
+  - Level: 2
+    experience: 300
+    Stat: 1
+  - Level: 3
+    experience: 600
+    Stat: 1
+  - Level: 4
+    experience: 950
+    Stat: 1
+  - Level: 5
+    experience: 1300
+    Stat: 1
+  - Level: 6
+    experience: 1700
+    Stat: 1
+  - Level: 7
+    experience: 2100
+    Stat: 1
+  - Level: 8
+    experience: 2550
+    Stat: 1
+  - Level: 9
+    experience: 3000
+    Stat: 1
+  - Level: 10
+    experience: 3500
+    Stat: 1
+  - Level: 11
+    experience: 4000
+    Stat: 1
+  - Level: 12
+    experience: 4550
+    Stat: 1
+  - Level: 13
+    experience: 5100
+    Stat: 1
+  - Level: 14
+    experience: 5700
+    Stat: 1
+  - Level: 15
+    experience: 6300
+    Stat: 1
+  - Level: 16
+    experience: 6950
+    Stat: 1
+  - Level: 17
+    experience: 7600
+    Stat: 1
+  - Level: 18
+    experience: 8300
+    Stat: 1
+  - Level: 19
+    experience: 9000
+    Stat: 1
+  - Level: 20
+    experience: 9750
+    Stat: 1
+  - Level: 21
+    experience: 10500
+    Stat: 2
+  - Level: 22
+    experience: 11350
+    Stat: 2
+  - Level: 23
+    experience: 12200
+    Stat: 2
+  - Level: 24
+    experience: 13150
+    Stat: 2
+  - Level: 25
+    experience: 14100
+    Stat: 2
+  - Level: 26
+    experience: 15150
+    Stat: 2
+  - Level: 27
+    experience: 16200
+    Stat: 2
+  - Level: 28
+    experience: 17350
+    Stat: 2
+  - Level: 29
+    experience: 18500
+    Stat: 2
+  - Level: 30
+    experience: 19750
+    Stat: 2
+  - Level: 31
+    experience: 21000
+    Stat: 2
+  - Level: 32
+    experience: 22350
+    Stat: 2
+  - Level: 33
+    experience: 23700
+    Stat: 3
+  - Level: 34
+    experience: 25250
+    Stat: 3
+  - Level: 35
+    experience: 26800
+    Stat: 3
+  - Level: 36
+    experience: 28550
+    Stat: 3
+  - Level: 37
+    experience: 30300
+    Stat: 3
+  - Level: 38
+    experience: 32250
+    Stat: 3
+  - Level: 39
+    experience: 34200
+    Stat: 3
+  - Level: 40
+    experience: 36350
+    Stat: 3
+  - Level: 41
+    experience: 38500
+    Stat: 3
+  - Level: 42
+    experience: 40850
+    Stat: 3
+  - Level: 43
+    experience: 43200
+    Stat: 3
+  - Level: 44
+    experience: 45750
+    Stat: 3
+  - Level: 45
+    experience: 48300
+    Stat: 3
+  - Level: 46
+    experience: 51050
+    Stat: 3
+  - Level: 47
+    experience: 53800
+    Stat: 3
+  - Level: 48
+    experience: 56750
+    Stat: 3
+  - Level: 49
+    experience: 59700
+    Stat: 3
+  - Level: 50
+    experience: 62850
+    Stat: 3
+  - Level: 51
+    experience: 66000
+    Stat: 3
+  - Level: 52
+    experience: 69350
+    Stat: 3
+  - Level: 53
+    experience: 72700
+    Stat: 3
+  - Level: 54
+    experience: 76250
+    Stat: 3
+  - Level: 55
+    experience: 79800
+    Stat: 3
+  - Level: 56
+    experience: 83550
+    Stat: 3
+  - Level: 57
+    experience: 87300
+    Stat: 3
+  - Level: 58
+    experience: 91250
+    Stat: 3
+  - Level: 59
+    experience: 95200
+    Stat: 3
+  - Level: 60
+    experience: 99350
+    Stat: 3
+  - Level: 61
+    experience: 103500
+    Stat: 3
+  - Level: 62
+    experience: 107850
+    Stat: 3
+  - Level: 63
+    experience: 112200
+    Stat: 3
+  - Level: 64
+    experience: 116750
+    Stat: 3
+  - Level: 65
+    experience: 121300
+    Stat: 3
+  - Level: 66
+    experience: 126050
+    Stat: 3
+  - Level: 67
+    experience: 130800
+    Stat: 3
+  - Level: 68
+    experience: 135750
+    Stat: 3
+  - Level: 69
+    experience: 140700
+    Stat: 3
+  - Level: 70
+    experience: 145850
+    Stat: 3
+  - Level: 71
+    experience: 151000
+    Stat: 3
+  - Level: 72
+    experience: 156350
+    Stat: 3
+  - Level: 73
+    experience: 161700
+    Stat: 3
+  - Level: 74
+    experience: 167250
+    Stat: 3
+  - Level: 75
+    experience: 172800
+    Stat: 3
+  - Level: 76
+    experience: 178550
+    Stat: 3
+  - Level: 77
+    experience: 184300
+    Stat: 3
+  - Level: 78
+    experience: 190250
+    Stat: 3
+  - Level: 79
+    experience: 196200
+    Stat: 3
+  - Level: 80
+    experience: 202350
+    Stat: 3
+  - Level: 81
+    experience: 208500
+    Stat: 3
+  - Level: 82
+    experience: 214850
+    Stat: 3
+  - Level: 83
+    experience: 221200
+    Stat: 3
+  - Level: 84
+    experience: 227750
+    Stat: 3
+  - Level: 85
+    experience: 234300
+    Stat: 3
+  - Level: 86
+    experience: 241050
+    Stat: 3
+  - Level: 87
+    experience: 247800
+    Stat: 3
+  - Level: 88
+    experience: 254750
+    Stat: 3
+  - Level: 89
+    experience: 261700
+    Stat: 3
+  - Level: 90
+    experience: 268850
+    Stat: 3
+  - Level: 91
+    experience: 276000
+    Stat: 3
+  - Level: 92
+    experience: 283350
+    Stat: 3
+  - Level: 93
+    experience: 290700
+    Stat: 3
+  - Level: 94
+    experience: 298250
+    Stat: 3
+  - Level: 95
+    experience: 305800
+    Stat: 3
+  - Level: 96
+    experience: 313550
+    Stat: 3
+  - Level: 97
+    experience: 321300
+    Stat: 3
+  - Level: 98
+    experience: 329250
+    Stat: 3
+  - Level: 99
+    experience: 337200
+    Stat: 3
+  - Level: 100
+    experience: 345350
+    Stat: 3

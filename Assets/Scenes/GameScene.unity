@@ -3925,6 +3925,8 @@ MonoBehaviour:
   gold: 0
   experience: 0
   MainMessageBox: {fileID: 713718638}
+  levelinfo: {fileID: 11400000, guid: 1c8c7904863e2b64f860f895c40c828f, type: 2}
+  playerStat: {fileID: 11400000, guid: f9030cfce2601df4986a0240a0dc2082, type: 2}
 --- !u!4 &608566321
 Transform:
   m_ObjectHideFlags: 0
@@ -14769,12 +14771,12 @@ PrefabInstance:
     - target: {fileID: 8497355676312042209, guid: d743f48204f428f44a64688c4dc5deb5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 8497355676312042209, guid: d743f48204f428f44a64688c4dc5deb5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.11
       objectReference: {fileID: 0}
     - target: {fileID: 8497355676312042209, guid: d743f48204f428f44a64688c4dc5deb5,
         type: 3}

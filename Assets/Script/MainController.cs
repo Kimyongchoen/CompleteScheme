@@ -13,10 +13,14 @@ public class MainController : MonoBehaviour
     [SerializeField]
     private ChangeScene changeScene;
 
+    [SerializeField]
+    private Levelinfo levelinfo;
+
     // Start is called before the first frame update
     void Start()
     {
         SetMainMessageBox("Tab To Start");
+        Setting();
     }
 
     // Update is called once per frame
@@ -61,5 +65,49 @@ public class MainController : MonoBehaviour
             yield return null;
         }
 
+    }
+
+    private void Setting()
+    {
+        //레벨 세팅 로직 저장용
+        float experience = 0;
+        float experienceP = 300;
+        int Stat = 1;
+        int a = 0;
+
+        for (int i = 0; levelinfo.levelInfo.Length > i; i++)
+        {
+            if (i > 30)
+            {
+                Stat = 3;
+                if (a == 2)
+                {
+                    a = 0;
+                    experienceP += 200;
+                }
+            }
+            else if (i > 18)
+            {
+                Stat = 2;
+                if (a == 2)
+                {
+                    a = 0;
+                    experienceP += 100;
+                }
+            }
+            else
+            {
+                if (a == 2)
+                {
+                    a = 0;
+                    experienceP += 50;
+                }
+            }
+            a++;
+            experience += experienceP;
+            levelinfo.levelInfo[i].Stat = Stat;
+            levelinfo.levelInfo[i].Level = i + 2;
+            levelinfo.levelInfo[i].experience = experience;
+        }
     }
 }
