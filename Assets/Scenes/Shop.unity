@@ -611,6 +611,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab0599bdaf73da94c90a7fd7d75c8b1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerStats: {fileID: 0}
+  itemStats: {fileID: 0}
+  Gold: {fileID: 0}
+  HatImg: {fileID: 0}
+  HatPlus: {fileID: 0}
+  WeaponImg: {fileID: 0}
+  WeaponPlus: {fileID: 0}
+  ArmorImg: {fileID: 0}
+  ArmorPlus: {fileID: 0}
+  GlovesImg: {fileID: 0}
+  GlovesPlus: {fileID: 0}
+  CloakImg: {fileID: 0}
+  CloakPlus: {fileID: 0}
+  BootsImg: {fileID: 0}
+  BootsPlus: {fileID: 0}
+  SelectItemImg: {fileID: 0}
+  ItmeName: {fileID: 0}
+  ItmeStats: {fileID: 0}
+  ItmeGold: {fileID: 0}
+  ItemBtnText: {fileID: 0}
 --- !u!4 &189155402
 Transform:
   m_ObjectHideFlags: 0
@@ -802,7 +822,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &265214300
 RectTransform:
   m_ObjectHideFlags: 0

@@ -48,18 +48,7 @@ public class LoadShopInfo : MonoBehaviour
     private Image BootsImg;
     [SerializeField]
     private Text BootsPlus;
-/*
-    //아이템 구매 및 강화
-    [SerializeField]
-    private Image SelectItemImg;
-    [SerializeField]
-    private Text ItmeName;
-    [SerializeField]
-    private Text ItmeStats;
-    [SerializeField]
-    private Text ItmeGold;
-    [SerializeField]
-    private Text ItemBtnText;*/
+
 
     //타일 구매
     [SerializeField]
@@ -160,7 +149,19 @@ public class LoadShopInfo : MonoBehaviour
             }
         }
 
-       
+
+        RecoveryCnt.text = itemStats.RecoveryCnt.ToString();
+        RecoveryGold.text = itemStats.RecoveryGold.ToString() + " 원";
+
+        AttackDamageUpCnt.text = itemStats.AttackDamageUpCnt.ToString();
+        AttackDamageUpGold.text = itemStats.AttackDamageUpGold.ToString() + " 원";
+
+        DefenseUpCnt.text = itemStats.DefenseUpCnt.ToString();
+        DefenseUpGold.text = itemStats.DefenseUpGold.ToString() + " 원";
+
+        MonsterCnt.text = itemStats.MonsterCnt.ToString();
+        MonsterGold.text = itemStats.MonsterGold.ToString() + " 원";
+
     }
 
     // Update is called once per frame

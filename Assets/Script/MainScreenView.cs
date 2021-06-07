@@ -12,7 +12,6 @@ public class MainScreenView : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     const int SIZE = 3;
     float[] pos = new float[SIZE];
     float distance, curPos, targetPos;
-    bool isDrag;
     int targetIndex;
 
     void Start()
@@ -38,12 +37,11 @@ public class MainScreenView : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnDrag(PointerEventData eventData)
     {
-        isDrag = true;
+
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        isDrag = false;
         targetPos = SetPos();
 
         //절반 거리를 넘지 않아도 마우스를 빠르게 이동하면
