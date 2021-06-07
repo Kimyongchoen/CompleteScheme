@@ -153,10 +153,10 @@ public class PlayerAttack : MonoBehaviour
         int defense = attackTarget.monsterStats.defense;
         float vampire = playerStats.vampire;
 
-        if (playerStats.weapon >= 0)//무기 강화에 따른 데미지 UP 무기가 없으면 -1
+        if (playerStats.Weapon >= 0)//무기 강화에 따른 데미지 UP 무기가 없으면 -1
         {
-            attackDamageMin += player.ItemStats.weapon[playerStats.weapon];
-            attackDamageMax += player.ItemStats.weapon[playerStats.weapon];
+            attackDamageMin += player.ItemStats.Weapon[playerStats.Weapon];
+            attackDamageMax += player.ItemStats.Weapon[playerStats.Weapon];
         }
 
         //버프에 의한 데미지 UP
@@ -192,9 +192,9 @@ public class PlayerAttack : MonoBehaviour
         clone.GetComponent<PlayerProjectile>().Setup(attackTarget.transform, demage, criticalFlag);
 
         
-        if (playerStats.Cloak >= 0)//망토 강화 따른 흡혈율 UP 망토 없으면 -1
+        if (playerStats.Shield >= 0)//망토 강화 따른 흡혈율 UP 망토 없으면 -1
         {
-            vampire += player.ItemStats.Cloak[playerStats.Cloak];
+            vampire += player.ItemStats.Shield[playerStats.Shield];
         }
 
         if (vampire > 0 && demage > 0)//체력 흡혈 %

@@ -36,11 +36,11 @@ public class PlayerStats : ScriptableObject
         public float goldMax;//획득한 골드
 
         //아이템
-        public int weapon; //무기
+        public int Weapon; //무기
         public int Armor; //갑옷
-        public int hat; //투구
+        public int Hat; //투구
         public int Gloves; //장갑
         public int Boots; //부츠
-        public int Cloak; //망토
+        public int Shield; //망토
     }
 }

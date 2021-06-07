@@ -34,9 +34,9 @@ MonoBehaviour:
     experience: 315
     gold: 315
     goldMax: 315
-    weapon: -1
-    Armor: -1
-    hat: -1
-    Gloves: -1
-    Boots: -1
-    Cloak: -1
+    Weapon: -1
+    Armor: 0
+    Hat: 2
+    Gloves: 3
+    Boots: 4
+    Shield: 5

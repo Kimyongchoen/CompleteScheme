@@ -40,9 +40,9 @@ public class LoadShopInfo : MonoBehaviour
     private Text GlovesPlus;
 
     [SerializeField]
-    private Image CloakImg;
+    private Image ShieldImg;
     [SerializeField]
-    private Text CloakPlus;
+    private Text ShieldPlus;
 
     [SerializeField]
     private Image BootsImg;
@@ -78,26 +78,26 @@ public class LoadShopInfo : MonoBehaviour
         Gold.text = "Gold " + playerStats.stats[0].gold.ToString();
 
         //투구
-        if (playerStats.stats[0].hat >= 0)
+        if (playerStats.stats[0].Hat >= 0)
         {
             Color color = HatImg.color;
             color.a = 1;
             HatImg.color = color;
-            if (playerStats.stats[0].hat > 0)
+            if (playerStats.stats[0].Hat > 0)
             {
-                HatPlus.text = "+" + playerStats.stats[0].hat.ToString();
+                HatPlus.text = "+" + playerStats.stats[0].Hat.ToString();
             }
         }
 
         //무기
-        if (playerStats.stats[0].weapon >= 0)
+        if (playerStats.stats[0].Weapon >= 0)
         {
             Color color = WeaponImg.color;
             color.a = 1;
             WeaponImg.color = color;
-            if (playerStats.stats[0].weapon > 0)
+            if (playerStats.stats[0].Weapon > 0)
             {
-                WeaponPlus.text = "+" + playerStats.stats[0].weapon.ToString();
+                WeaponPlus.text = "+" + playerStats.stats[0].Weapon.ToString();
             }
         }
 
@@ -126,14 +126,14 @@ public class LoadShopInfo : MonoBehaviour
         }
 
         //망토 -> 방패
-        if (playerStats.stats[0].Cloak >= 0)
+        if (playerStats.stats[0].Shield >= 0)
         {
-            Color color = CloakImg.color;
+            Color color = ShieldImg.color;
             color.a = 1;
-            CloakImg.color = color;
-            if (playerStats.stats[0].Cloak > 0)
+            ShieldImg.color = color;
+            if (playerStats.stats[0].Shield > 0)
             {
-                CloakPlus.text = "+" + playerStats.stats[0].Cloak.ToString();
+                ShieldPlus.text = "+" + playerStats.stats[0].Shield.ToString();
             }
         }
 

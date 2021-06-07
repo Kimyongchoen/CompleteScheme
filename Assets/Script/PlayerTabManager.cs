@@ -70,14 +70,14 @@ public class PlayerTabManager : MonoBehaviour
         attackDamage.text = "공력력 : " + playerStats.attackDamageMin.ToString() + " - " + playerStats.attackDamageMax.ToString(); //공격력
         if (ItemStats.AttackDamageUp > 0)//공격력 버프 증가시
             AttackDamagePlus += ItemStats.AttackDamageUp;
-        if (playerStats.weapon >= 0)//무기 강화에 따른 데미지 UP 무기가 없으면 -1
-            AttackDamagePlus += ItemStats.weapon[playerStats.weapon];
+        if (playerStats.Weapon >= 0)//무기 강화에 따른 데미지 UP 무기가 없으면 -1
+            AttackDamagePlus += ItemStats.Weapon[playerStats.Weapon];
         if (AttackDamagePlus > 0)
             attackDamage.text += " + (" + AttackDamagePlus + ")";
 
-        if (playerStats.hat >= 0)//투구 강화에 따른 체력 UP 투구가 없으면 -1
+        if (playerStats.Hat >= 0)//투구 강화에 따른 체력 UP 투구가 없으면 -1
         {
-            health.text = "체력  : " + hp.ToString() + " / " + (playerStats.health - ItemStats.hat[playerStats.hat]).ToString() + "+(" + ItemStats.hat[playerStats.hat] + ")";//체력
+            health.text = "체력  : " + hp.ToString() + " / " + (playerStats.health - ItemStats.Hat[playerStats.Hat]).ToString() + "+(" + ItemStats.Hat[playerStats.Hat] + ")";//체력
         }
         else
         {
@@ -109,8 +109,8 @@ public class PlayerTabManager : MonoBehaviour
         criticalDamagema.text = "치명타 데미지 : " + playerStats.criticalDamagema.ToString();//치명타 데미지
         
         vampire.text = "체력 흡혈 % : " + playerStats.vampire.ToString();//체력 흡혈 %
-        if (playerStats.Cloak >= 0)//강화에 따른 체력흡혈 UP 망토가 없으면 -1
-            vampire.text += " + (" + ItemStats.Cloak[playerStats.Cloak] * 100 + ") %";
+        if (playerStats.Shield >= 0)//강화에 따른 체력흡혈 UP 망토가 없으면 -1
+            vampire.text += " + (" + ItemStats.Shield[playerStats.Shield] * 100 + ") %";
 
         goldBonus.text = "골드 보너스 : " + playerStats.goldBonus.ToString();//골드 보너스
         
