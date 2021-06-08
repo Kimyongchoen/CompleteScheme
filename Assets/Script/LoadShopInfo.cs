@@ -74,6 +74,11 @@ public class LoadShopInfo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        LoadInfo();
+    }
+
+    public void LoadInfo()
+    {
         Level.text = "Level " + playerStats.stats[0].level.ToString();
         Gold.text = "Gold " + playerStats.stats[0].gold.ToString();
 
@@ -163,7 +168,6 @@ public class LoadShopInfo : MonoBehaviour
         MonsterGold.text = itemStats.MonsterGold.ToString() + " 원";
 
     }
-
     // Update is called once per frame
     void Update()
     {

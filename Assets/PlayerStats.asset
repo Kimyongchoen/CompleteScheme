@@ -35,8 +35,8 @@ MonoBehaviour:
     gold: 315
     goldMax: 315
     Weapon: -1
-    Armor: 0
-    Hat: 2
-    Gloves: 3
-    Boots: 4
-    Shield: 5
+    Armor: -1
+    Hat: -1
+    Gloves: -1
+    Boots: -1
+    Shield: -1
