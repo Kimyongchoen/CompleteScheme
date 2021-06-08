@@ -186,9 +186,7 @@ public class PlayerSpawner : MonoBehaviour
             if (playerStatsScriptableObject.stats[0].experience < levelinfo.levelInfo[0].experience) break; //레벨1 경험치라면 정지
 
             if (playerStatsScriptableObject.stats[0].experience < levelinfo.levelInfo[i].experience) { //경험치에 따라서 레벨 변경
-                
                 LevelUp = levelinfo.levelInfo[i-1].Level - playerStatsScriptableObject.stats[0].level; //레벨 업 한 수
-                
                 playerStatsScriptableObject.stats[0].level = levelinfo.levelInfo[i-1].Level;
                 break;
             }

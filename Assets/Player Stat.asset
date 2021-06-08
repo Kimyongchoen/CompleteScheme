@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c332fd5c534c1aa40819f7456f91474e, type: 3}
   m_Name: Player Stat
   m_EditorClassIdentifier: 
-  Level: 2
+  Level: 1
   Stat: 0
-  BonusStat: 1
+  BonusStat: 0
   attackDamageMin: 0
   attackDamageMax: 0
   Maxhealth: 0
