@@ -155,22 +155,18 @@ public class LoadShopInfo : MonoBehaviour
         }
 
 
-        RecoveryCnt.text = itemStats.RecoveryCnt.ToString();
+        RecoveryCnt.text = itemStats.RecoveryCnt+"/2";
         RecoveryGold.text = itemStats.RecoveryGold.ToString() + " 원";
 
-        AttackDamageUpCnt.text = itemStats.AttackDamageUpCnt.ToString();
+        AttackDamageUpCnt.text = itemStats.AttackDamageUpCnt + "/2";
         AttackDamageUpGold.text = itemStats.AttackDamageUpGold.ToString() + " 원";
 
-        DefenseUpCnt.text = itemStats.DefenseUpCnt.ToString();
+        DefenseUpCnt.text = itemStats.DefenseUpCnt + "/2";
         DefenseUpGold.text = itemStats.DefenseUpGold.ToString() + " 원";
 
-        MonsterCnt.text = itemStats.MonsterCnt.ToString();
+        MonsterCnt.text = itemStats.MonsterCnt + "/99";
         MonsterGold.text = itemStats.MonsterGold.ToString() + " 원";
 
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

@@ -3914,12 +3914,13 @@ MonoBehaviour:
     goldBonus: 0
     experience: 0
     gold: 0
-    weapon: 0
+    goldMax: 0
+    Weapon: 0
     Armor: 0
-    hat: 0
+    Hat: 0
     Gloves: 0
     Boots: 0
-    Cloak: 0
+    Shield: 0
   Playing: 0
   player: {fileID: 0}
   gold: 0

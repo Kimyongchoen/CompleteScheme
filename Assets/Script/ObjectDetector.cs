@@ -64,6 +64,8 @@ public class ObjectDetector : MonoBehaviour
     private GameObject TileSelectView = null;
     private GameObject RemoveBtn = null;
     private Transform TileSelect = null;
+    
+    private int StageRecoveryCnt, StageAttackDamageUpCnt, StageDefenseUpCnt, StageMonsterCnt;
 
     private void Awake()
     {
@@ -72,6 +74,11 @@ public class ObjectDetector : MonoBehaviour
         mainCamera = Camera.main;
         monsterTabManager.SetMonsterInfomation(1101);
 
+        //타일 세팅
+        StageRecoveryCnt = ItemStats.RecoveryCnt;
+        StageAttackDamageUpCnt = ItemStats.AttackDamageUpCnt;
+        StageDefenseUpCnt = ItemStats.DefenseUpCnt;
+        StageMonsterCnt = ItemStats.MonsterCnt;
     }
 
     // Update is called once per frame
@@ -146,19 +153,19 @@ public class ObjectDetector : MonoBehaviour
 
                             if (tileManager.getMonsterFlag() == 0)//아무것도 없다면 (0)
                             {
-                                if (ItemStats.RecoveryCnt > 0) //회복 버튼 활성화 회복이 있는 경우
+                                if (StageRecoveryCnt > 0) //회복 버튼 활성화 회복이 있는 경우
                                 {
                                     btnColorChange(RecoveryBtn, 1.0f);
                                 }
-                                if (ItemStats.AttackDamageUpCnt > 0) //공격력 증가 버튼 활성화 / 공격력 증가 버프가 있는 경우
+                                if (StageAttackDamageUpCnt > 0) //공격력 증가 버튼 활성화 / 공격력 증가 버프가 있는 경우
                                 {
                                     btnColorChange(AttackDamageUpBtn, 1.0f);
                                 }
-                                if (ItemStats.DefenseUpCnt > 0) //방어력 증가 버튼 활성화 / 방어력 증가 버프가 있는 경우
+                                if (StageDefenseUpCnt > 0) //방어력 증가 버튼 활성화 / 방어력 증가 버프가 있는 경우
                                 {
                                     btnColorChange(DefenseUpBtn, 1.0f);
                                 }
-                                if (ItemStats.MonsterCnt > 0) //몬스터 생성 버튼 활성화 / 몬스터는 무제한
+                                if (StageMonsterCnt > 0) //몬스터 생성 버튼 활성화 / 몬스터는 무제한
                                 {
                                     btnColorChange(MonsterBtn, 1.0f);
                                 }
@@ -253,24 +260,24 @@ public class ObjectDetector : MonoBehaviour
             if (tileManager.getMonsterFlag() == 2)//사용자가 추가한 몬스터
             {
                 tileManager.setMonsertClaer();//제거
-                ItemStats.MonsterCnt += 1;
+                StageMonsterCnt += 1;
             }
             else if (tileManager.getMonsterFlag() == 3)//사용자가 추가한 버프 회복
             {
                 if (tileManager.getnumber() == 1)//회복
                 {
                     tileManager.setMonsertClaer();//제거
-                    ItemStats.RecoveryCnt += 1;
+                    StageRecoveryCnt += 1;
                 }
                 else if (tileManager.getnumber() == 2)//공격력 증가
                 {
                     tileManager.setMonsertClaer();//제거
-                    ItemStats.AttackDamageUpCnt += 1;
+                    StageAttackDamageUpCnt += 1;
                 }
                 else if (tileManager.getnumber() == 3)//방어력 증가
                 {
                     tileManager.setMonsertClaer();//제거
-                    ItemStats.DefenseUpCnt += 1;
+                    StageDefenseUpCnt += 1;
                 }
             }
             else if (tileManager.getMonsterFlag() == 0)//비어 있다면
@@ -315,7 +322,7 @@ public class ObjectDetector : MonoBehaviour
     //회복 배치
     public void SetRecovery()
     {
-        if (ItemStats.RecoveryCnt > 0) //회복이 있는 경우
+        if (StageRecoveryCnt > 0) //회복이 있는 경우
         {
             if (TileSelect != null)
             {
@@ -327,7 +334,7 @@ public class ObjectDetector : MonoBehaviour
                     }
                     SetRemoveBtn();
                     tileTabManager.SetRecovery(TileSelect);
-                    ItemStats.RecoveryCnt -= 1;
+                    StageRecoveryCnt -= 1;
                 }
                 else
                 {
@@ -349,7 +356,7 @@ public class ObjectDetector : MonoBehaviour
     //공격력 증가 배치
     public void SetAttackDamageUp()
     {
-        if (ItemStats.AttackDamageUpCnt > 0) //공격력 증가 버튼 활성화 / 공격력 증가 버프가 있는 경우
+        if (StageAttackDamageUpCnt > 0) //공격력 증가 버튼 활성화 / 공격력 증가 버프가 있는 경우
         {
             if (TileSelect != null)
             {
@@ -361,7 +368,7 @@ public class ObjectDetector : MonoBehaviour
                     }
                     SetRemoveBtn();
                     tileTabManager.SetAttackDamageUp(TileSelect);
-                    ItemStats.AttackDamageUpCnt -= 1;
+                    StageAttackDamageUpCnt -= 1;
                 }
                 else
                 {
@@ -381,7 +388,7 @@ public class ObjectDetector : MonoBehaviour
     //방어력 증가 배치
     public void SetDefenseUp()
     {
-        if (ItemStats.DefenseUpCnt > 0) //방어력 증가 버튼 활성화 / 방어력 증가 버프가 있는 경우
+        if (StageDefenseUpCnt > 0) //방어력 증가 버튼 활성화 / 방어력 증가 버프가 있는 경우
         {
             if (TileSelect != null)
             {
@@ -393,7 +400,7 @@ public class ObjectDetector : MonoBehaviour
                     }
                     SetRemoveBtn();
                     tileTabManager.SetDefenseUp(TileSelect);
-                    ItemStats.DefenseUpCnt -= 1;
+                    StageDefenseUpCnt -= 1;
                 }
                 else
                 {
@@ -413,7 +420,7 @@ public class ObjectDetector : MonoBehaviour
     //몬스터 배치
     public void SetMonster()
     {
-        if (ItemStats.MonsterCnt > 0) //몬스터 생성 버튼 활성화 / 몬스터는 무제한
+        if (StageMonsterCnt > 0) //몬스터 생성 버튼 활성화 / 몬스터는 무제한
         {
             if (TileSelect != null)
             {
@@ -425,7 +432,7 @@ public class ObjectDetector : MonoBehaviour
                     }
                     SetRemoveBtn();
                     tileTabManager.SetMonster(TileSelect);
-                    ItemStats.MonsterCnt -= 1;
+                    StageMonsterCnt -= 1;
                 }
                 else
                 {
@@ -470,10 +477,10 @@ public class ObjectDetector : MonoBehaviour
 
     public void SetBtnCount()
     {
-        RecoveryCnt.text = ItemStats.RecoveryCnt.ToString();
-        AttackDamageUpCnt.text = ItemStats.AttackDamageUpCnt.ToString();
-        DefenseUpCnt.text = ItemStats.DefenseUpCnt.ToString();
-        MonsterCnt.text = ItemStats.MonsterCnt.ToString();
+        RecoveryCnt.text = StageRecoveryCnt.ToString();
+        AttackDamageUpCnt.text = StageAttackDamageUpCnt.ToString();
+        DefenseUpCnt.text = StageDefenseUpCnt.ToString();
+        MonsterCnt.text = StageMonsterCnt.ToString();
     }
 
     public void RandomMonsterChange()
@@ -528,24 +535,24 @@ public class ObjectDetector : MonoBehaviour
             if (TileList[i].GetComponent<TileManager>().getMonsterFlag() == 2)//사용자가 추가한 몬스터
             {
                 TileList[i].GetComponent<TileManager>().setMonsertClaer();//제거
-                ItemStats.MonsterCnt += 1;
+                StageMonsterCnt += 1;
             }
             else if (TileList[i].GetComponent<TileManager>().getMonsterFlag() == 3)//사용자가 추가한 버프 회복
             {
                 if (TileList[i].GetComponent<TileManager>().getnumber() == 1)//회복
                 {
                     TileList[i].GetComponent<TileManager>().setMonsertClaer();//제거
-                    ItemStats.RecoveryCnt += 1;
+                    StageRecoveryCnt += 1;
                 }
                 else if (TileList[i].GetComponent<TileManager>().getnumber() == 2)//공격력 증가
                 {
                     TileList[i].GetComponent<TileManager>().setMonsertClaer();//제거
-                    ItemStats.AttackDamageUpCnt += 1;
+                    StageAttackDamageUpCnt += 1;
                 }
                 else if (TileList[i].GetComponent<TileManager>().getnumber() == 3)//방어력 증가
                 {
                     TileList[i].GetComponent<TileManager>().setMonsertClaer();//제거
-                    ItemStats.DefenseUpCnt += 1;
+                    StageDefenseUpCnt += 1;
                 }
             }
         }

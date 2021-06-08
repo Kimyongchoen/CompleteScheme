@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0150a64d5d0be0419b06945c36645b9, type: 3}
   m_Name: ItemStats
   m_EditorClassIdentifier: 
-  RecoveryCnt: 98
-  AttackDamageUpCnt: 97
-  DefenseUpCnt: 98
-  MonsterCnt: 98
-  RecoveryGold: 200
+  RecoveryCnt: 0
+  AttackDamageUpCnt: 0
+  DefenseUpCnt: 0
+  MonsterCnt: 13
+  RecoveryGold: 300
   AttackDamageUpGold: 200
   DefenseUpGold: 200
   MonsterGold: 50

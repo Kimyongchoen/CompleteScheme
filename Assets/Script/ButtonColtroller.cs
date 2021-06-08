@@ -62,16 +62,26 @@ public class ButtonColtroller : MonoBehaviour
     private Text ItmeNameUp;
     [SerializeField]
     private Text ItmeStatsUp;
-
     [SerializeField]
     private Text ItemBtnText;
-
     [SerializeField]
     private Text ItmePercentage;
 
+    //타일 구매
+    [SerializeField]
+    private Text RecoveryCnt;
+    [SerializeField]
+    private Text AttackDamageUpCnt;
+    [SerializeField]
+    private Text DefenseUpCnt;
+    [SerializeField]
+    private Text MonsterCnt;
+
+    //메시지 박스
     [SerializeField]
     private TextMeshProUGUI MainMessageBox;
 
+    //정보 새로 고침
     [SerializeField]
     private LoadShopInfo loadShopInfo;
 
@@ -92,7 +102,7 @@ public class ButtonColtroller : MonoBehaviour
         ItmeNameUp.text = "";
         ItmeStatsUp.text = "";
         ItmePercentage.text = "";
-        ItemBtnText.text = "";
+        ItemBtnText.text = "구 매";
 
         switch (ItemName)
         {
@@ -104,6 +114,7 @@ public class ButtonColtroller : MonoBehaviour
                     ItmeName.text = "+" + playerStats.stats[0].Weapon + " ";
                     ItmeStats.text = "공격력\n+" + itemStats.Weapon[playerStats.stats[0].Weapon];
                     ItmeGold.text = "강화 불가";
+                    ItemBtnText.text = "불 가";
                     break;
                 }
                 ItmeName.text = "손";
@@ -134,6 +145,7 @@ public class ButtonColtroller : MonoBehaviour
                     ItmeName.text = "+" + playerStats.stats[0].Armor + " ";
                     ItmeStats.text = "방어력\n+" + itemStats.Armor[playerStats.stats[0].Armor];
                     ItmeGold.text = "강화 불가";
+                    ItemBtnText.text = "불 가";
                     break;
                 }
                 ItmeName.text = "몸";
@@ -162,6 +174,7 @@ public class ButtonColtroller : MonoBehaviour
                     ItmeName.text = "+" + playerStats.stats[0].Hat + " ";
                     ItmeStats.text = "체력\n+" + itemStats.Hat[playerStats.stats[0].Hat];
                     ItmeGold.text = "강화 불가";
+                    ItemBtnText.text = "불 가";
                     break;
                 }
                 ItmeName.text = "머 리";
@@ -190,6 +203,7 @@ public class ButtonColtroller : MonoBehaviour
                     ItmeName.text = "+" + playerStats.stats[0].Gloves + " ";
                     ItmeStats.text = "치명타 확율\n+" + itemStats.Gloves[playerStats.stats[0].Gloves] + "%";
                     ItmeGold.text = "강화 불가";
+                    ItemBtnText.text = "불 가";
                     break;
                 }
                 ItmeName.text = "손";
@@ -218,6 +232,7 @@ public class ButtonColtroller : MonoBehaviour
                     ItmeName.text = "+" + playerStats.stats[0].Boots + " ";
                     ItmeStats.text = "회피력\n+" + itemStats.Boots[playerStats.stats[0].Boots];
                     ItmeGold.text = "강화 불가";
+                    ItemBtnText.text = "불 가";
                     break;
                 }
                 ItmeName.text = "발";
@@ -246,6 +261,7 @@ public class ButtonColtroller : MonoBehaviour
                     ItmeName.text = "+" + playerStats.stats[0].Shield + " ";
                     ItmeStats.text = "체력 흡혈\n+" + (itemStats.Shield[playerStats.stats[0].Shield]*100) + "%";
                     ItmeGold.text = "강화 불가";
+                    ItemBtnText.text = "불 가";
                     break;
                 }
                 ItmeName.text = "손";
@@ -276,9 +292,12 @@ public class ButtonColtroller : MonoBehaviour
         int ItmeGold;
         float ItmePercentage;
         string msg = "";
-        
-        if (ItemName == null) return;
 
+        if (ItemName == null)
+        {
+            SetMainMessageBox("장비를 선택 해주세요");
+            return;
+        }
         switch (ItemName)
         {
             case "Weapon":
@@ -548,6 +567,104 @@ public class ButtonColtroller : MonoBehaviour
         SelectItme(ItemName);//재로드
 
     }
+
+    public void buyTile(string TileName)
+    {
+        int ItmeGold;
+
+        switch (TileName)
+        {
+            case "Recovery"://회복
+                if (itemStats.RecoveryCnt>=2)
+                {
+                    SetMainMessageBox("더이상 구매 할 수 없습니다");
+                    break;
+                }
+
+                ItmeGold = itemStats.RecoveryGold;
+
+                if (playerStats.stats[0].gold > ItmeGold)
+                {
+                    playerStats.stats[0].gold -= ItmeGold;
+                    itemStats.RecoveryCnt += 1;
+                    SetMainMessageBox("구매 성공");
+                }
+                else
+                {
+                    SetMainMessageBox("골드가 부족합니다");
+                }
+
+                break;
+            case "AttackDamageUp"://공격력 강화
+                if (itemStats.AttackDamageUpCnt >= 2)
+                {
+                    SetMainMessageBox("더이상 구매 할 수 없습니다");
+                    break;
+                }
+
+                ItmeGold = itemStats.AttackDamageUpGold;
+
+                if (playerStats.stats[0].gold > ItmeGold)
+                {
+                    playerStats.stats[0].gold -= ItmeGold;
+                    itemStats.AttackDamageUpCnt += 1;
+                    SetMainMessageBox("구매 성공");
+                }
+                else
+                {
+                    SetMainMessageBox("골드가 부족합니다");
+                }
+
+                break;
+            case "DefenseUp"://방어력 강화
+                if (itemStats.DefenseUpCnt >= 2)
+                {
+                    SetMainMessageBox("더이상 구매 할 수 없습니다");
+                    break;
+                }
+
+                ItmeGold = itemStats.DefenseUpGold;
+
+                if (playerStats.stats[0].gold > ItmeGold)
+                {
+                    playerStats.stats[0].gold -= ItmeGold;
+                    itemStats.DefenseUpCnt += 1;
+                    SetMainMessageBox("구매 성공");
+                }
+                else
+                {
+                    SetMainMessageBox("골드가 부족합니다");
+                }
+
+                break;
+            case "Monster"://몬스터 배치
+                if (itemStats.MonsterCnt >= 99)
+                {
+                    SetMainMessageBox("더이상 구매 할 수 없습니다");
+                    break;
+                }
+
+                ItmeGold = itemStats.MonsterGold;
+
+                if (playerStats.stats[0].gold > ItmeGold)
+                {
+                    playerStats.stats[0].gold -= ItmeGold;
+                    itemStats.MonsterCnt += 1;
+                    SetMainMessageBox("구매 성공");
+                }
+                else
+                {
+                    SetMainMessageBox("골드가 부족합니다");
+                }
+
+                break;
+
+            default:
+                break;
+        }
+
+        SelectItme(ItemName);//재로드
+    }
     private void SetMainMessageBox(string msg)
     {
         MainMessageBox.text = msg;
@@ -558,7 +675,7 @@ public class ButtonColtroller : MonoBehaviour
     {
         float currentTime = 0.0f;
         float percent = 0.0f;
-        float lerpTime = 0.5f;
+        float lerpTime = 1f;
 
         while (percent < 1)
         {
