@@ -15,7 +15,7 @@ MonoBehaviour:
   RecoveryCnt: 0
   AttackDamageUpCnt: 0
   DefenseUpCnt: 0
-  MonsterCnt: 13
+  MonsterCnt: 16
   RecoveryGold: 300
   AttackDamageUpGold: 200
   DefenseUpGold: 200
