@@ -11,17 +11,31 @@ public class PlayerStat : ScriptableObject
 
     public int attackDamageMin; //공격력(min)
     public int attackDamageMax; //공격력(max)
-    
+
     public int Maxhealth;//체력
     public int defense;//방어력
-    
+
     public float attackSpeed; //공격속도
     public float hit;//명중치
     public float evasion;//회피치
     public float criticalChance;//치명타 확률(0-100)
-    
+
     public float experienceBonus;//경험치 획득 %
     public float goldBonus;//골드 획득 %
+
+    public int attackDamageMinUp; //공격력(min)
+    public int attackDamageMaxUp; //공격력(max)
+
+    public int MaxhealthUp;//체력
+    public int defenseUp;//방어력
+
+    public float attackSpeedUp; //공격속도
+    public float hitUp;//명중치
+    public float evasionUp;//회피치
+    public float criticalChanceUp;//치명타 확률(0-100)
+
+    public float experienceBonusUp;//경험치 획득 %
+    public float goldBonusUp;//골드 획득 %
 }
 
 

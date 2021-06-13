@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Level: 3
   Stat: 0
-  BonusStat: 2
+  BonusStat: 100
   attackDamageMin: 0
   attackDamageMax: 0
   Maxhealth: 0
@@ -25,3 +25,13 @@ MonoBehaviour:
   criticalChance: 0
   experienceBonus: 0
   goldBonus: 0
+  attackDamageMinUp: 1
+  attackDamageMaxUp: 1
+  MaxhealthUp: 10
+  defenseUp: 1
+  attackSpeedUp: -0.02
+  hitUp: 10
+  evasionUp: 10
+  criticalChanceUp: 1
+  experienceBonusUp: 1
+  goldBonusUp: 1
