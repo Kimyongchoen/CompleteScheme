@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class LoadStatsInfo : MonoBehaviour
 {
@@ -103,6 +104,10 @@ public class LoadStatsInfo : MonoBehaviour
     [SerializeField]
     private PlayerStat playerStat;//스텟 정보
 
+    //메시지 박스
+    [SerializeField]
+    private TextMeshProUGUI MainMessageBox;
+
     private int BonusStatPoint=0;
 
     private void Awake()
@@ -120,7 +125,10 @@ public class LoadStatsInfo : MonoBehaviour
 
         level.text = "Level : " + playerStats.level; // 레벨
 
-        attackDamage.text = "공력력 : " + playerStats.attackDamageMin.ToString() + " - " + playerStats.attackDamageMax.ToString(); //공격력
+        attackDamage.text = "공력력 : " 
+            + (playerStats.attackDamageMin + (playerStat.attackDamageMax * playerStat.attackDamageMaxUp))
+            + " - " 
+            + (playerStats.attackDamageMax + (playerStat.attackDamageMin * playerStat.attackDamageMinUp)); //공격력
         if (ItemStats.AttackDamageUp > 0)//공격력 버프 증가시
             AttackDamagePlus += ItemStats.AttackDamageUp;
         if (playerStats.Weapon >= 0)//무기 강화에 따른 데미지 UP 무기가 없으면 -1
@@ -128,16 +136,14 @@ public class LoadStatsInfo : MonoBehaviour
         if (AttackDamagePlus > 0)
             attackDamage.text += " + (" + AttackDamagePlus + ")";
 
+        health.text = "체력  : " + (playerStats.health + (playerStat.Maxhealth * playerStat.MaxhealthUp));//체력
+        
         if (playerStats.Hat >= 0)//투구 강화에 따른 체력 UP 투구가 없으면 -1
         {
-            health.text = "체력  : " + (playerStats.health - ItemStats.Hat[playerStats.Hat]).ToString() + "+(" + ItemStats.Hat[playerStats.Hat] + ")";//체력
-        }
-        else
-        {
-            health.text = "체력  : " + playerStats.health.ToString();//체력
+            health.text += "+(" + ItemStats.Hat[playerStats.Hat] + ")";//체력
         }
 
-        defense.text = "방어력 : " + playerStats.defense.ToString();//방어력
+        defense.text = "방어력 : " + (playerStats.defense + (playerStat.defense * playerStat.defenseUp));//방어력
         if (ItemStats.DefenseUp > 0)//방어력 버프 증가시
             defensePlus += ItemStats.DefenseUp;
         if (playerStats.Armor >= 0)//갑옷 강화에 따른 방어력 UP 갑옷이 없으면 -1
@@ -145,31 +151,31 @@ public class LoadStatsInfo : MonoBehaviour
         if (defensePlus > 0)
             defense.text += " + (" + defensePlus + ")";
 
-        attackSpeed.text = "공격속도 : " + playerStats.attackSpeed.ToString(); //공격속도
+        attackSpeed.text = "공격속도 : " + (playerStats.attackSpeed + (playerStat.attackSpeed * playerStat.attackSpeedUp)); //공격속도
 
-        attackRange.text = "공격범위 : " + playerStats.attackRange.ToString(); //공격범위
+        attackRange.text = "공격범위 : " + playerStats.attackRange; //공격범위
 
-        hit.text = "명중치 : " + playerStats.hit.ToString();//명중치
+        hit.text = "명중치 : " + (playerStats.hit+(playerStat.hit * playerStat.hitUp));//명중치
 
-        evasion.text = "회피치 : " + playerStats.evasion.ToString();//회피치
+        evasion.text = "회피치 : " + (playerStats.evasion + (playerStat.evasion * playerStat.evasionUp));//회피치
         if (playerStats.Boots >= 0)//강화에 따른 회피 UP 부츠가 없으면 -1
             evasion.text += " + (" + ItemStats.Boots[playerStats.Boots] + ")";
 
-        criticalChance.text = "치명타 확률 % : " + playerStats.criticalChance.ToString();//치명타 확률
+        criticalChance.text = "치명타 확률 % : " + (playerStats.criticalChance + (playerStat.criticalChance * playerStat.criticalChanceUp));//치명타 확률
         if (playerStats.Gloves >= 0)//강화에 따른 치확 UP 장갑이 없으면 -1
             criticalChance.text += " + (" + ItemStats.Gloves[playerStats.Gloves] + ") %";
 
-        criticalDamagema.text = "치명타 데미지 : " + playerStats.criticalDamagema.ToString();//치명타 데미지
+        criticalDamagema.text = "치명타 데미지 : " + playerStats.criticalDamagema;//치명타 데미지
 
         vampire.text = "체력 흡혈 % : " + playerStats.vampire.ToString();//체력 흡혈 %
         if (playerStats.Shield >= 0)//강화에 따른 체력흡혈 UP 망토가 없으면 -1
             vampire.text += " + (" + ItemStats.Shield[playerStats.Shield] * 100 + ") %";
 
-        goldBonus.text = "골드 보너스 : " + playerStats.goldBonus.ToString();//골드 보너스
+        goldBonus.text = "골드 보너스 : " + (playerStats.goldBonus+(playerStat.goldBonus * playerStat.goldBonusUp));//골드 보너스
 
-        experienceBonus.text = "경험치 보너스 : " + playerStats.experienceBonus.ToString();//경험치 보너스
+        experienceBonus.text = "경험치 보너스 : " + (playerStats.experienceBonus+(playerStat.experienceBonus * playerStat.experienceBonusUp));//경험치 보너스
 
-        gold.text = "보유 골드 : " + (playerStats.gold).ToString();//보유 골드
+        gold.text = "보유 골드 : " + (playerStats.gold);//보유 골드
 
         Color color = PlayerImage.color;
         color.a = 1.0f;
@@ -229,14 +235,11 @@ public class LoadStatsInfo : MonoBehaviour
         goldBonus_Apply.text = "0"; //골드 획득 %
 
 
-        //- 버튼 비활성화
-        DownBtnOnOff(false);
+        //- 버튼 활성화 & 비활성화
+        DownBtnOnOff();
 
         //+버튼 활성화 & 비활성화
-        if (BonusStatPoint <= 0)
-            UpBtnOnOff(false);
-        else
-            UpBtnOnOff(true);
+        UpBtnOnOff();
     }
 
     private float upBtnLogic(string str,string str1)
@@ -273,7 +276,7 @@ public class LoadStatsInfo : MonoBehaviour
                 
                 // 요구량 구하기
                 attackDamageMax_Up.text = upBtnLogic(attackDamageMax_Stat.text, attackDamageMax_Apply.text).ToString();
-                
+
                 // 요구량 이 남은 포인트보다 크다면 +버튼 비활성화
                 if (BonusStatPoint < upBtnLogic(attackDamageMax_Stat.text, attackDamageMax_Apply.text))
                     attackDamageMax_UpBtn.SetActive(false);
@@ -341,13 +344,12 @@ public class LoadStatsInfo : MonoBehaviour
                 break;
     
         }
+
         BonusStat.text = BonusStatPoint.ToString(); //남은 포인트
 
-        //+버튼 활성화 & 비활성화
-        if (BonusStatPoint <= 0) 
-            UpBtnOnOff(false);
-        else 
-            UpBtnOnOff(true);
+        //버튼 활성화 & 비활성화
+        UpBtnOnOff();
+        DownBtnOnOff();
     }
 
     public void DownBtn(int btnCnt)
@@ -391,57 +393,109 @@ public class LoadStatsInfo : MonoBehaviour
             case 2: //방어력
                 int.TryParse(defense_Apply.text, out i);
                 if (i <= 0) return;
-                BonusStatPoint++;
+
+                if ((int)ChangeFloat(defense_Stat.text) + (int)ChangeFloat(defense_Apply.text) >= 11)
+                    BonusStatPoint += 4;
+                else if ((int)ChangeFloat(defense_Stat.text) + (int)ChangeFloat(defense_Apply.text) >= 6)
+                    BonusStatPoint += 2;
+                else
+                    BonusStatPoint += 1;
+
                 defense_Apply.text = StringPlusInt(defense_Apply.text, -1).ToString();
+
+                defense_Up.text = upBtnLogic(defense_Stat.text, defense_Apply.text).ToString();
+
                 if (defense_Apply.text == "0") defense_DownBtn.SetActive(false);
                 break;
             case 3: //체력
                 int.TryParse(Maxhealth_Apply.text, out i);
                 if (i <= 0) return;
-                BonusStatPoint++;
+                if ((int)ChangeFloat(Maxhealth_Stat.text) + (int)ChangeFloat(Maxhealth_Apply.text) >= 11)
+                    BonusStatPoint += 4;
+                else if ((int)ChangeFloat(Maxhealth_Stat.text) + (int)ChangeFloat(Maxhealth_Apply.text) >= 6)
+                    BonusStatPoint += 2;
+                else
+                    BonusStatPoint += 1;
                 Maxhealth_Apply.text = StringPlusInt(Maxhealth_Apply.text, -1).ToString();
+                Maxhealth_Up.text = upBtnLogic(Maxhealth_Stat.text, Maxhealth_Apply.text).ToString();
                 if (Maxhealth_Apply.text == "0") Maxhealth_DownBtn.SetActive(false);
                 break;
             case 4: //공격속도
                 int.TryParse(attackSpeed_Apply.text, out i);
                 if (i <= 0) return;
-                BonusStatPoint++;
+                if ((int)ChangeFloat(attackSpeed_Stat.text) + (int)ChangeFloat(attackSpeed_Apply.text) >= 11)
+                    BonusStatPoint += 4;
+                else if ((int)ChangeFloat(attackSpeed_Stat.text) + (int)ChangeFloat(attackSpeed_Apply.text) >= 6)
+                    BonusStatPoint += 2;
+                else
+                    BonusStatPoint += 1;
                 attackSpeed_Apply.text = StringPlusInt(attackSpeed_Apply.text, -1).ToString();
+                attackSpeed_Up.text = upBtnLogic(attackSpeed_Stat.text, attackSpeed_Apply.text).ToString();
                 if (attackSpeed_Apply.text == "0") attackSpeed_DownBtn.SetActive(false);
                 break;
             case 5: //명중치
                 int.TryParse(hit_Apply.text, out i);
                 if (i <= 0) return;
-                BonusStatPoint++;
+                if ((int)ChangeFloat(hit_Stat.text) + (int)ChangeFloat(hit_Apply.text) >= 11)
+                    BonusStatPoint += 4;
+                else if ((int)ChangeFloat(hit_Stat.text) + (int)ChangeFloat(hit_Apply.text) >= 6)
+                    BonusStatPoint += 2;
+                else
+                    BonusStatPoint += 1;
                 hit_Apply.text = StringPlusInt(hit_Apply.text, -1).ToString();
+                hit_Up.text = upBtnLogic(hit_Stat.text, hit_Apply.text).ToString();
                 if (hit_Apply.text == "0") hit_DownBtn.SetActive(false);
                 break;
             case 6: //회피치
                 int.TryParse(evasion_Apply.text, out i);
                 if (i <= 0) return;
-                BonusStatPoint++;
+                if ((int)ChangeFloat(evasion_Stat.text) + (int)ChangeFloat(evasion_Apply.text) >= 11)
+                    BonusStatPoint += 4;
+                else if ((int)ChangeFloat(evasion_Stat.text) + (int)ChangeFloat(evasion_Apply.text) >= 6)
+                    BonusStatPoint += 2;
+                else
+                    BonusStatPoint += 1;
                 evasion_Apply.text = StringPlusInt(evasion_Apply.text, -1).ToString();
+                evasion_Up.text = upBtnLogic(evasion_Stat.text, evasion_Apply.text).ToString();
                 if (evasion_Apply.text == "0") evasion_DownBtn.SetActive(false);
                 break;
             case 7: //치명타 확률(0-100)
                 int.TryParse(criticalChance_Apply.text, out i);
                 if (i <= 0) return;
-                BonusStatPoint++;
+                if ((int)ChangeFloat(criticalChance_Stat.text) + (int)ChangeFloat(criticalChance_Apply.text) >= 11)
+                    BonusStatPoint += 4;
+                else if ((int)ChangeFloat(criticalChance_Stat.text) + (int)ChangeFloat(criticalChance_Apply.text) >= 6)
+                    BonusStatPoint += 2;
+                else
+                    BonusStatPoint += 1;
                 criticalChance_Apply.text = StringPlusInt(criticalChance_Apply.text, -1).ToString();
+                criticalChance_Up.text = upBtnLogic(criticalChance_Stat.text, criticalChance_Apply.text).ToString();
                 if (criticalChance_Apply.text == "0") criticalChance_DownBtn.SetActive(false);
                 break;
             case 8: //경험치 획득 %
                 int.TryParse(experienceBonus_Apply.text, out i);
                 if (i <= 0) return;
-                BonusStatPoint++;
+                if ((int)ChangeFloat(experienceBonus_Stat.text) + (int)ChangeFloat(experienceBonus_Apply.text) >= 11)
+                    BonusStatPoint += 4;
+                else if ((int)ChangeFloat(experienceBonus_Stat.text) + (int)ChangeFloat(experienceBonus_Apply.text) >= 6)
+                    BonusStatPoint += 2;
+                else
+                    BonusStatPoint += 1;
                 experienceBonus_Apply.text = StringPlusInt(experienceBonus_Apply.text, -1).ToString();
+                experienceBonus_Up.text = upBtnLogic(experienceBonus_Stat.text, experienceBonus_Apply.text).ToString();
                 if (experienceBonus_Apply.text == "0") experienceBonus_DownBtn.SetActive(false);
                 break;
             case 9: //골드 획득 %
                 int.TryParse(goldBonus_Apply.text, out i);
                 if (i <= 0) return;
-                BonusStatPoint++;
+                if ((int)ChangeFloat(goldBonus_Stat.text) + (int)ChangeFloat(goldBonus_Apply.text) >= 11)
+                    BonusStatPoint += 4;
+                else if ((int)ChangeFloat(goldBonus_Stat.text) + (int)ChangeFloat(goldBonus_Apply.text) >= 6)
+                    BonusStatPoint += 2;
+                else
+                    BonusStatPoint += 1;
                 goldBonus_Apply.text = StringPlusInt(goldBonus_Apply.text, -1).ToString();
+                goldBonus_Up.text = upBtnLogic(goldBonus_Stat.text, goldBonus_Apply.text).ToString();
                 if (goldBonus_Apply.text == "0") goldBonus_DownBtn.SetActive(false);
                 break;
 
@@ -449,72 +503,151 @@ public class LoadStatsInfo : MonoBehaviour
                 break;
 
         }
+
         BonusStat.text = BonusStatPoint.ToString(); //남은 포인트
-        if (BonusStatPoint <= 0)
-            UpBtnOnOff(false);
-        else
-            UpBtnOnOff(true);
+
+        //버튼 활성화 & 비활성화
+        UpBtnOnOff();
+        DownBtnOnOff();
 
     }
     public void PointSubmit()
     {
+        bool flag = false;
+
         //공격력(max)
         if (attackDamageMax_Apply.text != "0")
         {
             playerStat.attackDamageMax += (int)ChangeFloat(attackDamageMax_Apply.text);
             playerStat.attackDamageMin += (int)ChangeFloat(attackDamageMax_Apply.text);
+            flag = true;
         }
 
         //체력
         if (Maxhealth_Apply.text != "0")
         {
             playerStat.Maxhealth += (int)ChangeFloat(Maxhealth_Apply.text);
+            flag = true;
         }
 
         //방어력
         if (defense_Apply.text != "0")
         {
             playerStat.defense += (int)ChangeFloat(defense_Apply.text);
+            flag = true;
         }
 
         //공격속도
         if (attackSpeed_Apply.text != "0")
         {
-            playerStat.attackSpeed += ChangeFloat(attackSpeed_Apply.text);
+            playerStat.attackSpeed += (int)ChangeFloat(attackSpeed_Apply.text);
+            flag = true;
         }
 
         //명중치
         if (hit_Apply.text != "0")
         {
-            playerStat.hit += ChangeFloat(hit_Apply.text);
+            playerStat.hit += (int)ChangeFloat(hit_Apply.text);
+            flag = true;
         }
 
         //회피치
         if (evasion_Apply.text != "0")
         {
-            playerStat.evasion += ChangeFloat(evasion_Apply.text);
+            playerStat.evasion += (int)ChangeFloat(evasion_Apply.text);
+            flag = true;
         }
 
         //치명타 확률(0-100)
         if (criticalChance_Apply.text != "0")
         {
-            playerStat.criticalChance += ChangeFloat(criticalChance_Apply.text);
+            playerStat.criticalChance += (int)ChangeFloat(criticalChance_Apply.text);
+            flag = true;
         }
 
         //경험치 획득 %
         if (experienceBonus_Apply.text != "0")
         {
-            playerStat.experienceBonus += ChangeFloat(experienceBonus_Apply.text);
+            playerStat.experienceBonus += (int)ChangeFloat(experienceBonus_Apply.text);
+            flag = true;
         }
 
         //골드 획득 %
         if (goldBonus_Apply.text != "0")
         {
-            playerStat.goldBonus += ChangeFloat(goldBonus_Apply.text);
+            playerStat.goldBonus += (int)ChangeFloat(goldBonus_Apply.text);
+            flag = true;
+        }
+
+        if (playerStat.BonusStat > 0)
+        {
+            if (flag)
+            {
+                SetMainMessageBox("적용되었습니다");
+            }
+            else
+            {
+                SetMainMessageBox("선택한 능력치가 없습니다");
+            }
+        }
+        else
+        {
+            SetMainMessageBox("남은 보너스 포인트가 없습니다");
         }
 
         //남은 포인트 저장
         playerStat.BonusStat = BonusStatPoint;
+
+        //화면 리로드
+        StatsInfo();
+
+    }
+    public void PointReset()
+    {
+        int resetPoint = 0;
+
+        //공격력(max)
+        resetPoint += ResetLogic(playerStat.attackDamageMax);
+
+        playerStat.attackDamageMax = 0;
+        playerStat.attackDamageMin = 0;
+
+        //체력
+        resetPoint += ResetLogic(playerStat.Maxhealth);
+        playerStat.Maxhealth = 0;
+
+        //방어력
+        resetPoint += ResetLogic(playerStat.defense);
+        playerStat.defense = 0;
+
+        //공격속도
+        resetPoint += ResetLogic(playerStat.attackSpeed);
+        playerStat.attackSpeed = 0;
+
+        //명중치
+        resetPoint += ResetLogic(playerStat.hit);
+        playerStat.hit = 0;
+
+        //회피치
+        resetPoint += ResetLogic(playerStat.evasion);
+        playerStat.evasion = 0;
+
+        //치명타 확률(0-100)
+        resetPoint += ResetLogic(playerStat.criticalChance);
+        playerStat.criticalChance = 0;
+
+        //경험치 획득 %
+        resetPoint += ResetLogic(playerStat.experienceBonus);
+        playerStat.experienceBonus = 0;
+
+        //골드 획득 %
+        resetPoint += ResetLogic(playerStat.goldBonus);
+        playerStat.goldBonus = 0;
+
+        SetMainMessageBox("초기화 되었습니다");
+
+        //남은 포인트 저장
+        playerStat.BonusStat += resetPoint;
 
         //화면 리로드
         StatsInfo();
@@ -545,30 +678,69 @@ public class LoadStatsInfo : MonoBehaviour
     }
 
 
-    private void UpBtnOnOff(bool flag)
+    private void UpBtnOnOff()
     {
-        attackDamageMax_UpBtn.SetActive(flag); //공격력(max)
-        Maxhealth_UpBtn.SetActive(flag); //체력
-        defense_UpBtn.SetActive(flag); //방어력
-        attackSpeed_UpBtn.SetActive(flag);  //공격속도
-        hit_UpBtn.SetActive(flag); //명중치
-        evasion_UpBtn.SetActive(flag); //회피치
-        criticalChance_UpBtn.SetActive(flag); //치명타 확률(0-100)
-        experienceBonus_UpBtn.SetActive(flag); //경험치 획득 %
-        goldBonus_UpBtn.SetActive(flag); //골드 획득 %
+        attackDamageMax_UpBtn.SetActive(true); //공격력(max)
+        Maxhealth_UpBtn.SetActive(true); //체력
+        defense_UpBtn.SetActive(true); //방어력
+        attackSpeed_UpBtn.SetActive(true);  //공격속도
+        hit_UpBtn.SetActive(true); //명중치
+        evasion_UpBtn.SetActive(true); //회피치
+        criticalChance_UpBtn.SetActive(true); //치명타 확률(0-100)
+        experienceBonus_UpBtn.SetActive(true); //경험치 획득 %
+        goldBonus_UpBtn.SetActive(true); //골드 획득 %
+
+        if (BonusStatPoint < upBtnLogic(attackDamageMax_Stat.text, attackDamageMax_Apply.text))
+            attackDamageMax_UpBtn.SetActive(false);
+        if (BonusStatPoint < upBtnLogic(Maxhealth_Stat.text, Maxhealth_Apply.text))
+            Maxhealth_UpBtn.SetActive(false);
+        if (BonusStatPoint < upBtnLogic(defense_Stat.text, defense_Apply.text))
+            defense_UpBtn.SetActive(false);
+        if (BonusStatPoint < upBtnLogic(attackSpeed_Stat.text, attackSpeed_Apply.text))
+            attackSpeed_UpBtn.SetActive(false);
+        if (BonusStatPoint < upBtnLogic(hit_Stat.text, hit_Apply.text))
+            hit_UpBtn.SetActive(false);
+        if (BonusStatPoint < upBtnLogic(evasion_Stat.text, evasion_Apply.text))
+            evasion_UpBtn.SetActive(false);
+        if (BonusStatPoint < upBtnLogic(criticalChance_Stat.text, criticalChance_Apply.text))
+            criticalChance_UpBtn.SetActive(false);
+        if (BonusStatPoint < upBtnLogic(experienceBonus_Stat.text, experienceBonus_Apply.text))
+            experienceBonus_UpBtn.SetActive(false);
+        if (BonusStatPoint < upBtnLogic(goldBonus_Stat.text, goldBonus_Apply.text))
+            goldBonus_UpBtn.SetActive(false);
     }
 
-    private void DownBtnOnOff(bool flag)
+    private void DownBtnOnOff()
     {
-        attackDamageMax_DownBtn.SetActive(flag); //공격력(max)
-        Maxhealth_DownBtn.SetActive(flag); //체력
-        defense_DownBtn.SetActive(flag); //방어력
-        attackSpeed_DownBtn.SetActive(flag);  //공격속도
-        hit_DownBtn.SetActive(flag); //명중치
-        evasion_DownBtn.SetActive(flag); //회피치
-        criticalChance_DownBtn.SetActive(flag); //치명타 확률(0-100)
-        experienceBonus_DownBtn.SetActive(flag); //경험치 획득 %
-        goldBonus_DownBtn.SetActive(flag); //골드 획득 %
+        attackDamageMax_DownBtn.SetActive(false); //공격력(max)
+        Maxhealth_DownBtn.SetActive(false); //체력
+        defense_DownBtn.SetActive(false); //방어력
+        attackSpeed_DownBtn.SetActive(false);  //공격속도
+        hit_DownBtn.SetActive(false); //명중치
+        evasion_DownBtn.SetActive(false); //회피치
+        criticalChance_DownBtn.SetActive(false); //치명타 확률(0-100)
+        experienceBonus_DownBtn.SetActive(false); //경험치 획득 %
+        goldBonus_DownBtn.SetActive(false); //골드 획득 %
+
+        if (ChangeFloat(attackDamageMax_Apply.text) > 0)
+            attackDamageMax_DownBtn.SetActive(true);
+        if (ChangeFloat(Maxhealth_Apply.text) > 0)
+            Maxhealth_DownBtn.SetActive(true);
+        if (ChangeFloat(defense_Apply.text) > 0)
+            defense_DownBtn.SetActive(true);
+        if (ChangeFloat(attackSpeed_Apply.text) > 0)
+            attackSpeed_DownBtn.SetActive(true);
+        if (ChangeFloat(hit_Apply.text) > 0)
+            hit_DownBtn.SetActive(true);
+        if (ChangeFloat(evasion_Apply.text) > 0)
+            evasion_DownBtn.SetActive(true);
+        if (ChangeFloat(criticalChance_Apply.text) > 0)
+            criticalChance_DownBtn.SetActive(true);
+        if (ChangeFloat(experienceBonus_Apply.text) > 0)
+            experienceBonus_DownBtn.SetActive(true);
+        if (ChangeFloat(goldBonus_Apply.text) > 0)
+            goldBonus_DownBtn.SetActive(true);
+
     }
 
     private float ChangeFloat(string str)
@@ -580,6 +752,53 @@ public class LoadStatsInfo : MonoBehaviour
         return i;
     }
 
+    private int ResetLogic(int stat)
+    {
+        int point = 0;
 
+        while (stat > 0)
+        {
+            if (stat >= 11)
+                point += 4;
+            else if (stat >= 6)
+                point += 2;
+            else
+                point += 1;
+
+            stat--;
+        }
+
+        return point;
+    }
+
+    private void SetMainMessageBox(string msg)
+    {
+        MainMessageBox.text = msg;
+        StartCoroutine(AlphaLerp(1, 0));
+
+    }
+    private IEnumerator AlphaLerp(float start, float end)
+    {
+        float currentTime = 0.0f;
+        float percent = 0.0f;
+        float lerpTime = 1f;
+
+        while (percent < 1)
+        {
+            //lerpTime 동안 While()반복문 실행
+            currentTime += Time.deltaTime;
+            percent = currentTime / lerpTime;
+
+            // Text - TextMeshPro의 폰트 투명도를 start에서 end로 변경
+            Color color = MainMessageBox.color;
+            color.a = Mathf.Lerp(start, end, percent);
+            MainMessageBox.color = color;
+
+            yield return null;
+        }
+
+    }
+
+        
 }
 

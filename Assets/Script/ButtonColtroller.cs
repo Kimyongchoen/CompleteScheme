@@ -665,6 +665,13 @@ public class ButtonColtroller : MonoBehaviour
 
         SelectItme(ItemName);//재로드
     }
+
+    public void ResetGold()
+    {
+
+        SetMainMessageBox("골드가 초기화 되었습니다");
+    }
+
     private void SetMainMessageBox(string msg)
     {
         MainMessageBox.text = msg;
