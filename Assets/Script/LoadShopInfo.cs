@@ -71,7 +71,7 @@ public class LoadShopInfo : MonoBehaviour
     private Text MonsterGold;
 
     // Start is called before the first frame update
-    void Start()
+    public void Awake()
     {
         LoadInfo();
     }
@@ -92,6 +92,13 @@ public class LoadShopInfo : MonoBehaviour
                 HatPlus.text = "+" + playerStats.stats[0].Hat.ToString();
             }
         }
+        else
+        {
+            Color color = HatImg.color;
+            color.a = 0.4f;
+            HatImg.color = color;
+            HatPlus.text = "";
+        }
 
         //무기
         if (playerStats.stats[0].Weapon >= 0)
@@ -103,6 +110,13 @@ public class LoadShopInfo : MonoBehaviour
             {
                 WeaponPlus.text = "+" + playerStats.stats[0].Weapon.ToString();
             }
+        }
+        else
+        {
+            Color color = WeaponImg.color;
+            color.a = 0.4f;
+            WeaponImg.color = color;
+            WeaponPlus.text = "";
         }
 
         //갑옷
@@ -116,6 +130,13 @@ public class LoadShopInfo : MonoBehaviour
                 ArmorPlus.text = "+" + playerStats.stats[0].Armor.ToString();
             }
         }
+        else
+        {
+            Color color = ArmorImg.color;
+            color.a = 0.4f;
+            ArmorImg.color = color;
+            ArmorPlus.text = "";
+        }
 
         //장갑
         if (playerStats.stats[0].Gloves >= 0)
@@ -128,8 +149,15 @@ public class LoadShopInfo : MonoBehaviour
                 GlovesPlus.text = "+" + playerStats.stats[0].Gloves.ToString();
             }
         }
+        else
+        {
+            Color color = GlovesImg.color;
+            color.a = 0.4f;
+            GlovesImg.color = color;
+            GlovesPlus.text = "";
+        }
 
-        //망토 -> 방패
+        //방패
         if (playerStats.stats[0].Shield >= 0)
         {
             Color color = ShieldImg.color;
@@ -139,6 +167,13 @@ public class LoadShopInfo : MonoBehaviour
             {
                 ShieldPlus.text = "+" + playerStats.stats[0].Shield.ToString();
             }
+        }
+        else
+        {
+            Color color = ShieldImg.color;
+            color.a = 0.4f;
+            ShieldImg.color = color;
+            ShieldPlus.text = "";
         }
 
         //신발
@@ -151,6 +186,13 @@ public class LoadShopInfo : MonoBehaviour
             {
                 BootsPlus.text = "+" + playerStats.stats[0].Boots.ToString();
             }
+        }
+        else
+        {
+            Color color = BootsImg.color;
+            color.a = 0.4f;
+            BootsImg.color = color;
+            BootsPlus.text = "";
         }
 
 

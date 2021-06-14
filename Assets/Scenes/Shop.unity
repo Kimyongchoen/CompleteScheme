@@ -634,10 +634,6 @@ MonoBehaviour:
   ItmeStatsUp: {fileID: 2078508800}
   ItemBtnText: {fileID: 57271955}
   ItmePercentage: {fileID: 703482777}
-  RecoveryCnt: {fileID: 0}
-  AttackDamageUpCnt: {fileID: 0}
-  DefenseUpCnt: {fileID: 0}
-  MonsterCnt: {fileID: 0}
   MainMessageBox: {fileID: 1702712124}
   loadShopInfo: {fileID: 934373878}
 --- !u!4 &189155402

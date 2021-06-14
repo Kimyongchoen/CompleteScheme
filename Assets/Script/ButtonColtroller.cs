@@ -67,16 +67,6 @@ public class ButtonColtroller : MonoBehaviour
     [SerializeField]
     private Text ItmePercentage;
 
-    //타일 구매
-    [SerializeField]
-    private Text RecoveryCnt;
-    [SerializeField]
-    private Text AttackDamageUpCnt;
-    [SerializeField]
-    private Text DefenseUpCnt;
-    [SerializeField]
-    private Text MonsterCnt;
-
     //메시지 박스
     [SerializeField]
     private TextMeshProUGUI MainMessageBox;
@@ -283,6 +273,11 @@ public class ButtonColtroller : MonoBehaviour
                 ItmeStatsUp.text = "체력 흡혈\n+" + (itemStats.Shield[playerStats.stats[0].Shield + 1] * 100) + "%";
                 break;
             default:
+                SelectItemImg.sprite = null;//선택한 장비에 따라 이미지 변경
+                ItmeName.text = "";
+                ItmeStats.text = "";
+                ItemBtnText.text = "구 매";
+                ItmeGold.text = "";
                 break;
         }
         
@@ -668,6 +663,26 @@ public class ButtonColtroller : MonoBehaviour
 
     public void ResetGold()
     {
+        //골드 초기화
+        playerStats.stats[0].gold = playerStats.stats[0].goldMax;
+
+        // 장비 초기화
+        playerStats.stats[0].Weapon = -1;
+        playerStats.stats[0].Armor = -1;
+        playerStats.stats[0].Hat = -1;
+        playerStats.stats[0].Gloves = -1;
+        playerStats.stats[0].Boots = -1;
+        playerStats.stats[0].Shield = -1;
+
+        //타일 초기화
+        itemStats.RecoveryCnt = 0;
+        itemStats.AttackDamageUpCnt = 0;
+        itemStats.DefenseUpCnt = 0;
+        itemStats.MonsterCnt = 0;
+
+        loadShopInfo.LoadInfo();
+
+        SelectItme("");
 
         SetMainMessageBox("골드가 초기화 되었습니다");
     }

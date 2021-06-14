@@ -109,6 +109,12 @@ public class PlayerSpawner : MonoBehaviour
         Playing = false;
         cameraManager.Setup(null, true);
 
+        //msgbox 초기화
+        MainMessageBox.text = "";
+        Color color = MainMessageBox.color;
+        color.a = 1f;
+        MainMessageBox.color = color;
+
         if (Claer)//게임 클리어
         {
             StageClear();
@@ -337,6 +343,8 @@ public class PlayerSpawner : MonoBehaviour
 
             yield return null;
         }
+
+
 
     }
     public void NextStage()
