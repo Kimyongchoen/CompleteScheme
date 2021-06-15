@@ -16,6 +16,7 @@ public class MonsterAttack : MonoBehaviour
 
     private MonsterStats.Stats monsterStats;//몬스터 스텟정보
     private PlayerStats.Stats playerStats; //플레이어 스텟 정보
+    private PlayerStat playerStat; //플레이어 추가 스텟 정보
 
     public float addedDamage;//추가 데미지
     //private MonsterSpawner monsterSpawner;//게임에 존재하는 적정보 획득용
@@ -26,6 +27,7 @@ public class MonsterAttack : MonoBehaviour
         this.monster = monster;
         this.monsterStats = monster.monsterStats;
         this.playerStats = playerSpawner.playerStats;
+        this.playerStat = playerSpawner.playerStat;
     }
 
     public void StartAttack()
@@ -128,8 +130,9 @@ public class MonsterAttack : MonoBehaviour
 
         int demage = Random.Range(monsterStats.attackDamageMin + (int)addedDamage, monsterStats.attackDamageMax + (int)addedDamage + 1); //몬스터 데미지 + addedDamage 버프 데미지
         bool criticalFlag = false;
-        int defense = playerStats.defense;
-        float evasion = playerStats.evasion;
+
+        int defense = playerStats.defense+ (playerStat.defense * playerStat.defenseUp);
+        float evasion = playerStats.evasion+ (playerStat.evasion * playerStat.evasionUp);
 
 
         if (Random.Range(1f, 100f) < monsterStats.criticalChance) // 몬스터 크리티컬 확율 (0-100)

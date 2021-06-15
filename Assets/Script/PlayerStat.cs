@@ -11,31 +11,37 @@ public class PlayerStat : ScriptableObject
 
     public int attackDamageMin; //공격력(min)
     public int attackDamageMax; //공격력(max)
-
     public int Maxhealth;//체력
     public int defense;//방어력
-
     public int attackSpeed; //공격속도
     public int hit;//명중치
     public int evasion;//회피치
     public int criticalChance;//치명타 확률(0-100)
-
     public int experienceBonus;//경험치 획득 %
     public int goldBonus;//골드 획득 %
 
     public int attackDamageMinUp; //공격력(min)
     public int attackDamageMaxUp; //공격력(max)
-
     public int MaxhealthUp;//체력
     public int defenseUp;//방어력
-
     public float attackSpeedUp; //공격속도
     public float hitUp;//명중치
     public float evasionUp;//회피치
     public float criticalChanceUp;//치명타 확률(0-100)
-
     public float experienceBonusUp;//경험치 획득 %
     public float goldBonusUp;//골드 획득 %
 }
-
+/*
+private PlayerStat playerStat; //플레이어 추가 스텟 정보
+(playerStat.attackDamageMin * playerStat.attackDamageMinUp)
+(playerStat.attackDamageMax * playerStat.attackDamageMaxUp)
+(playerStat.Maxhealth * playerStat.MaxhealthUp)
+(playerStat.defense * playerStat.defenseUp)
+(playerStat.attackSpeed * playerStat.attackSpeedUp)
+(playerStat.hit * playerStat.hitUp)
+(playerStat.evasion * playerStat.evasionUp)
+(playerStat.criticalChance * playerStat.criticalChanceUp)
+(playerStat.goldBonus * playerStat.goldBonusUp)
+(playerStat.experienceBonus * playerStat.experienceBonusUp)
+ */
 

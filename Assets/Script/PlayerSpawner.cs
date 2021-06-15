@@ -73,7 +73,7 @@ public class PlayerSpawner : MonoBehaviour
     private Levelinfo levelinfo;
 
     [SerializeField]
-    private PlayerStat playerStat;
+    public PlayerStat playerStat;
 
     public void Setup()
     {

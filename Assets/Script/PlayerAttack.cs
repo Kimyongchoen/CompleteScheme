@@ -19,12 +19,15 @@ public class PlayerAttack : MonoBehaviour
 
     private PlayerStats.Stats playerStats; //플레이어 스텟 정보
     private bool GoldExperience = false; //골드 경험치 획득여부
+    private PlayerStat playerStat; //플레이어 추가 스텟 정보
+
     public void Setup(Player player , MonsterSpawner monsterSpawner)
     {
         this.monsterSpawner = monsterSpawner;
         this.player = player;
         this.playerStats = player.playerSpawner.playerStats;
-        this.attackSpeed = playerStats.attackSpeed;//공격속도
+        this.playerStat = player.playerSpawner.playerStat;
+        this.attackSpeed = playerStats.attackSpeed+ (playerStat.attackSpeed * playerStat.attackSpeedUp);//공격속도
         this.attackRange = playerStats.attackRange;//공격범위
 
         //최초 상태를 waponState.SearchTarget으로 설정
@@ -146,9 +149,9 @@ public class PlayerAttack : MonoBehaviour
     {
         GameObject clone = Instantiate(AttackPrefab, spawnPoint.position, Quaternion.identity);
 
-        int attackDamageMin = playerStats.attackDamageMin;
-        int attackDamageMax = playerStats.attackDamageMax;
-        float criticalChance = playerStats.criticalChance;
+        int attackDamageMin = playerStats.attackDamageMin+ (playerStat.attackDamageMin * playerStat.attackDamageMinUp);
+        int attackDamageMax = playerStats.attackDamageMax+ (playerStat.attackDamageMax * playerStat.attackDamageMaxUp);
+        float criticalChance = playerStats.criticalChance+ (playerStat.criticalChance * playerStat.criticalChanceUp);
         float criticalDamagema = playerStats.criticalDamagema;
         int defense = attackTarget.monsterStats.defense;
         float vampire = playerStats.vampire;
@@ -184,7 +187,7 @@ public class PlayerAttack : MonoBehaviour
             demage = 1;
         
         //회피 성공
-        if (Random.Range(1f, 100f) > playerStats.hit - attackTarget.monsterStats.evasion) //플레이어의 명중률 - 몬스터의 회피률
+        if (Random.Range(1f, 100f) > playerStats.hit + (playerStat.hit * playerStat.hitUp) - attackTarget.monsterStats.evasion) //플레이어의 명중률 - 몬스터의 회피률
         {
             demage = 0;
         }
