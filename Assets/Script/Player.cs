@@ -93,16 +93,16 @@ public class Player : MonoBehaviour
         {
             attackSpeed = 2f;
         }
-
-        int Maxhealth = playerSpawner.playerStats.Maxhealth;
-        int health = playerSpawner.playerStats.health;
         
-        /*투구 체력은 강화할때 적용필요      
-        if (playerSpawner.playerStats.hat >= 0)//투구 강화 따른 체력 UP 투구가 없으면 -1
+        int Maxhealth = playerSpawner.playerStats.Maxhealth + (playerSpawner.playerStat.Maxhealth * playerSpawner.playerStat.MaxhealthUp);
+        int health = playerSpawner.playerStats.health + (playerSpawner.playerStat.Maxhealth * playerSpawner.playerStat.MaxhealthUp);
+        
+        //투구 체력은 강화할때 적용필요      
+        if (playerSpawner.playerStats.Hat >= 0)//투구 강화 따른 체력 UP 투구가 없으면 -1
         {
-            Maxhealth += ItemStats.hat[playerSpawner.playerStats.hat];
-            health += ItemStats.hat[playerSpawner.playerStats.hat];
-        }*/
+            Maxhealth += ItemStats.Hat[playerSpawner.playerStats.Hat];
+            health += ItemStats.Hat[playerSpawner.playerStats.Hat];
+        }
 
         maxHP = Maxhealth;
         currentHP = health;
