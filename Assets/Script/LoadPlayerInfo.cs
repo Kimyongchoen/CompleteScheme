@@ -25,7 +25,7 @@ public class LoadPlayerInfo : MonoBehaviour
     public Text ScreenLevel;
 
     public ItemStats ItemStats;
-    private PlayerStats.Stats playerStats;
+    public PlayerStats.Stats playerStats;
 
 
     public void ChangeMonsterInfomation(int PlayerNum)
