@@ -93,6 +93,10 @@ public class ButtonColtroller : MonoBehaviour
         ItmeStatsUp.text = "";
         ItmePercentage.text = "";
         ItemBtnText.text = "구 매";
+        
+        Color color = SelectItemImg.color;
+        color.a = 1f;
+        SelectItemImg.color = color;
 
         switch (ItemName)
         {
@@ -278,6 +282,8 @@ public class ButtonColtroller : MonoBehaviour
                 ItmeStats.text = "";
                 ItemBtnText.text = "구 매";
                 ItmeGold.text = "";
+                color.a = 0f;
+                SelectItemImg.color = color;
                 break;
         }
         
