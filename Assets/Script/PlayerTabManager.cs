@@ -124,13 +124,13 @@ public class PlayerTabManager : MonoBehaviour
 
         if (Stage10.stage[0].experience+ Stage10.stage[0].gold>0)
         {
-            ScreenLevel.text = "지역경험치\n" + (playerSpawner.experience).ToString() + " / " + (Stage10.stage[0].experience).ToString(); //화면 상단 골드 표시
-            ScreenGold.text = "지역Gold\n" + (playerSpawner.gold).ToString() + " / " + (Stage10.stage[0].gold).ToString(); //화면 상단 골드 표시
+            ScreenLevel.text = (playerSpawner.experience).ToString() + " / " + (Stage10.stage[0].experience).ToString(); //화면 상단 골드 표시
+            ScreenGold.text = (playerSpawner.gold).ToString() + " / " + (Stage10.stage[0].gold).ToString(); //화면 상단 골드 표시
         }
         else
         {
-            ScreenLevel.text = "지역경험치\n" + (playerSpawner.experience).ToString(); //화면 상단 골드 표시
-            ScreenGold.text = "지역Gold\n" + (playerSpawner.gold).ToString(); //화면 상단 골드 표시
+            ScreenLevel.text = (playerSpawner.experience).ToString(); //화면 상단 골드 표시
+            ScreenGold.text = (playerSpawner.gold).ToString(); //화면 상단 골드 표시
         }
 
         Color color = PlayerImage.color;

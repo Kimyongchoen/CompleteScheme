@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Level: 3
   Stat: 0
-  BonusStat: 100
+  BonusStat: 2
   attackDamageMin: 0
   attackDamageMax: 0
   Maxhealth: 0

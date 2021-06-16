@@ -17,8 +17,8 @@ MonoBehaviour:
       type: 3}
     Playername: "\uD669\uD63C\uC758 \uBAA8\uD5D8\uAC00"
     level: 3
-    attackDamageMin: 1
-    attackDamageMax: 1
+    attackDamageMin: 5
+    attackDamageMax: 10
     health: 1000
     Maxhealth: 100
     defense: 0
@@ -34,7 +34,7 @@ MonoBehaviour:
     experience: 830
     gold: 30
     goldMax: 830
-    Weapon: -1
+    Weapon: 0
     Armor: -1
     Hat: -1
     Gloves: -1
