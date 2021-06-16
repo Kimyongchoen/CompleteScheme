@@ -20,12 +20,23 @@ public class TabManager : MonoBehaviour
             {
                 Tab[4].SetActive(false);
                 Tab[i].SetActive(true);
-                TabBtnImage[i].sprite = SelectSprite[i]; 
+                Color color = TabBtnImage[i].color;
+                color.r = 0.7137255f;
+                color.g = 0.4509804f;
+                color.b = 0.1764706f;
+                TabBtnImage[i].color = color;
+                //TabBtnImage[i].sprite = SelectSprite[i]; 
             }
             else
             {
                 Tab[i].SetActive(false);
-                TabBtnImage[i].sprite = IdleSprite[i];
+                Color color = TabBtnImage[i].color;
+                color.r = 0.4f;
+                color.g = 0.3f;
+                color.b = 0.2f;
+                TabBtnImage[i].color = color;
+                Debug.Log(color.r + " / " + color.g + " / " + color.b);
+                //TabBtnImage[i].sprite = IdleSprite[i];
             }
         }
         if (n == 4)
