@@ -35,7 +35,6 @@ public class TabManager : MonoBehaviour
                 color.g = 0.3f;
                 color.b = 0.2f;
                 TabBtnImage[i].color = color;
-                Debug.Log(color.r + " / " + color.g + " / " + color.b);
                 //TabBtnImage[i].sprite = IdleSprite[i];
             }
         }
