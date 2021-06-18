@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0150a64d5d0be0419b06945c36645b9, type: 3}
   m_Name: ItemStats
   m_EditorClassIdentifier: 
-  RecoveryCnt: 0
-  AttackDamageUpCnt: 0
-  DefenseUpCnt: 0
+  RecoveryCnt: 2
+  AttackDamageUpCnt: 2
+  DefenseUpCnt: 2
   MonsterCnt: 16
   RecoveryGold: 300
   AttackDamageUpGold: 200
   DefenseUpGold: 200
   MonsterGold: 50
   AttackDamageUp: 0
-  DefenseUp: 0
+  DefenseUp: -1
   Weapon: 030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e000000
   WeaponName: "\uBB34\uAE30"
   WeaponGold: f4010000c80000009001000058020000e8030000e8030000e8030000e8030000e8030000e8030000e8030000e8030000

@@ -32,9 +32,9 @@ MonoBehaviour:
     experienceBonus: 0
     goldBonus: 0
     experience: 830
-    gold: 30
+    gold: 3000
     goldMax: 830
-    Weapon: 0
+    Weapon: -1
     Armor: -1
     Hat: -1
     Gloves: -1

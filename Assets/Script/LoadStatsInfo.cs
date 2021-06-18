@@ -257,100 +257,157 @@ public class LoadStatsInfo : MonoBehaviour
     }
     public void UpBtn(int btnCnt)
     {
-        // 적용 포인트 **_Stat / 적용할 능력치 **_Apply / 요구량 **_Up
-        
+        // 요구량 **_Up / 적용할 능력치 **_Apply / 적용 포인트 **_Stat
         if (BonusStatPoint <= 0) return;//보너스 포인트가 없다면
+        Text[,] BtnFlag = { 
+            { attackDamageMax_Up, attackDamageMax_Apply, attackDamageMax_Stat }, 
+            { defense_Up, defense_Apply, defense_Stat },
+            { Maxhealth_Up, Maxhealth_Apply, Maxhealth_Stat },
+            { attackSpeed_Up, attackSpeed_Apply, attackSpeed_Stat },
+            { hit_Up, hit_Apply, hit_Stat },
+            { evasion_Up, evasion_Apply, evasion_Stat },
+            { criticalChance_Up, criticalChance_Apply, criticalChance_Stat },
+            { experienceBonus_Up, experienceBonus_Apply, experienceBonus_Stat },
+            { goldBonus_Up, goldBonus_Apply, goldBonus_Stat }
+        };
+        GameObject[,] BtnActive = {
+                { attackDamageMax_DownBtn, attackDamageMax_UpBtn},
+                { defense_DownBtn, defense_UpBtn},
+                { Maxhealth_DownBtn, Maxhealth_UpBtn},
+                { attackSpeed_DownBtn, attackSpeed_UpBtn},
+                { hit_DownBtn, hit_UpBtn},
+                { evasion_DownBtn, evasion_UpBtn},
+                { criticalChance_DownBtn, criticalChance_UpBtn},
+                { experienceBonus_DownBtn, experienceBonus_UpBtn},
+                { goldBonus_DownBtn, goldBonus_UpBtn}
+            };
 
-        switch (btnCnt)
-        {
-            case 1: //공격력(max) attackDamageMax
-
-                //다운버튼 활성화
-                attackDamageMax_DownBtn.SetActive(true);
-
-                // 남은 포인트에서 요구량 만큼 제외하기
-                BonusStatPoint -= (int)ChangeFloat(attackDamageMax_Up.text);
-                
-                //적용할 능력치 +1
-                attackDamageMax_Apply.text = StringPlusInt(attackDamageMax_Apply.text , 1).ToString();
-                
-                // 요구량 구하기
-                attackDamageMax_Up.text = upBtnLogic(attackDamageMax_Stat.text, attackDamageMax_Apply.text).ToString();
-
-                // 요구량 이 남은 포인트보다 크다면 +버튼 비활성화
-                if (BonusStatPoint < upBtnLogic(attackDamageMax_Stat.text, attackDamageMax_Apply.text))
-                    attackDamageMax_UpBtn.SetActive(false);
-
-                break;
-
-            case 2: //방어력 defense
-                defense_DownBtn.SetActive(true);
-                BonusStatPoint -= (int)ChangeFloat(defense_Up.text);
-                defense_Apply.text = StringPlusInt(defense_Apply.text, 1).ToString();
-                defense_Up.text = upBtnLogic(defense_Stat.text, defense_Apply.text).ToString();
-                if (BonusStatPoint < upBtnLogic(defense_Stat.text, defense_Apply.text)) defense_UpBtn.SetActive(false);
-                break;
-            case 3: //체력 Maxhealth
-                Maxhealth_DownBtn.SetActive(true);
-                BonusStatPoint -= (int)ChangeFloat(Maxhealth_Up.text);
-                Maxhealth_Apply.text = StringPlusInt(Maxhealth_Apply.text, 1).ToString();
-                Maxhealth_Up.text = upBtnLogic(Maxhealth_Stat.text, Maxhealth_Apply.text).ToString();
-                if (BonusStatPoint < upBtnLogic(Maxhealth_Stat.text, Maxhealth_Apply.text)) Maxhealth_UpBtn.SetActive(false);
-                break;
-            case 4: //공격속도 attackSpeed
-                attackSpeed_DownBtn.SetActive(true);
-                BonusStatPoint -= (int)ChangeFloat(attackSpeed_Up.text);
-                attackSpeed_Apply.text = StringPlusInt(attackSpeed_Apply.text, 1).ToString();
-                attackSpeed_Up.text = upBtnLogic(attackSpeed_Stat.text, attackSpeed_Apply.text).ToString();
-                if (BonusStatPoint < upBtnLogic(attackSpeed_Stat.text, attackSpeed_Apply.text)) attackSpeed_UpBtn.SetActive(false);
-                break;
-            case 5: //명중치 hit
-                hit_DownBtn.SetActive(true);
-                BonusStatPoint -= (int)ChangeFloat(hit_Up.text);
-                hit_Apply.text = StringPlusInt(hit_Apply.text, 1).ToString();
-                hit_Up.text = upBtnLogic(hit_Stat.text, hit_Apply.text).ToString();
-                if (BonusStatPoint < upBtnLogic(hit_Stat.text, hit_Apply.text)) hit_UpBtn.SetActive(false);
-                break;
-            case 6: //회피치 evasion
-                evasion_DownBtn.SetActive(true);
-                BonusStatPoint -= (int)ChangeFloat(evasion_Up.text);
-                evasion_Apply.text = StringPlusInt(evasion_Apply.text, 1).ToString();
-                evasion_Up.text = upBtnLogic(evasion_Stat.text, evasion_Apply.text).ToString();
-                if (BonusStatPoint < upBtnLogic(evasion_Stat.text, evasion_Apply.text)) evasion_UpBtn.SetActive(false);
-                break;
-            case 7: //치명타 확률(0-100) criticalChance
-                criticalChance_DownBtn.SetActive(true);
-                BonusStatPoint -= (int)ChangeFloat(criticalChance_Up.text);
-                criticalChance_Apply.text = StringPlusInt(criticalChance_Apply.text, 1).ToString();
-                criticalChance_Up.text = upBtnLogic(criticalChance_Stat.text, criticalChance_Apply.text).ToString();
-                if (BonusStatPoint < upBtnLogic(criticalChance_Stat.text, criticalChance_Apply.text)) criticalChance_UpBtn.SetActive(false);
-                break;
-            case 8: //경험치 획득 % experienceBonus
-                experienceBonus_DownBtn.SetActive(true);
-                BonusStatPoint -= (int)ChangeFloat(experienceBonus_Up.text);
-                experienceBonus_Apply.text = StringPlusInt(experienceBonus_Apply.text, 1).ToString();
-                experienceBonus_Up.text = upBtnLogic(experienceBonus_Stat.text, experienceBonus_Apply.text).ToString();
-                if (BonusStatPoint < upBtnLogic(experienceBonus_Stat.text, experienceBonus_Apply.text)) experienceBonus_UpBtn.SetActive(false);
-                break;
-            case 9: //골드 획득 % goldBonus
-                goldBonus_DownBtn.SetActive(true);
-                BonusStatPoint -= (int)ChangeFloat(goldBonus_Up.text);
-                goldBonus_Apply.text = StringPlusInt(goldBonus_Apply.text, 1).ToString();
-                goldBonus_Up.text = upBtnLogic(goldBonus_Stat.text, goldBonus_Apply.text).ToString();
-                if (BonusStatPoint < upBtnLogic(goldBonus_Stat.text, goldBonus_Apply.text)) goldBonus_UpBtn.SetActive(false);
-                break;
-
-            default:
-                break;
-    
-        }
-
+        //다운버튼 활성화
+        BtnActive[btnCnt - 1, 0].SetActive(true);
+        // 남은 포인트에서 요구량 만큼 제외하기
+        BonusStatPoint -= (int)ChangeFloat(BtnFlag[btnCnt - 1, 0].text);
+        //적용할 능력치 +1
+        BtnFlag[btnCnt - 1, 1].text = StringPlusInt(BtnFlag[btnCnt - 1, 1].text, 1).ToString();
+        // 요구량 구하기
+        BtnFlag[btnCnt - 1, 0].text = upBtnLogic(BtnFlag[btnCnt - 1, 2].text, BtnFlag[btnCnt - 1, 1].text).ToString();
+        // 요구량 이 남은 포인트보다 크다면 +버튼 비활성화
+        if (BonusStatPoint < upBtnLogic(BtnFlag[btnCnt - 1, 2].text, BtnFlag[btnCnt - 1, 1].text))
+            BtnActive[btnCnt - 1, 1].SetActive(false);
         BonusStat.text = BonusStatPoint.ToString(); //남은 포인트
-
         //버튼 활성화 & 비활성화
         UpBtnOnOff();
         DownBtnOnOff();
     }
+
+    /*
+
+            switch (btnCnt)
+            {
+                case 1: //공격력(max) attackDamageMax
+
+                    //다운버튼 활성화
+                    BtnActive[0].SetActive(true);
+
+                    // 남은 포인트에서 요구량 만큼 제외하기
+                    BonusStatPoint -= (int)ChangeFloat(BtnFlag[btnCnt - 1,0].text);
+
+                    //적용할 능력치 +1
+                    BtnFlag[btnCnt - 1, 1].text = StringPlusInt(BtnFlag[btnCnt - 1, 1].text, 1).ToString();
+
+                    // 요구량 구하기
+                    BtnFlag[btnCnt - 1, 0].text = upBtnLogic(BtnFlag[btnCnt - 1, 2].text, BtnFlag[btnCnt - 1, 1].text).ToString();
+
+                    // 요구량 이 남은 포인트보다 크다면 +버튼 비활성화
+                    if (BonusStatPoint < upBtnLogic(BtnFlag[btnCnt - 1, 2].text, BtnFlag[btnCnt - 1, 1].text))
+                        attackDamageMax_UpBtn.SetActive(false);
+
+                    break;
+
+
+                    *//*
+                    //다운버튼 활성화
+                    attackDamageMax_DownBtn.SetActive(true);
+
+                    // 남은 포인트에서 요구량 만큼 제외하기
+                    BonusStatPoint -= (int)ChangeFloat(attackDamageMax_Up.text);
+
+                    //적용할 능력치 +1
+                    attackDamageMax_Apply.text = StringPlusInt(attackDamageMax_Apply.text, 1).ToString();
+
+                    // 요구량 구하기
+                    attackDamageMax_Up.text = upBtnLogic(attackDamageMax_Stat.text, attackDamageMax_Apply.text).ToString();
+
+                    // 요구량 이 남은 포인트보다 크다면 +버튼 비활성화
+                    if (BonusStatPoint < upBtnLogic(attackDamageMax_Stat.text, attackDamageMax_Apply.text))
+                        attackDamageMax_UpBtn.SetActive(false);
+
+                    break;
+                    *//* 
+    
+                case 2: //방어력 defense
+                    defense_DownBtn.SetActive(true);
+                    BonusStatPoint -= (int)ChangeFloat(defense_Up.text);
+                    defense_Apply.text = StringPlusInt(defense_Apply.text, 1).ToString();
+                    defense_Up.text = upBtnLogic(defense_Stat.text, defense_Apply.text).ToString();
+                    if (BonusStatPoint < upBtnLogic(defense_Stat.text, defense_Apply.text)) defense_UpBtn.SetActive(false);
+                    break;
+                case 3: //체력 Maxhealth
+                    Maxhealth_DownBtn.SetActive(true);
+                    BonusStatPoint -= (int)ChangeFloat(Maxhealth_Up.text);
+                    Maxhealth_Apply.text = StringPlusInt(Maxhealth_Apply.text, 1).ToString();
+                    Maxhealth_Up.text = upBtnLogic(Maxhealth_Stat.text, Maxhealth_Apply.text).ToString();
+                    if (BonusStatPoint < upBtnLogic(Maxhealth_Stat.text, Maxhealth_Apply.text)) Maxhealth_UpBtn.SetActive(false);
+                    break;
+                case 4: //공격속도 attackSpeed
+                    attackSpeed_DownBtn.SetActive(true);
+                    BonusStatPoint -= (int)ChangeFloat(attackSpeed_Up.text);
+                    attackSpeed_Apply.text = StringPlusInt(attackSpeed_Apply.text, 1).ToString();
+                    attackSpeed_Up.text = upBtnLogic(attackSpeed_Stat.text, attackSpeed_Apply.text).ToString();
+                    if (BonusStatPoint < upBtnLogic(attackSpeed_Stat.text, attackSpeed_Apply.text)) attackSpeed_UpBtn.SetActive(false);
+                    break;
+                case 5: //명중치 hit
+                    hit_DownBtn.SetActive(true);
+                    BonusStatPoint -= (int)ChangeFloat(hit_Up.text);
+                    hit_Apply.text = StringPlusInt(hit_Apply.text, 1).ToString();
+                    hit_Up.text = upBtnLogic(hit_Stat.text, hit_Apply.text).ToString();
+                    if (BonusStatPoint < upBtnLogic(hit_Stat.text, hit_Apply.text)) hit_UpBtn.SetActive(false);
+                    break;
+                case 6: //회피치 evasion
+                    evasion_DownBtn.SetActive(true);
+                    BonusStatPoint -= (int)ChangeFloat(evasion_Up.text);
+                    evasion_Apply.text = StringPlusInt(evasion_Apply.text, 1).ToString();
+                    evasion_Up.text = upBtnLogic(evasion_Stat.text, evasion_Apply.text).ToString();
+                    if (BonusStatPoint < upBtnLogic(evasion_Stat.text, evasion_Apply.text)) evasion_UpBtn.SetActive(false);
+                    break;
+                case 7: //치명타 확률(0-100) criticalChance
+                    criticalChance_DownBtn.SetActive(true);
+                    BonusStatPoint -= (int)ChangeFloat(criticalChance_Up.text);
+                    criticalChance_Apply.text = StringPlusInt(criticalChance_Apply.text, 1).ToString();
+                    criticalChance_Up.text = upBtnLogic(criticalChance_Stat.text, criticalChance_Apply.text).ToString();
+                    if (BonusStatPoint < upBtnLogic(criticalChance_Stat.text, criticalChance_Apply.text)) criticalChance_UpBtn.SetActive(false);
+                    break;
+                case 8: //경험치 획득 % experienceBonus
+                    experienceBonus_DownBtn.SetActive(true);
+                    BonusStatPoint -= (int)ChangeFloat(experienceBonus_Up.text);
+                    experienceBonus_Apply.text = StringPlusInt(experienceBonus_Apply.text, 1).ToString();
+                    experienceBonus_Up.text = upBtnLogic(experienceBonus_Stat.text, experienceBonus_Apply.text).ToString();
+                    if (BonusStatPoint < upBtnLogic(experienceBonus_Stat.text, experienceBonus_Apply.text)) experienceBonus_UpBtn.SetActive(false);
+                    break;
+                case 9: //골드 획득 % goldBonus
+                    goldBonus_DownBtn.SetActive(true);
+                    BonusStatPoint -= (int)ChangeFloat(goldBonus_Up.text);
+                    goldBonus_Apply.text = StringPlusInt(goldBonus_Apply.text, 1).ToString();
+                    goldBonus_Up.text = upBtnLogic(goldBonus_Stat.text, goldBonus_Apply.text).ToString();
+                    if (BonusStatPoint < upBtnLogic(goldBonus_Stat.text, goldBonus_Apply.text)) goldBonus_UpBtn.SetActive(false);
+                    break;
+
+                default:
+                    break;
+
+            }
+            */
+
+
 
     public void DownBtn(int btnCnt)
     {
