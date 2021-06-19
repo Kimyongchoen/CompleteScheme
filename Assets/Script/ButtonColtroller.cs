@@ -322,7 +322,7 @@ public class ButtonColtroller : MonoBehaviour
                             ItmePercentage = Percentage[playerStats.stats[0].Weapon];
                     }
 
-                    if (playerStats.stats[0].gold > ItmeGold)
+                    if (playerStats.stats[0].gold >= ItmeGold)
                     {
                         //골드 차감
                         playerStats.stats[0].gold -= ItmeGold;
@@ -366,7 +366,7 @@ public class ButtonColtroller : MonoBehaviour
                             ItmePercentage = Percentage[playerStats.stats[0].Armor];
                     }
 
-                    if (playerStats.stats[0].gold > ItmeGold)
+                    if (playerStats.stats[0].gold >= ItmeGold)
                     {
                         //골드 차감
                         playerStats.stats[0].gold -= ItmeGold;
@@ -409,7 +409,7 @@ public class ButtonColtroller : MonoBehaviour
                             ItmePercentage = Percentage[playerStats.stats[0].Hat];
                     }
 
-                    if (playerStats.stats[0].gold > ItmeGold)
+                    if (playerStats.stats[0].gold >= ItmeGold)
                     {
                         //골드 차감
                         playerStats.stats[0].gold -= ItmeGold;
@@ -452,7 +452,7 @@ public class ButtonColtroller : MonoBehaviour
                             ItmePercentage = Percentage[playerStats.stats[0].Gloves];
                     }
 
-                    if (playerStats.stats[0].gold > ItmeGold)
+                    if (playerStats.stats[0].gold >= ItmeGold)
                     {
                         //골드 차감
                         playerStats.stats[0].gold -= ItmeGold;
@@ -495,7 +495,7 @@ public class ButtonColtroller : MonoBehaviour
                             ItmePercentage = Percentage[playerStats.stats[0].Boots];
                     }
 
-                    if (playerStats.stats[0].gold > ItmeGold)
+                    if (playerStats.stats[0].gold >= ItmeGold)
                     {
                         //골드 차감
                         playerStats.stats[0].gold -= ItmeGold;
@@ -538,7 +538,7 @@ public class ButtonColtroller : MonoBehaviour
                             ItmePercentage = Percentage[playerStats.stats[0].Shield];
                     }
 
-                    if (playerStats.stats[0].gold > ItmeGold)
+                    if (playerStats.stats[0].gold >= ItmeGold)
                     {
                         //골드 차감
                         playerStats.stats[0].gold -= ItmeGold;
@@ -584,7 +584,7 @@ public class ButtonColtroller : MonoBehaviour
 
                 ItmeGold = itemStats.RecoveryGold;
 
-                if (playerStats.stats[0].gold > ItmeGold)
+                if (playerStats.stats[0].gold >= ItmeGold)
                 {
                     playerStats.stats[0].gold -= ItmeGold;
                     itemStats.RecoveryCnt += 1;
@@ -605,7 +605,7 @@ public class ButtonColtroller : MonoBehaviour
 
                 ItmeGold = itemStats.AttackDamageUpGold;
 
-                if (playerStats.stats[0].gold > ItmeGold)
+                if (playerStats.stats[0].gold >= ItmeGold)
                 {
                     playerStats.stats[0].gold -= ItmeGold;
                     itemStats.AttackDamageUpCnt += 1;
@@ -626,7 +626,7 @@ public class ButtonColtroller : MonoBehaviour
 
                 ItmeGold = itemStats.DefenseUpGold;
 
-                if (playerStats.stats[0].gold > ItmeGold)
+                if (playerStats.stats[0].gold >= ItmeGold)
                 {
                     playerStats.stats[0].gold -= ItmeGold;
                     itemStats.DefenseUpCnt += 1;
@@ -647,7 +647,7 @@ public class ButtonColtroller : MonoBehaviour
 
                 ItmeGold = itemStats.MonsterGold;
 
-                if (playerStats.stats[0].gold > ItmeGold)
+                if (playerStats.stats[0].gold >= ItmeGold)
                 {
                     playerStats.stats[0].gold -= ItmeGold;
                     itemStats.MonsterCnt += 1;
