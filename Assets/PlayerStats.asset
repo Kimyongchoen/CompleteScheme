@@ -16,10 +16,10 @@ MonoBehaviour:
   - PlayerPrefab: {fileID: 4095418724830420596, guid: d9fb9e290afecb14685283f69e0b84d7,
       type: 3}
     Playername: "\uD669\uD63C\uC758 \uBAA8\uD5D8\uAC00"
-    level: 3
+    level: 1
     attackDamageMin: 5
     attackDamageMax: 10
-    health: 1000
+    health: 200
     Maxhealth: 100
     defense: 0
     attackSpeed: 1
@@ -31,9 +31,9 @@ MonoBehaviour:
     vampire: 0
     experienceBonus: 0
     goldBonus: 0
-    experience: 830
+    experience: 0
     gold: 0
-    goldMax: 830
+    goldMax: 5000
     Weapon: 0
     Armor: 0
     Hat: 1
