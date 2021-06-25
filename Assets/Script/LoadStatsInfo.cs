@@ -110,10 +110,37 @@ public class LoadStatsInfo : MonoBehaviour
 
     private int BonusStatPoint=0;
 
+    Text[,] BtnFlag;
+    GameObject[,] BtnActive;
+
     private void Awake()
     {
-        playerStats = playerStats_temp.stats[0];
+        playerStats = playerStats_temp.stats[0]; //ScriptableObject에서 player 정보 세팅
         StatsInfo();//처음 세팅 기사
+
+        BtnFlag = new Text[,] {
+            { attackDamageMax_Up, attackDamageMax_Apply, attackDamageMax_Stat },
+            { defense_Up, defense_Apply, defense_Stat },
+            { Maxhealth_Up, Maxhealth_Apply, Maxhealth_Stat },
+            { attackSpeed_Up, attackSpeed_Apply, attackSpeed_Stat },
+            { hit_Up, hit_Apply, hit_Stat },
+            { evasion_Up, evasion_Apply, evasion_Stat },
+            { criticalChance_Up, criticalChance_Apply, criticalChance_Stat },
+            { experienceBonus_Up, experienceBonus_Apply, experienceBonus_Stat },
+            { goldBonus_Up, goldBonus_Apply, goldBonus_Stat }
+        };//Text 정보 묶어서 처리
+
+        BtnActive = new GameObject[,]{
+                { attackDamageMax_DownBtn, attackDamageMax_UpBtn},
+                { defense_DownBtn, defense_UpBtn},
+                { Maxhealth_DownBtn, Maxhealth_UpBtn},
+                { attackSpeed_DownBtn, attackSpeed_UpBtn},
+                { hit_DownBtn, hit_UpBtn},
+                { evasion_DownBtn, evasion_UpBtn},
+                { criticalChance_DownBtn, criticalChance_UpBtn},
+                { experienceBonus_DownBtn, experienceBonus_UpBtn},
+                { goldBonus_DownBtn, goldBonus_UpBtn}
+        };//GameObject 게임버튼 묶어서 처리
     }
 
     public void StatsInfo()
@@ -255,33 +282,11 @@ public class LoadStatsInfo : MonoBehaviour
 
         return GetUpStat(Stat);
     }
+
     public void UpBtn(int btnCnt)
     {
         // 요구량 **_Up / 적용할 능력치 **_Apply / 적용 포인트 **_Stat
         if (BonusStatPoint <= 0) return;//보너스 포인트가 없다면
-        Text[,] BtnFlag = { 
-            { attackDamageMax_Up, attackDamageMax_Apply, attackDamageMax_Stat }, 
-            { defense_Up, defense_Apply, defense_Stat },
-            { Maxhealth_Up, Maxhealth_Apply, Maxhealth_Stat },
-            { attackSpeed_Up, attackSpeed_Apply, attackSpeed_Stat },
-            { hit_Up, hit_Apply, hit_Stat },
-            { evasion_Up, evasion_Apply, evasion_Stat },
-            { criticalChance_Up, criticalChance_Apply, criticalChance_Stat },
-            { experienceBonus_Up, experienceBonus_Apply, experienceBonus_Stat },
-            { goldBonus_Up, goldBonus_Apply, goldBonus_Stat }
-        };
-        GameObject[,] BtnActive = {
-                { attackDamageMax_DownBtn, attackDamageMax_UpBtn},
-                { defense_DownBtn, defense_UpBtn},
-                { Maxhealth_DownBtn, Maxhealth_UpBtn},
-                { attackSpeed_DownBtn, attackSpeed_UpBtn},
-                { hit_DownBtn, hit_UpBtn},
-                { evasion_DownBtn, evasion_UpBtn},
-                { criticalChance_DownBtn, criticalChance_UpBtn},
-                { experienceBonus_DownBtn, experienceBonus_UpBtn},
-                { goldBonus_DownBtn, goldBonus_UpBtn}
-            };
-
         //다운버튼 활성화
         BtnActive[btnCnt - 1, 0].SetActive(true);
         // 남은 포인트에서 요구량 만큼 제외하기
