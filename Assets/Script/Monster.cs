@@ -18,20 +18,19 @@ public class Monster : MonoBehaviour
     public MonsterStats.Stats monsterStats;///몬스터 스텟 정보
     [SerializeField]
     private TextMeshProUGUI DemageTextPrefab;//몬스터가 입는 데미지 prefab
-    [SerializeField]
-    private TextMeshProUGUI RecoveryTextPrefab;//몬스터가 회복하는 데미지 prefab
     
     public float experience;//몬스터 처치시 얻는 경험치
     public float gold;//몬스터 처치시 얻는 골드
     public MonsterSpawner monsterSpawner;  //몬스터 생성자 정보
     public float MaxHP => maxHP;
     public float CurrentHP => currentHP;
+    
+    public DemageTextView demageTextView;
 
     Material material; //몬스터 삭제 효과
     float fade = 1f; //몬스터 삭제 효과
 
-
-    public void Setup(MonsterSpawner monsterSpawner ,Transform monsterPoints, MonsterStats.Stats monsterStats)
+    public void Setup(MonsterSpawner monsterSpawner ,Transform monsterPoints, MonsterStats.Stats monsterStats, DemageTextView demageTextView)
     {
         
         movement2D = GetComponent<Movement2D>();
@@ -43,6 +42,7 @@ public class Monster : MonoBehaviour
         this.monsterStats = monsterStats;//몬스터 정보 저장
         this.experience = monsterStats.experience;//몬스터 처치시 얻는 경험치
         this.gold = monsterStats.gold;//몬스터 처치시 얻는 골드
+        this.demageTextView = demageTextView;//데미지 텍스트
         maxHP = monsterStats.health;//몬스터의 최대 hp
         currentHP = maxHP;
 
@@ -81,7 +81,7 @@ public class Monster : MonoBehaviour
             StopCoroutine("HitAlphaAnimation");
         }
 
-        StartCoroutine("DemageTextView");
+        DemageTextView(demage , criticalFlag);
 
         if (currentHP <= 0)
         {
@@ -157,128 +157,17 @@ public class Monster : MonoBehaviour
             currentHP = maxHP;
         }
     }
-    private IEnumerator DemageTextView()
+    private void DemageTextView(int demage,bool criticalFlag)
     {
-        //플래이어 위치을 나타내는 Text UI 생성
-        TextMeshProUGUI DemageText = Instantiate(DemageTextPrefab);
-        //Text UI 오브젝트를 parent("Canvas" 오브젝트)의 자식으로 설정
-        //Tip.UI는 캔버스의 자식 오브젝트로 설정되어 있어야화면에 보인다.
-        DemageText.transform.SetParent(canvasTransform);
-        //가장 앞쪽에 표시 UI에 보이지 않게
-        DemageText.transform.SetAsFirstSibling();
-        //계층 설정으로 바뀐 크기를 다시 (1,1,1)로 설정
-        DemageText.transform.localScale = Vector3.one;
-
-        DemageText.transform.position = this.transform.position + (Vector3.up* 0.45f);
-        if (demage > 0)
-        {
-            DemageText.text = demage.ToString();
-        }
-        else
-        {
-            DemageText.text = "MISS";
-        }
-
-        
-        int count = 0;
-        int pox = 1;
-        int poy = 2;
-        //현재 적의 색사을 color 변수에 저장
-        Color color = DemageText.color;
-
-        color.a = 1.0f;
-        DemageText.color = color;
-        int sizex = 500;
-        int sizey = 250;
-
-        while (count < 30)
-        {
-            count++;
-            pox++;
-            
-            if (count < 9)
-            {
-                poy++;
-            }
-            else if(count < 18)
-            {
-                //poy++;
-            }
-            else
-            {
-                poy--;
-            }
-
-            DemageText.transform.position =  
-                new Vector3 (
-                    this.transform.position.x + ((pox) * 0.008f), 
-                    this.transform.position.y + ((poy) * 0.03f),
-                    this.transform.position.z );
-
-            color.a -= 0.015f;
-            DemageText.color = color;
-            DemageText.fontSize -= 3;
-            if (criticalFlag && demage > 0)
-            {
-                color.b = 0;
-                DemageText.color = color;
-
-                sizex -= 10;
-                sizey -= 5;
-                DemageText.GetComponent<SpriteRenderer>().color = color;
-                DemageText.GetComponent<SpriteRenderer>().size = new Vector2(sizex, sizey);
-            }
-            if(demage <= 0)
-            {
-                color.g = 0;
-                DemageText.color = color;
-            }
-            yield return new WaitForSeconds(0.015f);
-        }
-        
-        Destroy(DemageText.gameObject);
-
-        yield return null;
-
+        demageTextView.DemageText(demage, criticalFlag, this.transform);
     }
+
     public void RecoveryText(int Recovery)
     {
         this.Recovery = Recovery;
-        StartCoroutine("RecoveryTextView");
+        demageTextView.RecoveryText(Recovery, this.transform);
     }
 
-    private IEnumerator RecoveryTextView()
-    {
-        //플래이어 위치을 나타내는 Text UI 생성
-        TextMeshProUGUI RecoveryText = Instantiate(RecoveryTextPrefab);
-        //Text UI 오브젝트를 parent("Canvas" 오브젝트)의 자식으로 설정
-        //Tip.UI는 캔버스의 자식 오브젝트로 설정되어 있어야화면에 보인다.
-        RecoveryText.transform.SetParent(canvasTransform);
-        //가장 앞쪽에 표시 UI에 보이지 않게
-        RecoveryText.transform.SetAsFirstSibling();
-        //계층 설정으로 바뀐 크기를 다시 (1,1,1)로 설정
-        RecoveryText.transform.localScale = Vector3.one;
-
-        RecoveryText.transform.position = this.transform.position + (Vector3.up * 0.45f);
-        if (Recovery > 0)
-        {
-            RecoveryText.text = "+ " + Recovery.ToString();
-        }
-
-        int count = 20;
-
-        while (count < 30)
-        {
-            count++;
-            RecoveryText.transform.position = this.transform.position + (Vector3.up * (count * 0.01f));
-            yield return new WaitForSeconds(0.05f);
-        }
-
-        Destroy(RecoveryText.gameObject);
-
-        yield return null;
-
-    }
 
 
 }

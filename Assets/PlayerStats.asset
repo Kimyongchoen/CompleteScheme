@@ -17,8 +17,8 @@ MonoBehaviour:
       type: 3}
     Playername: "\uD669\uD63C\uC758 \uBAA8\uD5D8\uAC00"
     level: 1
-    attackDamageMin: 5
-    attackDamageMax: 10
+    attackDamageMin: 0
+    attackDamageMax: 0
     health: 200
     Maxhealth: 100
     defense: 0
@@ -31,9 +31,9 @@ MonoBehaviour:
     vampire: 0
     experienceBonus: 0
     goldBonus: 0
-    experience: 0
-    gold: 0
-    goldMax: 5000
+    experience: 265
+    gold: 265
+    goldMax: 5265
     Weapon: 0
     Armor: 0
     Hat: 1

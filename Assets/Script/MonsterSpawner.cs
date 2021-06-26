@@ -21,6 +21,9 @@ public class MonsterSpawner : MonoBehaviour
     private GameObject MonsterNamePrefab;//몬스터 이름 Text UI
     [SerializeField]
     private ObjectDetector ObjectDetector;//타일삭제 용
+    
+    [SerializeField]
+    private DemageTextView demageTextView;//데미지 텍스트
 
     private List<Monster> monsterList; //현재 맵에 존재하는 모든 몬스터의 정보
 
@@ -75,7 +78,7 @@ public class MonsterSpawner : MonoBehaviour
             tileManager.setMonsterFlag(1, startMonsterSpawners[i].number, monster.gameObject); //몬스터 생성 타일에 stats를 1로 세팅
             
             //몬스터 생성자, 몬스터 생성위치, 몬스터 정보 전달
-            monster.Setup(this, startMonsterSpawners[i].monsterPoints, monsterstats);
+            monster.Setup(this, startMonsterSpawners[i].monsterPoints, monsterstats, demageTextView);
             //몬스터 리스트 저장 
             monsterList.Add(monster);
             //MonsterName(monster.gameObject);// 몬스터 이름 표현
@@ -97,7 +100,7 @@ public class MonsterSpawner : MonoBehaviour
         Monster monster = clone.GetComponent<Monster>();//방금 생성된 몬스터의 Monster 컴포넌트
 
         //몬스터 생성자, 몬스터 생성위치, 몬스터 정보 전달
-        monster.Setup(this, transform, monsterstats);
+        monster.Setup(this, transform, monsterstats, demageTextView);
         //몬스터 리스트 저장 
         monsterList.Add(monster);
         //MonsterName(monster.gameObject);// 몬스터 이름 표현
@@ -129,7 +132,7 @@ public class MonsterSpawner : MonoBehaviour
         monsterList.Remove(monster);
         //몬스터 오브젝트 삭제
         Destroy(monster.gameObject);
-
+        
         if (resetBuffflag)//버프 재설정
         {
             resetBuff();
