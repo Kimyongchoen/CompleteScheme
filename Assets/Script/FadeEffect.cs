@@ -14,16 +14,22 @@ public class FadeEffect : MonoBehaviour
         Color color = image.color;
         color.a = 1;
         image.color = color;
+        StartCoroutine("FadeEffectStart");
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator FadeEffectStart()
     {
+        
         Color color = image.color;
-        if(color.a > 0)
+        while (color.a >= 0)
         {
             color.a -= Time.deltaTime;
+            image.color = color;
+
+            yield return new WaitForSeconds(0.01f);
         }
-        image.color = color;
+        yield return null;
     }
+
 }

@@ -33,6 +33,10 @@ public class MonsterSpawner : MonoBehaviour
 
     //private GameObject monsterPrefab; // 몬스터 프리팹
     //private Transform[] monsterPoints; // 배치할 몬스터 위치
+    [SerializeField]
+    private GameObject GoldPrefab; // 골드 프리팹
+    [SerializeField]
+    private GameObject ExpPrefab; // 경험치 프리팹
 
     [System.Serializable]
     public struct StartMonsterSpawner // 시작할때 몬스터 배치
@@ -128,6 +132,7 @@ public class MonsterSpawner : MonoBehaviour
         {
             resetBuffflag = true;
         }
+        GoldExpDrop(monster);
         // 리스트에서 사망하는 몬스터 정보 삭제
         monsterList.Remove(monster);
         //몬스터 오브젝트 삭제
@@ -137,6 +142,19 @@ public class MonsterSpawner : MonoBehaviour
         {
             resetBuff();
         }
+    }
+
+    private void GoldExpDrop(Monster monster)
+    {
+        for (int i = 0; i < monster.gold; i++)
+        {
+            GameObject goldprefab = Instantiate(GoldPrefab, monster.transform.position, Quaternion.identity);//골드 오브젝트 생성
+            goldprefab.GetComponent<Gold>().Setup(playerSpawner.player.transform, monster.transform.position);
+
+            //GameObject expPrefab = Instantiate(ExpPrefab, monster.transform.position, Quaternion.identity);//경험치 오브젝트 생성
+            //expPrefab.GetComponent<Exp>().Setup(playerSpawner.player.transform);
+        }
+
     }
 
     public void resetBuff()

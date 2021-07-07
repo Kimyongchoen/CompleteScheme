@@ -17,8 +17,8 @@ MonoBehaviour:
       type: 3}
     Playername: "\uD669\uD63C\uC758 \uBAA8\uD5D8\uAC00"
     level: 1
-    attackDamageMin: 0
-    attackDamageMax: 0
+    attackDamageMin: 5
+    attackDamageMax: 6
     health: 200
     Maxhealth: 100
     defense: 0
