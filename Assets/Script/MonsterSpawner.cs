@@ -128,11 +128,13 @@ public class MonsterSpawner : MonoBehaviour
     {
         bool resetBuffflag = false;
 
+        GoldExpDrop(monster.gold, monster.transform);
+
         if (monster.monsterStats.buff > 0) //죽는 몬스터가 버프 몬스터라면
         {
             resetBuffflag = true;
         }
-        GoldExpDrop(monster);
+
         // 리스트에서 사망하는 몬스터 정보 삭제
         monsterList.Remove(monster);
         //몬스터 오브젝트 삭제
@@ -144,15 +146,15 @@ public class MonsterSpawner : MonoBehaviour
         }
     }
 
-    private void GoldExpDrop(Monster monster)
+    private void GoldExpDrop(float gold, Transform monster)
     {
-        for (int i = 0; i < monster.gold; i++)
+        for (int i = 0; i < gold/10; i++)
         {
-            GameObject goldprefab = Instantiate(GoldPrefab, monster.transform.position, Quaternion.identity);//골드 오브젝트 생성
-            goldprefab.GetComponent<Gold>().Setup(playerSpawner.player.transform, monster.transform.position);
+            GameObject goldprefab = Instantiate(GoldPrefab, monster.position, Quaternion.identity);//골드 오브젝트 생성
+            goldprefab.GetComponent<Gold>().Setup(playerSpawner.player.transform);
 
-            //GameObject expPrefab = Instantiate(ExpPrefab, monster.transform.position, Quaternion.identity);//경험치 오브젝트 생성
-            //expPrefab.GetComponent<Exp>().Setup(playerSpawner.player.transform);
+            GameObject expPrefab = Instantiate(ExpPrefab, monster.transform.position, Quaternion.identity);//경험치 오브젝트 생성
+            expPrefab.GetComponent<Exp>().Setup(playerSpawner.player.transform);
         }
 
     }

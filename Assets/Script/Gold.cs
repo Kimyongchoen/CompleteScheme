@@ -8,7 +8,7 @@ public class Gold : MonoBehaviour
     private Transform target;//지정해준 목표
     private Transform Goldtransform;//지정해준 목표
     
-    public void Setup(Transform target, Transform monster)
+    public void Setup(Transform target)
     {
         movement2D = GetComponent<Movement2D>();
         movement2D.MoveStart();
@@ -33,15 +33,12 @@ public class Gold : MonoBehaviour
                 + (Vector3.right * Random.Range(0f, 0.5f)) 
                 - transform.position
                 ).normalized;
-            Debug.Log("1" + transform.position);
-            Debug.Log("2" + transform.position
-                + (Vector3.up * Random.Range(0f, 0.5f))
-                + (Vector3.down * Random.Range(0f, 0.5f))
-                + (Vector3.left * Random.Range(0f, 0.5f))
-                + (Vector3.right * Random.Range(0f, 0.5f))
-                );
 
             movement2D.MoveTo(direction);
+            
+            yield return new WaitForSeconds(Random.Range(0f, 0.5f));
+            movement2D.MoveStop();
+
         }
         else
         {
@@ -54,6 +51,7 @@ public class Gold : MonoBehaviour
     private IEnumerator StopGold()
     {
         yield return new WaitForSeconds(1f);
+        movement2D.MoveStart();
 
         while (true)
         {
