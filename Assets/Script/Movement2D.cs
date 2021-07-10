@@ -31,5 +31,10 @@ public class Movement2D : MonoBehaviour
         MoveFlag = false;
     }
 
+    public void ChangeMoveSpeed(float moveSpeed)
+    {
+        this.moveSpeed = moveSpeed;
+    }
+
 
 }

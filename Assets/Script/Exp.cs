@@ -36,14 +36,15 @@ public class Exp : MonoBehaviour
                 ).normalized;
 
             movement2D.MoveTo(direction);
-
-            yield return new WaitForSeconds(Random.Range(0f, 0.5f));
+            movement2D.ChangeMoveSpeed(2f);
+            yield return new WaitForSeconds(Random.Range(0f, 0.3f));
+            movement2D.ChangeMoveSpeed(0.8f);
             movement2D.MoveStop();
 
         }
         else
         {
-            Destroy(gameObject);//발사체 삭제
+            DestroyExp();//발사체 반환
         }
         //1초 만큼 대기
         yield return new WaitForSeconds(0.001f);
@@ -64,7 +65,7 @@ public class Exp : MonoBehaviour
             }
             else
             {
-                Destroy(gameObject);//발사체 삭제
+                DestroyExp();//발사체 반환
             }
             //1초 만큼 대기
             yield return new WaitForSeconds(0.001f);
@@ -74,6 +75,11 @@ public class Exp : MonoBehaviour
     {
         if (!collision.CompareTag("player")) return; //적이아닌 대상과 부딪히면
         if (collision.transform != target) return; //현재 target인 적이 아닐때
-        Destroy(gameObject);
+        DestroyExp();//발사체 반환
+    }
+
+    private void DestroyExp()
+    {
+        ObjectPool.ReturnObjectExp(this);
     }
 }

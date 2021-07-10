@@ -30,13 +30,8 @@ public class MonsterSpawner : MonoBehaviour
     //몬스터의 생성과 삭제는 EnemySpawner에서 하기 때문에 Set은 필요없음
     public List<Monster> MonsterList => monsterList;
 
-
     //private GameObject monsterPrefab; // 몬스터 프리팹
     //private Transform[] monsterPoints; // 배치할 몬스터 위치
-    [SerializeField]
-    private GameObject GoldPrefab; // 골드 프리팹
-    [SerializeField]
-    private GameObject ExpPrefab; // 경험치 프리팹
 
     [System.Serializable]
     public struct StartMonsterSpawner // 시작할때 몬스터 배치
@@ -150,11 +145,13 @@ public class MonsterSpawner : MonoBehaviour
     {
         for (int i = 0; i < gold/10; i++)
         {
-            GameObject goldprefab = Instantiate(GoldPrefab, monster.position, Quaternion.identity);//골드 오브젝트 생성
-            goldprefab.GetComponent<Gold>().Setup(playerSpawner.player.transform);
+            var goldprefab = ObjectPool.getObjectGold();//골드 오브젝트 생성 //Instantiate(GoldPrefab, monster.position, Quaternion.identity);//골드 오브젝트 생성
+            goldprefab.transform.position = monster.position;
+            goldprefab.Setup(playerSpawner.player.transform);
 
-            GameObject expPrefab = Instantiate(ExpPrefab, monster.transform.position, Quaternion.identity);//경험치 오브젝트 생성
-            expPrefab.GetComponent<Exp>().Setup(playerSpawner.player.transform);
+            var expPrefab = ObjectPool.getObjectExp();//Instantiate(ExpPrefab, monster.transform.position, Quaternion.identity);//경험치 오브젝트 생성
+            expPrefab.transform.position = monster.position;
+            expPrefab.Setup(playerSpawner.player.transform);
         }
 
     }
