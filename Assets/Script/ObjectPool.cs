@@ -55,7 +55,7 @@ public class ObjectPool : MonoBehaviour
         {
             var newObj = Instance.CreateNewObjectGold();
             newObj.transform.SetParent(null);
-            newObj.gameObject.SetActive(true);
+            newObj.gameObject.SetActive(true); 
             return newObj;
         }
     }
