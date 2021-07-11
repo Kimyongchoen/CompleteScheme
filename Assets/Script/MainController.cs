@@ -20,7 +20,7 @@ public class MainController : MonoBehaviour
     void Start()
     {
         SetMainMessageBox("Tab To Start");
-        Setting();
+        //Setting();
     }
 
     // Update is called once per frame
@@ -33,7 +33,7 @@ public class MainController : MonoBehaviour
 
             //닉네임 설정
 
-            changeScene.SetStage(1000);//지역선택
+            changeScene.SetStage(-2);//지역선택
             changeScene.ChangeSecen();
         }
     }

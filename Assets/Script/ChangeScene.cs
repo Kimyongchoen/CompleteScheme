@@ -44,20 +44,29 @@ public class ChangeScene : MonoBehaviour
     {
         switch (Stage)
         {
+            case -2: //처음실행
+                LoadingSceneColtroller.LoadScene("AreaSelect");
+                //SceneManager.LoadScene("AreaSelect");
+                break;
             case 1000: //지역선택
+                //LoadingSceneColtroller.LoadScene("AreaSelect");
                 SceneManager.LoadScene("AreaSelect");
                 break;
             case 1001: //캐릭터 스탯 
+                //LoadingSceneColtroller.LoadScene("PlayerStats");
                 SceneManager.LoadScene("PlayerStats");
                 break;
             case 1002: //상점
+                //LoadingSceneColtroller.LoadScene("Shop"); 
                 SceneManager.LoadScene("Shop");
                 break;
             case -1: //StageSelect
+                //LoadingSceneColtroller.LoadScene("StageSelect");
                 SceneManager.LoadScene("StageSelect");
                 break;
             case 0: //Stage1
-                SceneManager.LoadScene("GameScene");
+                LoadingSceneColtroller.LoadScene("GameScene");
+                //SceneManager.LoadScene("GameScene");
                 break;
                 /*
                 case "Stage2":

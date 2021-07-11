@@ -50,7 +50,6 @@ public class Player : MonoBehaviour
     public ItemStats ItemStats;//아이템정보
 
     Material material; //플레이어 버프 효과
-    float fade = 1f; //플레이어 버프 효과
     
     [SerializeField]
     private Stage10 Stage10;//스테이지 정보
@@ -228,7 +227,7 @@ public class Player : MonoBehaviour
     {
         int a = 0;
         bool flag = true;
-
+        float fade = 0.9f; //플레이어 버프 효과
         while (true)
         {
             if (ItemStats.AttackDamageUp > 0)
@@ -237,7 +236,7 @@ public class Player : MonoBehaviour
 
                 a++;
 
-                if (a >= 10)
+                if (a >= 7)
                 {
                     if (flag)
                         flag = false;
@@ -255,6 +254,7 @@ public class Player : MonoBehaviour
             else
             {
                 material.SetFloat("_BuffFade1", 0f);
+                yield return null;
             }
             yield return new WaitForSeconds(0.1f);
         }
@@ -263,7 +263,7 @@ public class Player : MonoBehaviour
     {
         int a = 0;
         bool flag = true;
-
+        float fade = 0.9f; //플레이어 버프 효과
         while (true)
         {
             if (ItemStats.DefenseUp > 0)
@@ -272,7 +272,7 @@ public class Player : MonoBehaviour
 
                 a++;
 
-                if (a >= 10)
+                if (a >= 7)
                 {
                     if (flag)
                         flag = false;
@@ -291,6 +291,7 @@ public class Player : MonoBehaviour
             else
             {
                 material.SetFloat("_BuffFade2", 0f);
+                yield return null;
             }
             yield return new WaitForSeconds(0.1f);
         }
@@ -301,14 +302,14 @@ public class Player : MonoBehaviour
         int j = 0;
         int a = 0;
         bool flag = true;
-
-        while (j < 21)
+        float fade = 0.9f; //플레이어 버프 효과
+        while (j < 15)
         {
             material.SetFloat("_BuffFade3", fade);
 
             a++;
 
-            if (a >= 10)
+            if (a >= 7)
             {
                 if (flag)
                     flag = false;
@@ -328,6 +329,7 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
         material.SetFloat("_BuffFade3", 0f);
+        yield return null;
     }
 
     public void OnDie() //플래이어 삭제

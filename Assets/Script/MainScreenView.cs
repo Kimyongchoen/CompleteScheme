@@ -68,6 +68,6 @@ public class MainScreenView : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     {
         //if (!isDrag) scrollbar.value = Mathf.Lerp(scrollbar.value, targetPos, 0.1f);
         scrollbar.value += 0.001f;
-        if (scrollbar.value > 0.99) scrollbar.value = 0;
+        if (scrollbar.value > 0.999) scrollbar.value = 0;
     }
 }
