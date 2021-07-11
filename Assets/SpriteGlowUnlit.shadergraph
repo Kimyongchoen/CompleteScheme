@@ -40,7 +40,7 @@
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"6654a820-6720-4042-ba33-6d90eb787074\"\n    },\n    \"m_Name\": \"BuffColor2\",\n    \"m_DefaultReferenceName\": \"Color_DDB55398\",\n    \"m_OverrideReferenceName\": \"\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 0,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": {\n        \"r\": 0.0,\n        \"g\": 0.062745101749897,\n        \"b\": 8.0,\n        \"a\": 0.0\n    },\n    \"m_ColorMode\": 1\n}"
+            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"6654a820-6720-4042-ba33-6d90eb787074\"\n    },\n    \"m_Name\": \"BuffColor2\",\n    \"m_DefaultReferenceName\": \"Color_DDB55398\",\n    \"m_OverrideReferenceName\": \"\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 0,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": {\n        \"r\": 0.0,\n        \"g\": 0.062745101749897,\n        \"b\": 8.0,\n        \"a\": 1.0\n    },\n    \"m_ColorMode\": 1\n}"
         },
         {
             "typeInfo": {
@@ -58,7 +58,7 @@
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"c4e837d8-8ce1-41d7-ada6-1034e4ee24fc\"\n    },\n    \"m_Name\": \"BuffColor3\",\n    \"m_DefaultReferenceName\": \"Color_6313E482\",\n    \"m_OverrideReferenceName\": \"\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 0,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": {\n        \"r\": 0.2516379952430725,\n        \"g\": 5.34031343460083,\n        \"b\": 0.0,\n        \"a\": 0.0117647061124444\n    },\n    \"m_ColorMode\": 1\n}"
+            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"c4e837d8-8ce1-41d7-ada6-1034e4ee24fc\"\n    },\n    \"m_Name\": \"BuffColor3\",\n    \"m_DefaultReferenceName\": \"Color_6313E482\",\n    \"m_OverrideReferenceName\": \"\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 0,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": {\n        \"r\": 0.2516379952430725,\n        \"g\": 5.34031343460083,\n        \"b\": 0.0,\n        \"a\": 1.0\n    },\n    \"m_ColorMode\": 1\n}"
         }
     ],
     "m_SerializedKeywords": [],

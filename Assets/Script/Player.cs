@@ -254,7 +254,6 @@ public class Player : MonoBehaviour
             else
             {
                 material.SetFloat("_BuffFade1", 0f);
-                yield return null;
             }
             yield return new WaitForSeconds(0.1f);
         }
@@ -291,7 +290,6 @@ public class Player : MonoBehaviour
             else
             {
                 material.SetFloat("_BuffFade2", 0f);
-                yield return null;
             }
             yield return new WaitForSeconds(0.1f);
         }
@@ -328,6 +326,7 @@ public class Player : MonoBehaviour
 
             yield return new WaitForSeconds(0.1f);
         }
+
         material.SetFloat("_BuffFade3", 0f);
         yield return null;
     }

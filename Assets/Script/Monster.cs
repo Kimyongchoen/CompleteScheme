@@ -134,7 +134,7 @@ public class Monster : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
 
-        monsterSpawner.DestroyMonster(this);
+        monsterSpawner.DestroyMonster(this,true);//골드 드랍되게
 
         yield return null;
     }

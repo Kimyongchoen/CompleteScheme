@@ -249,7 +249,7 @@ public class PlayerSpawner : MonoBehaviour
         objectDetector.RandomMonsterChange();
         yield return new WaitForSeconds(1f);
 
-        tabManager.TabClick(0);
+        tabManager.TabClick(4);
 
         MainCameraColtroll(clone);
         //카메라 이동

@@ -119,11 +119,14 @@ public class MonsterSpawner : MonoBehaviour
         }
     }
 
-    public void DestroyMonster(Monster monster)
+    public void DestroyMonster(Monster monster, bool flag)
     {
         bool resetBuffflag = false;
 
-        GoldExpDrop(monster.gold, monster.transform);
+        if (flag)
+        {
+            GoldExpDrop(monster.gold, monster.transform);
+        }
 
         if (monster.monsterStats.buff > 0) //죽는 몬스터가 버프 몬스터라면
         {
@@ -231,7 +234,7 @@ public class MonsterSpawner : MonoBehaviour
         {
             if (MonsterList[0] != null)
             {
-                DestroyMonster(MonsterList[0]);
+                DestroyMonster(MonsterList[0],false);//골드 드랍 안되게
             }
 
         }

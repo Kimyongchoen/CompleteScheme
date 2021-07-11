@@ -70,7 +70,6 @@ public class LoadingSceneColtroller : MonoBehaviour
 
         while (!op.isDone)
         {
-            yield return null;
             if(op.progress < 0.8f)
             {
                 progressBar.fillAmount = op.progress;
