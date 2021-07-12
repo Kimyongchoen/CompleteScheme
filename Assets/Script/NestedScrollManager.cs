@@ -9,6 +9,12 @@ public class NestedScrollManager : MonoBehaviour,IBeginDragHandler,IDragHandler,
 
     public Scrollbar scrollbar;
 
+    [SerializeField]
+    private AudioSource audioSource;
+
+    [SerializeField]
+    private AudioClip AudioOnDrag;
+
     const int SIZE = 5;
     float[] pos = new float[SIZE];
     float distance, curPos, targetPos;
@@ -44,6 +50,8 @@ public class NestedScrollManager : MonoBehaviour,IBeginDragHandler,IDragHandler,
     public void OnEndDrag(PointerEventData eventData)
     {
         isDrag = false;
+        audioSource.clip = AudioOnDrag;
+        audioSource.Play();
         targetPos = SetPos();
 
         //절반 거리를 넘지 않아도 마우스를 빠르게 이동하면

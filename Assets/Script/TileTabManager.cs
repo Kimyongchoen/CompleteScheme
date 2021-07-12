@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class TileTabManager : MonoBehaviour
 {
@@ -50,7 +51,9 @@ public class TileTabManager : MonoBehaviour
     //회복 정보
     public void SetRecoveryInfo()
     {
-        TileInfomationText.text = "회복\n\n배치한 곳에 플레이어가 지나가면 체력이 50% 회복 됩니다.\n체력이 회복량이 100%가 넘으면 100%까지만 회복됩니다.";
+        TileInfomationText.text = "";
+        TileInfomationText.DOText("회복\n\n배치한 곳에 플레이어가 지나가면 체력이 50% 회복 됩니다.\n체력이 회복량이 100%가 넘으면 100%까지만 회복됩니다.", 0.5f);
+
     }
 
     //공력력증가 배치
@@ -75,7 +78,8 @@ public class TileTabManager : MonoBehaviour
     //공격력증가 정보
     public void SetAttackDamageUpInfo()
     {
-        TileInfomationText.text = "공격력증가\n\n배치한 곳에 플레이어가 지나가면 공격력이 10초간 30% 증가 됩니다.(중첩 가능)";
+        TileInfomationText.text = "";
+        TileInfomationText.DOText("공격력증가\n\n배치한 곳에 플레이어가 지나가면 공격력이 10초간 30% 증가 됩니다.(중첩 가능)", 0.5f);
     }
 
     //방어력증가 배치
@@ -101,7 +105,8 @@ public class TileTabManager : MonoBehaviour
     //방어력증가 정보
     public void SetDefenseUpInfo()
     {
-        TileInfomationText.text = "방어력증가\n\n배치한 곳에 플레이어가 지나가면 방어력이 10초간 30% 증가 됩니다.(중첩 가능)";
+        TileInfomationText.text = "";
+        TileInfomationText.DOText("방어력증가\n\n배치한 곳에 플레이어가 지나가면 방어력이 10초간 30% 증가 됩니다.(중첩 가능)", 0.5f);
     }
 
     //몬스터 배치
@@ -127,7 +132,8 @@ public class TileTabManager : MonoBehaviour
     //몬스터 정보
     public void SetMonsterInfo()
     {
-        TileInfomationText.text = "몬스터\n\n배치한 곳에 몬스터가 랜덤 생성 됩니다.";
+        TileInfomationText.text = "";
+        TileInfomationText.DOText("몬스터\n\n배치한 곳에 몬스터가 랜덤 생성 됩니다.", 0.5f);
     }
 
     private void SetMainMessageBox(string msg)

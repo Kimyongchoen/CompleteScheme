@@ -19,6 +19,7 @@ public class MainController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         SetMainMessageBox("Tab To Start");
         //Setting();
     }
@@ -32,12 +33,16 @@ public class MainController : MonoBehaviour
             //구글 로그인 연동
 
             //닉네임 설정
-
-            changeScene.SetStage(-2);//지역선택
-            changeScene.ChangeSecen();
+            StartCoroutine("goScene");
         }
     }
 
+    IEnumerator goScene()
+    {
+        changeScene.SetStage(-2);//지역선택
+        changeScene.ChangeSecen();
+        yield return null;
+    }
     private void SetMainMessageBox(string msg)
     {
         MainMessageBox.text = msg;

@@ -20,7 +20,7 @@ public class FadeEffect : MonoBehaviour
 
     private IEnumerator FadeEffectStart()
     {
-        
+
         Color color = image.color;
         while (color.a >= 0)
         {
