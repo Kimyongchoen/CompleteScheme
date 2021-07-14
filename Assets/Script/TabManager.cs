@@ -10,10 +10,12 @@ public class TabManager : MonoBehaviour
     public Image[] TabBtnImage;
     public Sprite[] IdleSprite, SelectSprite;
 
-    //void Start() => TabClick(1);
+    [SerializeField]
+    private AudioClip AudioMove;//탭 이동 소리
 
     public void TabClick(int n)
     {
+        StartCoroutine("OnAudio");
         for (int i =0; i < 4; i++)
         {
             if (i == n)
@@ -43,4 +45,13 @@ public class TabManager : MonoBehaviour
             Tab[4].SetActive(true);
         }
     }
+
+    private IEnumerator OnAudio()
+    {
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = AudioMove;//게임 시작 소리
+        audioSource.Play();
+        yield return new WaitForSeconds(1f);
+    }
+
 }

@@ -75,6 +75,12 @@ public class PlayerSpawner : MonoBehaviour
     [SerializeField]
     public PlayerStat playerStat;
 
+    [SerializeField]
+    public AudioSource audioSource;
+
+    [SerializeField]
+    private AudioClip AudioStart;//게임 시작
+
     public void Setup()
     {
 
@@ -245,7 +251,9 @@ public class PlayerSpawner : MonoBehaviour
 
     private IEnumerator SpawnPlayer()
     {
-
+        audioSource.clip = AudioStart;//게임 시작 소리
+        audioSource.Play();
+        
         objectDetector.RandomMonsterChange();
         yield return new WaitForSeconds(1f);
 

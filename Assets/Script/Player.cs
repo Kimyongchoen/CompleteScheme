@@ -54,11 +54,21 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Stage10 Stage10;//스테이지 정보
 
+    private AudioSource audioSource;
+
+    [SerializeField]
+    private AudioClip AudioAttack;//공격소리
+
+    [SerializeField]
+    private AudioClip AudioWalk;//걷는소리
+    
+
     public void GameStart()
     {
         StartCoroutine("OnMove");//플레이어 이동/목표지점 설정 코루틴 함수 시작
         StartCoroutine("BuffEffect1"); //공격력 버프 이팩트
         StartCoroutine("BuffEffect2"); //방어력 버프 이팩트
+        StartCoroutine("OnAudio"); //게임소리
     }
 
     public void Setup(PlayerSpawner playerSpawner, Transform[] wayPoinsts)
@@ -84,7 +94,8 @@ public class Player : MonoBehaviour
         this.attackDamageMax = playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMax;
         this.attackDamageMin = playerSpawner.playerStatsScriptableObject.stats[0].attackDamageMin;
         this.defense = playerSpawner.playerStatsScriptableObject.stats[0].defense;
-
+        
+        this.audioSource = playerSpawner.audioSource;
         
         this.attackSpeed = playerSpawner.playerStatsScriptableObject.stats[0].attackSpeed;
         
@@ -127,7 +138,7 @@ public class Player : MonoBehaviour
         while (true)
         {
             //플레이어 현재 위치와 목표위치 거리가 0.02 * movement2D.MoveSpeed보다 작을 때 if 조건문 실행
-            // Tip. movement2D.MoveSpeed를 곱해주는 이유는 속도가 빠르면 한 프레임 0.02qhek zmrp dnawlrdlrl Eoansdp
+            // Tip. movement2D.MoveSpeed를 곱해주는 이유는 속도가 빠르면 한 프레임 0.02보다 크게 움직이기 때문에
             //if 조건문에 걸리지 않고 경로를 탈주하는 오브젝트가 발생할수 있다.
             if (Vector3.Distance(transform.position, wayPoints[currentIndex].position) < 0.02f * movement2D.MoveSpeed)
             {
@@ -164,8 +175,29 @@ public class Player : MonoBehaviour
                 /*
                 Destroy(gameObject);
                 */
+                StopCoroutine("OnAudio");
                 playerSpawner.GameEnd(true);
             }
+        }
+    }
+
+    private IEnumerator OnAudio()
+    {
+
+
+        while (true)
+        {
+            if (animator.GetBool("Walking"))
+            {
+                audioSource.clip = AudioWalk;//걷는소리
+                audioSource.Play();
+            }
+            else if (animator.GetBool("Attacking"))
+            {
+                audioSource.clip = AudioAttack;//공격소리
+                audioSource.Play();
+            }
+            yield return new WaitForSeconds(1f);
         }
     }
 
