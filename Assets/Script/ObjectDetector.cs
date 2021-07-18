@@ -67,12 +67,20 @@ public class ObjectDetector : MonoBehaviour
     
     private int StageRecoveryCnt, StageAttackDamageUpCnt, StageDefenseUpCnt, StageMonsterCnt;
 
+    [SerializeField]
+    private AudioClip AudioFail;//실패 버튼 소리
+
+    private AudioSource audioSource;
+
     private void Awake()
     {
         // "MainCamera" 태그를 가지고 있는 오브젝트 탐색 후 Camera 컴포넌트 정보 전달
         // GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>(); 와 동일
         mainCamera = Camera.main;
         monsterTabManager.SetMonsterInfomation(1101);
+
+        //소리세팅
+        audioSource = gameObject.AddComponent<AudioSource>();
 
         //타일 세팅
         StageRecoveryCnt = ItemStats.RecoveryCnt;
@@ -259,11 +267,15 @@ public class ObjectDetector : MonoBehaviour
 
             if (tileManager.getMonsterFlag() == 2)//사용자가 추가한 몬스터
             {
+                audioSource.clip = AudioFail;//실패 버튼 소리
+                StartCoroutine("OnAudio");
                 tileManager.setMonsertClaer();//제거
                 StageMonsterCnt += 1;
             }
             else if (tileManager.getMonsterFlag() == 3)//사용자가 추가한 버프 회복
             {
+                audioSource.clip = AudioFail;//실패 버튼 소리
+                StartCoroutine("OnAudio");
                 if (tileManager.getnumber() == 1)//회복
                 {
                     tileManager.setMonsertClaer();//제거
@@ -282,11 +294,15 @@ public class ObjectDetector : MonoBehaviour
             }
             else if (tileManager.getMonsterFlag() == 0)//비어 있다면
             {
+                audioSource.clip = AudioFail;//실패 버튼 소리
+                StartCoroutine("OnAudio");
                 SetMainMessageBox("회수 할 몬스터나 버프가 없습니다");
                 return;
             }
             else
             {
+                audioSource.clip = AudioFail;//실패 버튼 소리
+                StartCoroutine("OnAudio");
                 SetMainMessageBox("회수 할 수 없습니다");
                 return;
             }
@@ -316,6 +332,8 @@ public class ObjectDetector : MonoBehaviour
         }
         else
         {
+            audioSource.clip = AudioFail;//실패 버튼 소리
+            StartCoroutine("OnAudio");
             SetMainMessageBox("선택된 타일이 없습니다");
         }
     }
@@ -338,16 +356,22 @@ public class ObjectDetector : MonoBehaviour
                 }
                 else
                 {
+                    audioSource.clip = AudioFail;//실패 버튼 소리
+                    StartCoroutine("OnAudio");
                     SetMainMessageBox("이미 몬스터나 버프가 있습니다");
                 }
             }
             else
             {
+                audioSource.clip = AudioFail;//실패 버튼 소리
+                StartCoroutine("OnAudio");
                 SetMainMessageBox("선택된 타일이 없습니다");
             }
         }
         else
         {
+            audioSource.clip = AudioFail;//실패 버튼 소리
+            StartCoroutine("OnAudio");
             SetMainMessageBox("배치할 회복 버프가 부족합니다");
             
         }
@@ -372,16 +396,22 @@ public class ObjectDetector : MonoBehaviour
                 }
                 else
                 {
+                    audioSource.clip = AudioFail;//실패 버튼 소리
+                    StartCoroutine("OnAudio");
                     SetMainMessageBox("이미 몬스터나 버프가 있습니다");
                 }
             }
             else
             {
+                audioSource.clip = AudioFail;//실패 버튼 소리
+                StartCoroutine("OnAudio");
                 SetMainMessageBox("선택된 타일이 없습니다");
             }
         }
         else
         {
+            audioSource.clip = AudioFail;//실패 버튼 소리
+            StartCoroutine("OnAudio");
             SetMainMessageBox("배치할 공력력 증가 버프가 부족합니다");
         }
     }
@@ -404,16 +434,22 @@ public class ObjectDetector : MonoBehaviour
                 }
                 else
                 {
+                    audioSource.clip = AudioFail;//실패 버튼 소리
+                    StartCoroutine("OnAudio");
                     SetMainMessageBox("이미 몬스터나 버프가 있습니다");
                 }
             }
             else
             {
+                audioSource.clip = AudioFail;//실패 버튼 소리
+                StartCoroutine("OnAudio");
                 SetMainMessageBox("선택된 타일이 없습니다");
             }
         }
         else
         {
+            audioSource.clip = AudioFail;//실패 버튼 소리
+            StartCoroutine("OnAudio");
             SetMainMessageBox("배치할 방어력 증가 버프가 부족합니다");
         }
     }
@@ -436,17 +472,23 @@ public class ObjectDetector : MonoBehaviour
                 }
                 else
                 {
+                    audioSource.clip = AudioFail;//실패 버튼 소리
+                    StartCoroutine("OnAudio");
                     SetMainMessageBox("이미 몬스터나 버프가 있습니다");
                 }
             }
             else
             {
+                audioSource.clip = AudioFail;//실패 버튼 소리
+                StartCoroutine("OnAudio");
                 SetMainMessageBox("선택된 타일이 없습니다");
             }
 
         }
         else
         {
+            audioSource.clip = AudioFail;//실패 버튼 소리
+            StartCoroutine("OnAudio");
             SetMainMessageBox("배치할 몬스터가 부족합니다");
         }
 
@@ -492,7 +534,7 @@ public class ObjectDetector : MonoBehaviour
             if (tileManager.getMonsterFlag() == 2)//배치한 몬스터이면
             {
                 
-                int RandomNumber = Random.Range(Stage10.stage[0].MonsterNumberMin, Stage10.stage[0].MonsterNumberMax);// 0 ~ 4 까지 랜덤한 숫자 전달
+                int RandomNumber = Random.Range(Stage10.stage[monsterSpawner.playerSpawner.Stage].MonsterNumberMin, Stage10.stage[monsterSpawner.playerSpawner.Stage].MonsterNumberMax);// 0 ~ 4 까지 랜덤한 숫자 전달
                 //몬스터를 생성하는 SpawnMonster()호출
                 monsterSpawner.SpawnMonster(tileManager.transform, RandomNumber);
                 Destroy(tileManager.getgameObject());//제거
@@ -557,6 +599,12 @@ public class ObjectDetector : MonoBehaviour
             }
         }
     }
+    private IEnumerator OnAudio()
+    {
+        audioSource.Play();
+        yield return new WaitForSeconds(1f);
+    }
+
     /*
      * file : ObjectDetector.cs
      * 

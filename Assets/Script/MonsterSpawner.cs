@@ -8,7 +8,7 @@ public class MonsterSpawner : MonoBehaviour
     public enum MonsterType { Slime = 1001,  }
 
     [SerializeField]
-    private PlayerSpawner playerSpawner; // 현재 맵에 존재하는 적 리스트 정보를 얻기 위해
+    public PlayerSpawner playerSpawner; // 현재 맵에 존재하는 적 리스트 정보를 얻기 위해
     [SerializeField]
     public StartMonsterSpawner[] startMonsterSpawners;//시작할때 몬스터 배치할 정보
     [SerializeField]

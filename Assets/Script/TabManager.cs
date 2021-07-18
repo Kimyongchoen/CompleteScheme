@@ -49,7 +49,7 @@ public class TabManager : MonoBehaviour
     private IEnumerator OnAudio()
     {
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = AudioMove;//게임 시작 소리
+        audioSource.clip = AudioMove;//탭 이동 소리
         audioSource.Play();
         yield return new WaitForSeconds(1f);
     }

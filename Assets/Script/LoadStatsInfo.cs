@@ -113,10 +113,21 @@ public class LoadStatsInfo : MonoBehaviour
     Text[,] BtnFlag;
     GameObject[,] BtnActive;
 
+
+    [SerializeField]
+    private AudioClip AudioInfo;//정보 버튼 소리
+
+    [SerializeField]
+    private AudioClip AudioFail;//실패 버튼 소리
+    
+    private AudioSource audioSource;
+    
     private void Awake()
     {
         playerStats = playerStats_temp.stats[0]; //ScriptableObject에서 player 정보 세팅
         StatsInfo();//처음 세팅 기사
+
+        audioSource = gameObject.AddComponent<AudioSource>();
 
         BtnFlag = new Text[,] {
             { attackDamageMax_Up, attackDamageMax_Apply, attackDamageMax_Stat },
@@ -285,6 +296,8 @@ public class LoadStatsInfo : MonoBehaviour
 
     public void UpBtn(int btnCnt)
     {
+        audioSource.clip = AudioInfo;//정보 버튼 소리
+        StartCoroutine("OnAudio");
         // 요구량 **_Up / 적용할 능력치 **_Apply / 적용 포인트 **_Stat
         if (BonusStatPoint <= 0) return;//보너스 포인트가 없다면
         //다운버튼 활성화
@@ -416,6 +429,8 @@ public class LoadStatsInfo : MonoBehaviour
 
     public void DownBtn(int btnCnt)
     {
+        audioSource.clip = AudioInfo;//정보 버튼 소리
+        StartCoroutine("OnAudio");
         // 적용 포인트 **_Stat / 적용할 능력치 **_Apply / 요구량 **_Up
         int i = 0;
 
@@ -575,6 +590,8 @@ public class LoadStatsInfo : MonoBehaviour
     }
     public void PointSubmit()
     {
+
+
         bool flag = false;
 
         //공격력(max)
@@ -645,15 +662,21 @@ public class LoadStatsInfo : MonoBehaviour
         {
             if (flag)
             {
+                audioSource.clip = AudioInfo;//정보 버튼 소리
+                StartCoroutine("OnAudio");
                 SetMainMessageBox("적용되었습니다");
             }
             else
             {
+                audioSource.clip = AudioFail;//실패 버튼 소리
+                StartCoroutine("OnAudio");
                 SetMainMessageBox("선택한 능력치가 없습니다");
             }
         }
         else
         {
+            audioSource.clip = AudioFail;//실패 버튼 소리
+            StartCoroutine("OnAudio");
             SetMainMessageBox("남은 보너스 포인트가 없습니다");
         }
 
@@ -666,6 +689,9 @@ public class LoadStatsInfo : MonoBehaviour
     }
     public void PointReset()
     {
+        audioSource.clip = AudioInfo;//정보 버튼 소리
+        StartCoroutine("OnAudio");
+
         int resetPoint = 0;
 
         //공격력(max)
@@ -715,6 +741,7 @@ public class LoadStatsInfo : MonoBehaviour
         StatsInfo();
 
     }
+
 
     private int GetUpStat(float Stat)
     {
@@ -861,6 +888,11 @@ public class LoadStatsInfo : MonoBehaviour
 
     }
 
-        
+    private IEnumerator OnAudio()
+    {
+        audioSource.Play();
+        yield return new WaitForSeconds(1f);
+    }
+
 }
 

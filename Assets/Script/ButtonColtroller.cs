@@ -82,9 +82,21 @@ public class ButtonColtroller : MonoBehaviour
     private float[] Percentage = { 100, 80, 60, 40, 20 };
 
 
+    [SerializeField]
+    private AudioClip AudioInfo;//정보 버튼 소리
+
+    [SerializeField]
+    private AudioClip AudioFail;//실패 버튼 소리
+
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+    }
+
     public void SelectItme(string ItemName)
     {
-        
         this.ItemName = ItemName;
 
         loadShopInfo.LoadInfo();
@@ -296,6 +308,8 @@ public class ButtonColtroller : MonoBehaviour
 
         if (ItemName == null)
         {
+            audioSource.clip = AudioFail;//실패 버튼 소리
+            StartCoroutine("OnAudio");
             SetMainMessageBox("장비를 선택 해주세요");
             return;
         }
@@ -305,6 +319,7 @@ public class ButtonColtroller : MonoBehaviour
                 if (playerStats.stats[0].Weapon >= 11)//강화 수치가 max 일경우
                 {
                     msg = "강화 할 수 없습니다";
+                    audioSource.clip = AudioFail;//실패 버튼 소리
                 }
                 else
                 {
@@ -312,11 +327,13 @@ public class ButtonColtroller : MonoBehaviour
                     ItmeGold = itemStats.WeaponGold[playerStats.stats[0].Weapon + 1];
                     ItmePercentage = 100;
                     msg = "구매 성공";
+                    audioSource.clip = AudioInfo;//정보 버튼 소리
 
                     //강화
                     if (playerStats.stats[0].Weapon >= 0)
                     {
                         msg = "강화 성공";
+                        audioSource.clip = AudioInfo;//정보 버튼 소리
                         ItmePercentage = Percentage[4];//강화 확율 100%, 80%, 60%, 40%, 20%, 20% .... 20%
                         if (playerStats.stats[0].Weapon < 5)
                             ItmePercentage = Percentage[playerStats.stats[0].Weapon];
@@ -334,12 +351,14 @@ public class ButtonColtroller : MonoBehaviour
                         }
                         else
                         {
+                            audioSource.clip = AudioFail;//실패 버튼 소리
                             msg = "강화 실패";
                         }
                     }
                     else
                     {
-                            msg = "골드가 부족합니다";
+                        audioSource.clip = AudioFail;//실패 버튼 소리
+                        msg = "골드가 부족합니다";
                     }
                    
 
@@ -348,6 +367,7 @@ public class ButtonColtroller : MonoBehaviour
             case "Armor":
                 if (playerStats.stats[0].Armor >= 11)//강화 수치가 max 일경우
                 {
+                    audioSource.clip = AudioFail;//실패 버튼 소리
                     msg = "강화 할 수 없습니다";
                 }
                 else
@@ -356,10 +376,11 @@ public class ButtonColtroller : MonoBehaviour
                     ItmeGold = itemStats.ArmorGold[playerStats.stats[0].Armor + 1];
                     ItmePercentage = 100f;
                     msg = "구매 성공";
-
+                    audioSource.clip = AudioInfo;//정보 버튼 소리
                     //강화
                     if (playerStats.stats[0].Armor >= 0)
                     {
+                        audioSource.clip = AudioInfo;//정보 버튼 소리
                         msg = "강화 성공";
                         ItmePercentage = Percentage[4];//강화 확율 100%, 80%, 60%, 40%, 20%, 20% .... 20%
                         if (playerStats.stats[0].Armor < 5)
@@ -378,11 +399,13 @@ public class ButtonColtroller : MonoBehaviour
                         }
                         else
                         {
+                            audioSource.clip = AudioFail;//실패 버튼 소리
                             msg = "강화 실패";
                         }
                     }
                     else
                     {
+                        audioSource.clip = AudioFail;//실패 버튼 소리
                         msg = "골드가 부족합니다";
                     }
 
@@ -392,6 +415,7 @@ public class ButtonColtroller : MonoBehaviour
                 if (playerStats.stats[0].Hat >= 11)//강화 수치가 max 일경우
                 {
                     msg = "강화 할 수 없습니다";
+                    audioSource.clip = AudioFail;//실패 버튼 소리
                 }
                 else
                 {
@@ -399,10 +423,12 @@ public class ButtonColtroller : MonoBehaviour
                     ItmeGold = itemStats.HatGold[playerStats.stats[0].Hat+1];
                     ItmePercentage = 100f;
                     msg = "구매 성공";
+                    audioSource.clip = AudioInfo;//정보 버튼 소리
 
                     //강화
                     if (playerStats.stats[0].Hat >= 0)
                     {
+                        audioSource.clip = AudioInfo;//정보 버튼 소리
                         msg = "강화 성공";
                         ItmePercentage = Percentage[4];//강화 확율 100%, 80%, 60%, 40%, 20%, 20% .... 20%
                         if (playerStats.stats[0].Hat < 5)
@@ -421,11 +447,13 @@ public class ButtonColtroller : MonoBehaviour
                         }
                         else
                         {
+                            audioSource.clip = AudioFail;//실패 버튼 소리
                             msg = "강화 실패";
                         }
                     }
                     else
                     {
+                        audioSource.clip = AudioFail;//실패 버튼 소리
                         msg = "골드가 부족합니다";
                     }
 
@@ -434,6 +462,7 @@ public class ButtonColtroller : MonoBehaviour
             case "Gloves":
                 if (playerStats.stats[0].Gloves >= 11)//강화 수치가 max 일경우
                 {
+                    audioSource.clip = AudioFail;//실패 버튼 소리
                     msg = "강화 할 수 없습니다";
                 }
                 else
@@ -441,11 +470,13 @@ public class ButtonColtroller : MonoBehaviour
                     //처음 구매
                     ItmeGold = itemStats.GlovesGold[playerStats.stats[0].Gloves+1];
                     ItmePercentage = 100f;
+                    audioSource.clip = AudioInfo;//정보 버튼 소리
                     msg = "구매 성공";
 
                     //강화
                     if (playerStats.stats[0].Gloves >= 0)
                     {
+                        audioSource.clip = AudioInfo;//정보 버튼 소리
                         msg = "강화 성공";
                         ItmePercentage = Percentage[4];//강화 확율 100%, 80%, 60%, 40%, 20%, 20% .... 20%
                         if (playerStats.stats[0].Gloves < 5)
@@ -464,11 +495,13 @@ public class ButtonColtroller : MonoBehaviour
                         }
                         else
                         {
+                            audioSource.clip = AudioFail;//실패 버튼 소리
                             msg = "강화 실패";
                         }
                     }
                     else
                     {
+                        audioSource.clip = AudioFail;//실패 버튼 소리
                         msg = "골드가 부족합니다";
                     }
 
@@ -478,6 +511,7 @@ public class ButtonColtroller : MonoBehaviour
                 if (playerStats.stats[0].Boots >= 11)//강화 수치가 max 일경우
                 {
                     msg = "강화 할 수 없습니다";
+                    audioSource.clip = AudioFail;//실패 버튼 소리
                 }
                 else
                 {
@@ -485,10 +519,12 @@ public class ButtonColtroller : MonoBehaviour
                     ItmeGold = itemStats.BootsGold[playerStats.stats[0].Boots+1];
                     ItmePercentage = 100f;
                     msg = "구매 성공";
+                    audioSource.clip = AudioInfo;//정보 버튼 소리
 
                     //강화
                     if (playerStats.stats[0].Boots >= 0)
                     {
+                        audioSource.clip = AudioInfo;//정보 버튼 소리
                         msg = "강화 성공";
                         ItmePercentage = Percentage[4];//강화 확율 100%, 80%, 60%, 40%, 20%, 20% .... 20%
                         if (playerStats.stats[0].Boots < 5)
@@ -508,11 +544,13 @@ public class ButtonColtroller : MonoBehaviour
                         else
                         {
                             msg = "강화 실패";
+                            audioSource.clip = AudioFail;//실패 버튼 소리
                         }
                     }
                     else
                     {
                         msg = "골드가 부족합니다";
+                        audioSource.clip = AudioFail;//실패 버튼 소리
                     }
 
                 }
@@ -520,6 +558,7 @@ public class ButtonColtroller : MonoBehaviour
             case "Shield":
                 if (playerStats.stats[0].Shield >= 11)//강화 수치가 max 일경우
                 {
+                    audioSource.clip = AudioFail;//실패 버튼 소리
                     msg = "강화 할 수 없습니다";
                 }
                 else
@@ -528,10 +567,11 @@ public class ButtonColtroller : MonoBehaviour
                     ItmeGold = itemStats.ShieldGold[playerStats.stats[0].Shield+1];
                     ItmePercentage = 100f;
                     msg = "구매 성공";
-
+                    audioSource.clip = AudioInfo;//정보 버튼 소리
                     //강화
                     if (playerStats.stats[0].Shield >= 0)
                     {
+                        audioSource.clip = AudioInfo;//정보 버튼 소리
                         msg = "강화 성공";
                         ItmePercentage = Percentage[4];//강화 확율 100%, 80%, 60%, 40%, 20%, 20% .... 20%
                         if (playerStats.stats[0].Shield < 5)
@@ -550,11 +590,13 @@ public class ButtonColtroller : MonoBehaviour
                         }
                         else
                         {
+                            audioSource.clip = AudioFail;//실패 버튼 소리
                             msg = "강화 실패";
                         }
                     }
                     else
                     {
+                        audioSource.clip = AudioFail;//실패 버튼 소리
                         msg = "골드가 부족합니다";
                     }
 
@@ -564,6 +606,9 @@ public class ButtonColtroller : MonoBehaviour
                 break;
         }
 
+
+        StartCoroutine("OnAudio");
+
         SetMainMessageBox(msg);
         SelectItme(ItemName);//재로드
 
@@ -572,12 +617,14 @@ public class ButtonColtroller : MonoBehaviour
     public void buyTile(string TileName)
     {
         int ItmeGold;
-
+        audioSource.clip = AudioInfo;//정보 버튼 소리
+ 
         switch (TileName)
         {
             case "Recovery"://회복
                 if (itemStats.RecoveryCnt>=2)
                 {
+                    audioSource.clip = AudioFail;//실패 버튼 소리
                     SetMainMessageBox("더이상 구매 할 수 없습니다");
                     break;
                 }
@@ -592,6 +639,7 @@ public class ButtonColtroller : MonoBehaviour
                 }
                 else
                 {
+                    audioSource.clip = AudioFail;//실패 버튼 소리
                     SetMainMessageBox("골드가 부족합니다");
                 }
 
@@ -599,6 +647,7 @@ public class ButtonColtroller : MonoBehaviour
             case "AttackDamageUp"://공격력 강화
                 if (itemStats.AttackDamageUpCnt >= 2)
                 {
+                    audioSource.clip = AudioFail;//실패 버튼 소리
                     SetMainMessageBox("더이상 구매 할 수 없습니다");
                     break;
                 }
@@ -613,6 +662,7 @@ public class ButtonColtroller : MonoBehaviour
                 }
                 else
                 {
+                    audioSource.clip = AudioFail;//실패 버튼 소리
                     SetMainMessageBox("골드가 부족합니다");
                 }
 
@@ -620,6 +670,7 @@ public class ButtonColtroller : MonoBehaviour
             case "DefenseUp"://방어력 강화
                 if (itemStats.DefenseUpCnt >= 2)
                 {
+                    audioSource.clip = AudioFail;//실패 버튼 소리
                     SetMainMessageBox("더이상 구매 할 수 없습니다");
                     break;
                 }
@@ -634,6 +685,7 @@ public class ButtonColtroller : MonoBehaviour
                 }
                 else
                 {
+                    audioSource.clip = AudioFail;//실패 버튼 소리
                     SetMainMessageBox("골드가 부족합니다");
                 }
 
@@ -641,6 +693,7 @@ public class ButtonColtroller : MonoBehaviour
             case "Monster"://몬스터 배치
                 if (itemStats.MonsterCnt >= 99)
                 {
+                    audioSource.clip = AudioFail;//실패 버튼 소리
                     SetMainMessageBox("더이상 구매 할 수 없습니다");
                     break;
                 }
@@ -655,6 +708,7 @@ public class ButtonColtroller : MonoBehaviour
                 }
                 else
                 {
+                    audioSource.clip = AudioFail;//실패 버튼 소리
                     SetMainMessageBox("골드가 부족합니다");
                 }
 
@@ -664,11 +718,15 @@ public class ButtonColtroller : MonoBehaviour
                 break;
         }
 
+        StartCoroutine("OnAudio");
         SelectItme(ItemName);//재로드
     }
 
     public void ResetGold()
     {
+        audioSource.clip = AudioInfo;//정보 버튼 소리
+        StartCoroutine("OnAudio");
+
         //골드 초기화
         playerStats.stats[0].gold = playerStats.stats[0].goldMax;
 
@@ -719,5 +777,11 @@ public class ButtonColtroller : MonoBehaviour
             yield return null;
         }
 
+    }
+
+    private IEnumerator OnAudio()
+    {
+        audioSource.Play();
+        yield return new WaitForSeconds(1f);
     }
 }

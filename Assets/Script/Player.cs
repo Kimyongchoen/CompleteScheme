@@ -175,7 +175,6 @@ public class Player : MonoBehaviour
                 /*
                 Destroy(gameObject);
                 */
-                StopCoroutine("OnAudio");
                 playerSpawner.GameEnd(true);
             }
         }
@@ -183,21 +182,26 @@ public class Player : MonoBehaviour
 
     private IEnumerator OnAudio()
     {
-
-
         while (true)
         {
             if (animator.GetBool("Walking"))
             {
                 audioSource.clip = AudioWalk;//걷는소리
                 audioSource.Play();
+                yield return new WaitForSeconds(0.3f);
             }
             else if (animator.GetBool("Attacking"))
             {
                 audioSource.clip = AudioAttack;//공격소리
                 audioSource.Play();
+                yield return new WaitForSeconds(1f);
             }
-            yield return new WaitForSeconds(1f);
+            else
+            {
+                audioSource.clip = AudioAttack;//공격소리
+                audioSource.Stop();
+                yield return new WaitForSeconds(1f);
+            }
         }
     }
 
@@ -250,9 +254,6 @@ public class Player : MonoBehaviour
 
         animator.SetFloat("DirX", DirX);
         animator.SetFloat("DirY", DirY);
-
-
-
     }
 
     private IEnumerator BuffEffect1()

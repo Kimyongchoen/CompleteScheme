@@ -7,6 +7,10 @@ using TMPro;
 public enum WeaponState { SearchTarget = 0, AttackToTarget }
 public class PlayerSpawner : MonoBehaviour
 {
+
+    [SerializeField]
+    public int Stage;//스테이지 number
+
     [SerializeField]
     private Transform[] wayPoints;//현재 스테이지의 이동경로
     [SerializeField]
@@ -27,10 +31,6 @@ public class PlayerSpawner : MonoBehaviour
     private TabManager tabManager;//플레이어 탭
     [SerializeField]
     private ObjectDetector objectDetector;//몬스터 랜덤생성
-    
-    [SerializeField]
-    private int StageNumber;//현재 스테이지 번호
-
     [SerializeField]
     private GameObject GameStartBtn;//게임 시작 버튼
     [SerializeField]
@@ -80,6 +80,7 @@ public class PlayerSpawner : MonoBehaviour
 
     [SerializeField]
     private AudioClip AudioStart;//게임 시작
+
 
     public void Setup()
     {
@@ -172,18 +173,18 @@ public class PlayerSpawner : MonoBehaviour
         MainMessageBox.text = "지역 클리어";
 
         //플레이어 정보 저장 기존 점수보다 높다면 갱신
-        if ( gold + experience > stage10.stage[0].gold + stage10.stage[0].experience)
+        if ( gold + experience > stage10.stage[Stage - 1].gold + stage10.stage[Stage - 1].experience)
         {
-            playerStatsScriptableObject.stats[0].gold -= stage10.stage[0].gold;
-            playerStatsScriptableObject.stats[0].goldMax -= stage10.stage[0].gold;//획득한 총 골드 추후 초기화에 사용
-            playerStatsScriptableObject.stats[0].experience -= stage10.stage[0].experience;
+            playerStatsScriptableObject.stats[0].gold -= stage10.stage[Stage - 1].gold;
+            playerStatsScriptableObject.stats[0].goldMax -= stage10.stage[Stage - 1].gold;//획득한 총 골드 추후 초기화에 사용
+            playerStatsScriptableObject.stats[0].experience -= stage10.stage[Stage - 1].experience;
 
-            stage10.stage[0].gold = gold;
-            stage10.stage[0].experience = experience;
+            stage10.stage[Stage - 1].gold = gold;
+            stage10.stage[Stage - 1].experience = experience;
 
-            playerStatsScriptableObject.stats[0].gold += stage10.stage[0].gold;
-            playerStatsScriptableObject.stats[0].goldMax += stage10.stage[0].gold;//획득한 총 골드 추후 초기화에 사용
-            playerStatsScriptableObject.stats[0].experience += stage10.stage[0].experience;
+            playerStatsScriptableObject.stats[0].gold += stage10.stage[Stage - 1].gold;
+            playerStatsScriptableObject.stats[0].goldMax += stage10.stage[Stage - 1].gold;//획득한 총 골드 추후 초기화에 사용
+            playerStatsScriptableObject.stats[0].experience += stage10.stage[Stage - 1].experience;
 
         }
         else
@@ -357,9 +358,9 @@ public class PlayerSpawner : MonoBehaviour
     }
     public void NextStage()
     {
-        if (StageNumber<10)
+        if (Stage<10)
         {
-            changeScene.SetStage(++StageNumber);
+            changeScene.SetStage(++Stage);
             changeScene.ChangeSecen();
         }
     }

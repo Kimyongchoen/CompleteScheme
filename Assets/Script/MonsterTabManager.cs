@@ -27,6 +27,9 @@ public class MonsterTabManager : MonoBehaviour
     private int number=0;
     private int MonsertNumber;
 
+    [SerializeField]
+    private AudioClip AudioMove;//탭 이동 소리
+
     public void SetMonsterInfomation(int Number)
     {
         this.MonsertNumber = Number; //몬스터Number (보통근거리(1), 강한근거리(2), 원거리(3), 버퍼(4), 회복(5), Stage 보스(6) ) 1201 (1=지역 2=type 01은 Number)
@@ -45,7 +48,7 @@ public class MonsterTabManager : MonoBehaviour
 
     public void ChangeMonsterInfomationButton(bool LeftRight)
     {
-
+        StartCoroutine("OnAudio");
 
         if (LeftRight)
         {
@@ -90,5 +93,12 @@ public class MonsterTabManager : MonoBehaviour
         gold.text = "드랍 골드 : " + monsterstats.gold.ToString();//드랍 골드
         buff.text = "버프 : " + monsterstats.buff.ToString();//버프 공격력 추가 0.2 = 20%
         recovery.text = "힐 : " + monsterstats.recovery.ToString();//힐 추가 초당 +hp
+    }
+    private IEnumerator OnAudio()
+    {
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = AudioMove;//탭 이동 소리
+        audioSource.Play();
+        yield return new WaitForSeconds(1f);
     }
 }

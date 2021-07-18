@@ -92,10 +92,12 @@ public class ChangeScene : MonoBehaviour
                 LoadingSceneColtroller.LoadScene("GameScene");
                 //SceneManager.LoadScene("GameScene");
                 break;
+                
+            case 1: //Stage2
+                yield return new WaitForSeconds(0.3f);
+                LoadingSceneColtroller.LoadScene("GameScene2");
+                break;
                 /*
-                case "Stage2":
-                    SceneManager.LoadScene("GameScene2");
-                    break;
                 case "Stage3":
                     SceneManager.LoadScene("GameScene3");
                     break;

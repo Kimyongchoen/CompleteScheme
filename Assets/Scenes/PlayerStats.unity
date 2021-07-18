@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -802,6 +802,8 @@ MonoBehaviour:
   goldBonus_DownBtn: {fileID: 65926444}
   playerStat: {fileID: 11400000, guid: f9030cfce2601df4986a0240a0dc2082, type: 2}
   MainMessageBox: {fileID: 853078626}
+  AudioInfo: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
+  AudioFail: {fileID: 8300000, guid: 130a177e727814a2ea78a886ab72213d, type: 3}
 --- !u!1 &68765320
 GameObject:
   m_ObjectHideFlags: 0

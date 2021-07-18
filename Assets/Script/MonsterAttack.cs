@@ -66,7 +66,7 @@ public class MonsterAttack : MonoBehaviour
     {
         //제일 가까이 있는 적을 찾기 위해 최초 거리를 최대한 크게 설정
         float closestDistSqr = Mathf.Infinity;
-        
+
         if (playerSpawner.player!=null) // Player 가 생성되면 
         {
             float distance = Vector3.Distance(playerSpawner.player.transform.position, transform.position);
@@ -127,6 +127,15 @@ public class MonsterAttack : MonoBehaviour
     private void SpawnAttack()
     {
         GameObject clone = Instantiate(AttackPrefab, spawnPoint.position, Quaternion.identity);
+
+        if (monsterStats.attackRange > 0.8) //원거리 몬스터이면 이미지 보이게
+        {
+            Color color = clone.GetComponent<SpriteRenderer>().color;
+            color.a = 1.0f;
+            clone.GetComponent<SpriteRenderer>().color= color;
+            //clone.sprite
+            //MonsterProjectile
+        }
 
         int demage = Random.Range(monsterStats.attackDamageMin + (int)addedDamage, monsterStats.attackDamageMax + (int)addedDamage + 1); //몬스터 데미지 + addedDamage 버프 데미지
         bool criticalFlag = false;

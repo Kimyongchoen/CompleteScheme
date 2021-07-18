@@ -26,6 +26,18 @@ public class TileTabManager : MonoBehaviour
     private GameObject TileDefenseUp = null;
     private GameObject TileMonster = null;
 
+    [SerializeField]
+    private AudioClip AudioInfo;//정보 버튼 소리
+
+    [SerializeField]
+    private AudioClip AudioFail;//실패 버튼 소리
+
+    private AudioSource audioSource;
+    public void Awake()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+
+    }
     //회복 배치
     public void SetRecovery(Transform Tile)
     {
@@ -43,6 +55,8 @@ public class TileTabManager : MonoBehaviour
         }
         else
         {
+            audioSource.clip = AudioFail;//실패 버튼 소리
+            StartCoroutine("OnAudio");
             SetMainMessageBox("이미 몬스터나 버프가 있습니다");
         }
 
@@ -51,8 +65,10 @@ public class TileTabManager : MonoBehaviour
     //회복 정보
     public void SetRecoveryInfo()
     {
+        audioSource.clip = AudioInfo;//정보 버튼 소리
+        StartCoroutine("OnAudio");
         TileInfomationText.text = "";
-        TileInfomationText.DOText("회복\n\n배치한 곳에 플레이어가 지나가면 체력이 50% 회복 됩니다.\n체력이 회복량이 100%가 넘으면 100%까지만 회복됩니다.", 0.5f);
+        TileInfomationText.DOText("회복\n\n배치한 곳에 플레이어가 지나가면 체력이 50% 회복 됩니다.\n체력이 회복량이 100%가 넘으면 100%까지만 회복됩니다.", 0.3f);
 
     }
 
@@ -72,14 +88,19 @@ public class TileTabManager : MonoBehaviour
         }
         else
         {
+            audioSource.clip = AudioFail;//실패 버튼 소리
+            StartCoroutine("OnAudio");
+
             SetMainMessageBox("이미 몬스터나 버프가 있습니다");
         }
     }
     //공격력증가 정보
     public void SetAttackDamageUpInfo()
     {
+        audioSource.clip = AudioInfo;//정보 버튼 소리
+        StartCoroutine("OnAudio");
         TileInfomationText.text = "";
-        TileInfomationText.DOText("공격력증가\n\n배치한 곳에 플레이어가 지나가면 공격력이 10초간 30% 증가 됩니다.(중첩 가능)", 0.5f);
+        TileInfomationText.DOText("공격력증가\n\n배치한 곳에 플레이어가 지나가면 공격력이 10초간 30% 증가 됩니다.(중첩 가능)", 0.3f);
     }
 
     //방어력증가 배치
@@ -99,14 +120,18 @@ public class TileTabManager : MonoBehaviour
         }
         else
         {
+            audioSource.clip = AudioFail;//실패 버튼 소리
+            StartCoroutine("OnAudio");
             SetMainMessageBox("이미 몬스터나 버프가 있습니다");
         }
     }
     //방어력증가 정보
     public void SetDefenseUpInfo()
     {
+        audioSource.clip = AudioInfo;//정보 버튼 소리
+        StartCoroutine("OnAudio");
         TileInfomationText.text = "";
-        TileInfomationText.DOText("방어력증가\n\n배치한 곳에 플레이어가 지나가면 방어력이 10초간 30% 증가 됩니다.(중첩 가능)", 0.5f);
+        TileInfomationText.DOText("방어력증가\n\n배치한 곳에 플레이어가 지나가면 방어력이 10초간 30% 증가 됩니다.(중첩 가능)", 0.3f);
     }
 
     //몬스터 배치
@@ -126,14 +151,19 @@ public class TileTabManager : MonoBehaviour
         }
         else
         {
+
+            audioSource.clip = AudioFail;//실패 버튼 소리
+            StartCoroutine("OnAudio");
             SetMainMessageBox("이미 몬스터나 버프가 있습니다");
         }
     }
     //몬스터 정보
     public void SetMonsterInfo()
     {
+        audioSource.clip = AudioInfo;//정보 버튼 소리
+        StartCoroutine("OnAudio");
         TileInfomationText.text = "";
-        TileInfomationText.DOText("몬스터\n\n배치한 곳에 몬스터가 랜덤 생성 됩니다.", 0.5f);
+        TileInfomationText.DOText("몬스터\n\n배치한 곳에 몬스터가 랜덤 생성 됩니다.", 0.3f);
     }
 
     private void SetMainMessageBox(string msg)
@@ -163,7 +193,11 @@ public class TileTabManager : MonoBehaviour
         }
 
     }
-
+    private IEnumerator OnAudio()
+    {
+        audioSource.Play();
+        yield return new WaitForSeconds(1f);
+    }
 
 
 }

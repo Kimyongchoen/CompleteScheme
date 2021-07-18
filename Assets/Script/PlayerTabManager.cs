@@ -122,10 +122,10 @@ public class PlayerTabManager : MonoBehaviour
         
         gold.text = "보유 골드 : " + (playerStats.gold).ToString();//보유 골드
 
-        if (Stage10.stage[0].experience+ Stage10.stage[0].gold>0)
+        if (Stage10.stage[playerSpawner.Stage - 1].experience+ Stage10.stage[playerSpawner.Stage - 1].gold>0)
         {
-            ScreenLevel.text = (playerSpawner.experience).ToString() + " / " + (Stage10.stage[0].experience).ToString(); //화면 상단 골드 표시
-            ScreenGold.text = (playerSpawner.gold).ToString() + " / " + (Stage10.stage[0].gold).ToString(); //화면 상단 골드 표시
+            ScreenLevel.text = (playerSpawner.experience).ToString() + " / " + (Stage10.stage[playerSpawner.Stage - 1].experience).ToString(); //화면 상단 골드 표시
+            ScreenGold.text = (playerSpawner.gold).ToString() + " / " + (Stage10.stage[playerSpawner.Stage - 1].gold).ToString(); //화면 상단 골드 표시
         }
         else
         {
