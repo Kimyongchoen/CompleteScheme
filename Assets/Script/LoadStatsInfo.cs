@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor;
 
 public class LoadStatsInfo : MonoBehaviour
 {
@@ -683,6 +684,7 @@ public class LoadStatsInfo : MonoBehaviour
         //남은 포인트 저장
         playerStat.BonusStat = BonusStatPoint;
 
+        EditorUtility.SetDirty(playerStat); //데이터 변경후 저장 강제 로직 추가
         //화면 리로드
         StatsInfo();
 
@@ -736,6 +738,8 @@ public class LoadStatsInfo : MonoBehaviour
 
         //남은 포인트 저장
         playerStat.BonusStat += resetPoint;
+
+        EditorUtility.SetDirty(playerStat); //데이터 변경후 저장 강제 로직 추가
 
         //화면 리로드
         StatsInfo();

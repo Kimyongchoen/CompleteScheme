@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: ItemStats
   m_EditorClassIdentifier: 
   RecoveryCnt: 2
-  AttackDamageUpCnt: 2
-  DefenseUpCnt: 2
-  MonsterCnt: 16
+  AttackDamageUpCnt: 1
+  DefenseUpCnt: 1
+  MonsterCnt: 1
   RecoveryGold: 300
   AttackDamageUpGold: 200
   DefenseUpGold: 200
   MonsterGold: 50
   AttackDamageUp: 0
-  DefenseUp: -1
+  DefenseUp: 0
   Weapon: 030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e000000
   WeaponName: "\uBB34\uAE30"
   WeaponGold: f4010000c80000009001000058020000e8030000e8030000e8030000e8030000e8030000e8030000e8030000e8030000

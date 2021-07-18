@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor;
 
 public enum WeaponState { SearchTarget = 0, AttackToTarget }
 public class PlayerSpawner : MonoBehaviour
@@ -181,6 +182,7 @@ public class PlayerSpawner : MonoBehaviour
 
             stage10.stage[Stage - 1].gold = gold;
             stage10.stage[Stage - 1].experience = experience;
+            EditorUtility.SetDirty(stage10);
 
             playerStatsScriptableObject.stats[0].gold += stage10.stage[Stage - 1].gold;
             playerStatsScriptableObject.stats[0].goldMax += stage10.stage[Stage - 1].gold;//획득한 총 골드 추후 초기화에 사용

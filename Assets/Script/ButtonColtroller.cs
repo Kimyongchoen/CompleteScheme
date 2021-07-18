@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor;
 
 public class ButtonColtroller : MonoBehaviour
 {
@@ -608,7 +609,7 @@ public class ButtonColtroller : MonoBehaviour
 
 
         StartCoroutine("OnAudio");
-
+        EditorUtility.SetDirty(playerStats); //데이터 변경후 저장 강제 로직 추가
         SetMainMessageBox(msg);
         SelectItme(ItemName);//재로드
 
@@ -719,6 +720,7 @@ public class ButtonColtroller : MonoBehaviour
         }
 
         StartCoroutine("OnAudio");
+        EditorUtility.SetDirty(itemStats); //데이터 변경후 저장 강제 로직 추가
         SelectItme(ItemName);//재로드
     }
 
@@ -747,7 +749,8 @@ public class ButtonColtroller : MonoBehaviour
         loadShopInfo.LoadInfo();
 
         SelectItme("");
-
+        EditorUtility.SetDirty(playerStats); //데이터 변경후 저장 강제 로직 추가
+        EditorUtility.SetDirty(itemStats); //데이터 변경후 저장 강제 로직 추가
         SetMainMessageBox("골드가 초기화 되었습니다");
     }
 
